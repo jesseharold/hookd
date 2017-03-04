@@ -109,7 +109,7 @@ router.post('/signup', (req, res) => {
       success: true,
       message: 'You have successfully signed up! Now you should be able to log in.'
     });
-  })(req, res, next);
+  })(req, res);//, next);
 });
 
 router.post('/login', (req, res) => {
@@ -136,15 +136,13 @@ router.post('/login', (req, res) => {
         message: 'Could not process the form.'
       });
     }
-
-
     return res.json({
       success: true,
       message: 'You have successfully logged in!',
       token,
       user: userData
     });
-  })(req, res, next);
+  })(req, res);//, next);
 });
 
 
