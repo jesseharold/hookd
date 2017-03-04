@@ -28,17 +28,17 @@
 
 
 ## Technology
-React: Manage views
-Mongoose: Store customer and barber data
-Passport: Manage logins for customers and barbers
-Bootstrap: Front-end layout
-JWT: Session management
-Stripe API: Process payments & tips from clients to barbershop/barber
-Google Calendar API: View barber availability, book appointments
-Google CSE: help customers choose a hairstyle
-Cheerio: Scraping to assist hairstyle search
+* React: Manage views
+* Mongoose: Store customer and barber data
+* Passport: Manage logins for customers and barbers
+* Bootstrap: Front-end layout
+* JWT: Session management
+* Stripe API: Process payments & tips from clients to barbershop/barber
+* Google Calendar API: View barber availability, book appointments
+* Google CSE: help customers choose a hairstyle
+* Cheerio: Scraping to assist hairstyle search
 
-# DATABASE MODELS
+## DATABASE MODELS
 * User
     * Role: [user, barber, admin]
     * Name
