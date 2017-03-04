@@ -10,6 +10,8 @@ to do:
 barber app functionality;
 - set up a CSE for google search
 https://github.com/vadimdemedes/google-images
+https://www.npmjs.com/package/node-google-image-search
+https://developers.google.com/custom-search/docs/tutorial/creatingcse
 - implement search box
 - implement search filter terms
 - implement saving favorites
