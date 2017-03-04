@@ -40,7 +40,10 @@ class LoginPage extends React.Component {
             this.setState({
               errors: {}
             });
-            console.log('The form is valid');
+            // save the token
+            Auth.authenticateUser(xhr.response.token);
+            // change the current URL to /
+            this.context.router.replace('/');
         } else {
             // failure
             // change the component state

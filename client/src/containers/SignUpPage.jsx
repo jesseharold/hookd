@@ -49,7 +49,12 @@ class SignUpPage extends React.Component {
                 this.setState({
                     errors: {}
                 });
-                console.log('The form is valid');
+                // set a message
+                localStorage.setItem('successMessage', xhr.response.message);
+
+                // make a redirect
+                this.context.router.replace('/login');
+
             } else {
                 // failure
                 const errors = xhr.response.errors ? xhr.response.errors : {};
@@ -72,5 +77,10 @@ class SignUpPage extends React.Component {
         );
     }
 }
+
+
+SignUpPage.contextTypes = {
+  router: PropTypes.object.isRequired
+};
 
 export default SignUpPage;
