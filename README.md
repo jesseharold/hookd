@@ -37,3 +37,39 @@ Stripe API: Process payments & tips from clients to barbershop/barber
 Google Calendar API: View barber availability, book appointments
 Google CSE: help customers choose a hairstyle
 Cheerio: Scraping to assist hairstyle search
+
+# DATABASE MODELS
+* User
+** Role: [user, barber, admin]
+** Name
+** Email address
+** Cellphone (optional, for text reminders)
+** Password
+** Profile pic - a picture that identifies them
+** pastStyles [a list of styles that are type selfie]
+** faveStyles [a list of styles that are type pin]
+** Appointments [list of appointments that are this client]
+
+* Appointment
+** Time and date
+** Client
+** Barber
+** Desired style [style chosen by client]
+
+* Style
+** Image that represents this style
+** Name of style (optional)
+** Description (optional)
+** taxonomy [list terms that describe the style]
+
+* Review
+** Client
+** Barber
+** Number of stars
+** Service received (style?)
+** text
+
+* Style taxonomy term
+** term name
+** display name
+** Category	
