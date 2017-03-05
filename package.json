@@ -26,6 +26,7 @@
     "bcrypt": "^1.0.2",
     "body-parser": "^1.17.0",
     "express": "^4.15.0",
+    "google-images": "^2.1.0",
     "jsonwebtoken": "^7.3.0",
     "material-ui": "^0.17.0",
     "mongoose": "^4.8.5",

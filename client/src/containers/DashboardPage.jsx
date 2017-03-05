@@ -32,6 +32,15 @@ class DashboardPage extends React.Component {
   }
 
   /**
+   * Handle Search Form Submit
+   */
+  searchHandler(event) {
+    event.preventDefault();
+    console.log("searchHandler");
+  }
+
+
+  /**
    * Render the component.
    */
   render() {

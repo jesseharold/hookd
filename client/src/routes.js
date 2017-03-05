@@ -3,6 +3,7 @@ import HomePage from './components/HomePage.jsx';
 import DashboardPage from './containers/DashboardPage.jsx';
 import LoginPage from './containers/LoginPage.jsx';
 import SignUpPage from './containers/SignUpPage.jsx';
+import SearchPage from './containers/SearchPage.jsx';
 import Auth from './modules/Auth';
 
 const routes = {
@@ -18,6 +19,10 @@ const routes = {
           callback(null, HomePage);
         }
       }
+    },
+    {
+      path: '/search',
+      component: SearchPage
     },
     {
       path: '/login',

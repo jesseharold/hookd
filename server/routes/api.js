@@ -10,4 +10,11 @@ router.get('/dashboard', (req, res) => {
   });
 });
 
+router.get("/search", (req, res) => {
+  console.log("searching for ", req.query.terms);
+  // res.status(200).json({
+  //   message: "If you can see this message, you are logged in!"
+  // });
+});
+
 module.exports = router;
