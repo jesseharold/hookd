@@ -1,5 +1,6 @@
 import React, { PropTypes } from "react";
 import SearchForm from "../components/SearchForm.jsx";
+import helpers from "../../dist/js/helper"
 
 class SearchPage extends React.Component {
     //class constructor
@@ -25,38 +26,11 @@ class SearchPage extends React.Component {
         // prevent default action. in this case, action is the form submission event
         event.preventDefault();
 
-        // create a string for an HTTP body message
-        const queryString = encodeURIComponent(this.state.searchTerms);
-        console.log(queryString);
-
         // create an AJAX request
-        const xhr = new XMLHttpRequest();
-        xhr.open('get', '/api/search?terms='+queryString);
-        xhr.setRequestHeader('Content-type', 'application/x-www-form-urlencoded');
-        xhr.responseType = 'json';
-        xhr.addEventListener('load', () => {
-            if (xhr.status === 200) {
-                // success! change the component-container state
-                this.setState({
-                    errors: {}
-                });
-                console.log(xhr.response);
-                // set a message
-                //localStorage.setItem('successMessage', xhr.response.message);
-
-                // make a redirect
-                //this.context.router.replace('/login');
-
-            } else {
-                // failure
-                const errors = xhr.response.errors ? xhr.response.errors : {};
-                errors.summary = xhr.response.message;
-                this.setState({
-                    errors
-                });
-            }
+        helpers.doSearch(Auth.getToken(), this.state.searchTerms).then(function(err, res){
+            console.log("err ", err);
+            console.log("res ", res);
         });
-        xhr.send();
     }
     render() {
         return (
