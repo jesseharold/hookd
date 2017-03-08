@@ -1,5 +1,6 @@
 import React, { PropTypes } from "react";
 import SearchForm from "../components/SearchForm.jsx";
+import Auth from '../modules/Auth';
 import helpers from "../../dist/js/helper"
 
 class SearchPage extends React.Component {

@@ -18,7 +18,6 @@ class DashboardPage extends React.Component {
   componentDidMount() {
     var self = this;
     // create an AJAX request
-    console.log(helpers);
     helpers.getDashboard(Auth.getToken()).then(function(response){
         //console.log("res ", response.data.message);
         self.setState({secretData: response.data.message});

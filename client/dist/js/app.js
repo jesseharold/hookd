@@ -10767,7 +10767,7 @@ function getMuiTheme(muiTheme) {
 var axios = __webpack_require__(212);
 
 function doSearch(authToken, searchterms){
-    console.log("sumitting search");
+    //console.log("submitting search");
     // set header to do authorization in passport
     var authAxios = axios.create({
         headers: {'Authorization': 'bearer ' + authToken}
@@ -10776,7 +10776,7 @@ function doSearch(authToken, searchterms){
 }
 
 function getDashboard(authToken){
-    console.log("getting dashboard");
+    //console.log("getting dashboard");
     // set header to do authorization in passport
     var authAxios = axios.create({
         headers: {'Authorization': 'bearer ' + authToken}
@@ -17754,7 +17754,6 @@ var DashboardPage = function (_React$Component) {
     value: function componentDidMount() {
       var self = this;
       // create an AJAX request
-      console.log(_helper2.default);
       _helper2.default.getDashboard(_Auth2.default.getToken()).then(function (response) {
         //console.log("res ", response.data.message);
         self.setState({ secretData: response.data.message });
@@ -17935,6 +17934,10 @@ var _SearchForm = __webpack_require__(234);
 
 var _SearchForm2 = _interopRequireDefault(_SearchForm);
 
+var _Auth = __webpack_require__(65);
+
+var _Auth2 = _interopRequireDefault(_Auth);
+
 var _helper = __webpack_require__(132);
 
 var _helper2 = _interopRequireDefault(_helper);
@@ -17981,7 +17984,7 @@ var SearchPage = function (_React$Component) {
             event.preventDefault();
 
             // create an AJAX request
-            _helper2.default.doSearch(Auth.getToken(), this.state.searchTerms).then(function (err, res) {
+            _helper2.default.doSearch(_Auth2.default.getToken(), this.state.searchTerms).then(function (err, res) {
                 console.log("err ", err);
                 console.log("res ", res);
             });

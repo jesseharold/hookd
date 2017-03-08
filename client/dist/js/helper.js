@@ -1,7 +1,7 @@
 var axios = require('axios');
 
 function doSearch(authToken, searchterms){
-    console.log("sumitting search");
+    //console.log("submitting search");
     // set header to do authorization in passport
     var authAxios = axios.create({
         headers: {'Authorization': 'bearer ' + authToken}
@@ -10,7 +10,7 @@ function doSearch(authToken, searchterms){
 }
 
 function getDashboard(authToken){
-    console.log("getting dashboard");
+    //console.log("getting dashboard");
     // set header to do authorization in passport
     var authAxios = axios.create({
         headers: {'Authorization': 'bearer ' + authToken}
