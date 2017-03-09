@@ -65,3 +65,11 @@ a:hover {
   padding: 0 16px;
   color: green;
 }
+
+ul.search-results>li {
+  display: inline-block;
+  list-style: none;
+  padding: 20px;
+  vertical-align: top;
+  cursor: pointer;
+}

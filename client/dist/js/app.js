@@ -17525,8 +17525,6 @@ var _react = __webpack_require__(1);
 
 var _react2 = _interopRequireDefault(_react);
 
-var _reactRouter = __webpack_require__(55);
-
 var _Card = __webpack_require__(63);
 
 var _RaisedButton = __webpack_require__(101);
@@ -17934,6 +17932,10 @@ var _SearchForm = __webpack_require__(234);
 
 var _SearchForm2 = _interopRequireDefault(_SearchForm);
 
+var _SearchResults = __webpack_require__(497);
+
+var _SearchResults2 = _interopRequireDefault(_SearchResults);
+
 var _Auth = __webpack_require__(56);
 
 var _Auth2 = _interopRequireDefault(_Auth);
@@ -17962,7 +17964,8 @@ var SearchPage = function (_React$Component) {
 
         _this.state = {
             errors: {},
-            searchTerms: ""
+            searchTerms: "",
+            searchResults: []
         };
         _this.processForm = _this.processForm.bind(_this);
         _this.changeTerms = _this.changeTerms.bind(_this);
@@ -17984,19 +17987,35 @@ var SearchPage = function (_React$Component) {
             event.preventDefault();
 
             // create an AJAX request
-            _helper2.default.doSearch(_Auth2.default.getToken(), this.state.searchTerms).then(function (err, res) {
-                console.log("err ", err);
-                console.log("res ", res);
+            var self = this;
+            _helper2.default.doSearch(_Auth2.default.getToken(), this.state.searchTerms).then(function (res) {
+                if (res && res.status && res.status === 200) {
+                    self.setState({
+                        searchResults: res.data
+                    });
+                } else {
+                    console.log("problem with response from search: ", res);
+                }
             });
+        }
+    }, {
+        key: "faveHandler",
+        value: function faveHandler(imageData) {
+            console.log("add to favorites ", imageData);
         }
     }, {
         key: "render",
         value: function render() {
-            return _react2.default.createElement(_SearchForm2.default, {
-                onSubmit: this.processForm,
-                onChange: this.changeTerms,
-                searchTerms: this.state.searchTerms
-            });
+            return _react2.default.createElement(
+                "div",
+                null,
+                _react2.default.createElement(_SearchForm2.default, {
+                    onSubmit: this.processForm,
+                    onChange: this.changeTerms,
+                    searchTerms: this.state.searchTerms
+                }),
+                _react2.default.createElement(_SearchResults2.default, { addFavoriteImage: this.faveHandler, foundImages: this.state.searchResults })
+            );
         }
     }]);
 
@@ -44511,6 +44530,58 @@ _reactDom2.default.render(_react2.default.createElement(
   { muiTheme: (0, _getMuiTheme2.default)() },
   _react2.default.createElement(_reactRouter.Router, { history: _reactRouter.browserHistory, routes: _routes2.default })
 ), document.getElementById('react-app'));
+
+/***/ }),
+/* 497 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+var _react = __webpack_require__(1);
+
+var _react2 = _interopRequireDefault(_react);
+
+var _Card = __webpack_require__(63);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+var SearchResults = function SearchResults(_ref) {
+  var foundImages = _ref.foundImages,
+      addFavoriteImage = _ref.addFavoriteImage;
+  return _react2.default.createElement(
+    _Card.Card,
+    { className: 'container' },
+    _react2.default.createElement(
+      'h2',
+      { className: 'card-heading' },
+      'Search Results'
+    ),
+    _react2.default.createElement(
+      'ul',
+      { className: 'search-results' },
+      foundImages ? foundImages.map(function (result) {
+        return _react2.default.createElement(
+          'li',
+          { key: result.url, onClick: function onClick() {
+              addFavoriteImage(result);
+            } },
+          _react2.default.createElement('img', { src: result.url, height: result.height, width: result.width })
+        );
+      }) : "No Results Yet"
+    )
+  );
+};
+
+SearchResults.propTypes = {
+  foundImages: _react.PropTypes.array
+};
+
+exports.default = SearchResults;
 
 /***/ })
 /******/ ]);
