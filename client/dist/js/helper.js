@@ -1,7 +1,6 @@
 var axios = require('axios');
 
 function doSearch(authToken, searchterms){
-    //console.log("submitting search");
     // set header to do authorization in passport
     var authAxios = axios.create({
         headers: {'Authorization': 'bearer ' + authToken}
@@ -10,7 +9,6 @@ function doSearch(authToken, searchterms){
 }
 
 function getDashboard(authToken){
-    //console.log("getting dashboard");
     // set header to do authorization in passport
     var authAxios = axios.create({
         headers: {'Authorization': 'bearer ' + authToken}
@@ -18,9 +16,18 @@ function getDashboard(authToken){
     return authAxios.get('/api/dashboard');
 }
 
+function createFavorite(authToken, image){
+    // set header to do authorization in passport
+    var authAxios = axios.create({
+        headers: {'Authorization': 'bearer ' + authToken}
+    });
+    return authAxios.post('/api/favorites', {imageData: image});
+}
+
 var helpers = {
   doSearch: doSearch,
-  getDashboard: getDashboard
+  getDashboard: getDashboard,
+  createFavorite: createFavorite
 };
 
 module.exports = helpers;

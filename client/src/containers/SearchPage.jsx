@@ -43,8 +43,12 @@ class SearchPage extends React.Component {
     }
 
     faveHandler(imageData){
-        console.log("add to favorites ", imageData);
+        helpers.createFavorite(Auth.getToken(), imageData).then(function(res){
+            // console.log("added to favorites ", res);
+            // add a class to the selected favorites on the page
+        });
     }
+
     render() {
         return (
             <div>

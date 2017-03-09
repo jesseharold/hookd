@@ -1,5 +1,6 @@
 const mongoose = require('mongoose');
 const bcrypt = require('bcrypt');
+const Style = require("./Style");
 
 // define the User model schema
 const UserSchema = new mongoose.Schema({
@@ -8,7 +9,11 @@ const UserSchema = new mongoose.Schema({
     index: { unique: true }
   },
   password: String,
-  name: String
+  name: String,
+  cellphone: String,
+  role: { type: String, enum: ["admin", "barber", "user"] }
+//  pastStyles: [ Style ],
+//  likedStyles: [ Style ]
 });
 
 /**

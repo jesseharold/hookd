@@ -16,7 +16,8 @@ const SearchResults = ({
 );
 
 SearchResults.propTypes = {
-  foundImages: PropTypes.array
+  foundImages: PropTypes.array,
+  addFavoriteImage: PropTypes.func.isRequired
 };
 
 export default SearchResults;

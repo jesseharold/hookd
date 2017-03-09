@@ -30,13 +30,12 @@
 ## Technology
 * React: Manage views
 * Mongoose: Store customer and barber data
-* Passport: Manage logins for customers and barbers
+* Passport: Manage logins for customers, barbers, and admins
 * Bootstrap: Front-end layout
 * JWT: Session management
 * Stripe API: Process payments & tips from clients to barbershop/barber
 * Google Calendar API: View barber availability, book appointments
-* Google CSE: help customers choose a hairstyle
-* Cheerio: Scraping to assist hairstyle search
+* Google CSE and google-images node module: help customers choose a hairstyle
 
 ## DATABASE MODELS
 * User
@@ -46,8 +45,8 @@
     * Cellphone (optional, for text reminders)
     * Password
     * Profile pic - a picture that identifies them
-    * pastStyles [a list of styles that are type selfie]
-    * faveStyles [a list of styles that are type pin]
+    * pastStyles [a list of styles that are uploaded selfies of the user's past haircuts]
+    * likedStyles [a list of images that user saved as favorites]
     * Appointments [list of appointments that are this client]
 
 * Appointment
@@ -65,11 +64,12 @@
 * Review
     * Client
     * Barber
-    * Number of stars
+    * Number of stars out of 5
     * Service received (style?)
     * text
 
 * Style taxonomy term
     * term name
     * display name
+    * description
     * Category	

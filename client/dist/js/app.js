@@ -10767,7 +10767,6 @@ function getMuiTheme(muiTheme) {
 var axios = __webpack_require__(212);
 
 function doSearch(authToken, searchterms){
-    //console.log("submitting search");
     // set header to do authorization in passport
     var authAxios = axios.create({
         headers: {'Authorization': 'bearer ' + authToken}
@@ -10776,7 +10775,6 @@ function doSearch(authToken, searchterms){
 }
 
 function getDashboard(authToken){
-    //console.log("getting dashboard");
     // set header to do authorization in passport
     var authAxios = axios.create({
         headers: {'Authorization': 'bearer ' + authToken}
@@ -10784,9 +10782,18 @@ function getDashboard(authToken){
     return authAxios.get('/api/dashboard');
 }
 
+function createFavorite(authToken, image){
+    // set header to do authorization in passport
+    var authAxios = axios.create({
+        headers: {'Authorization': 'bearer ' + authToken}
+    });
+    return authAxios.post('/api/favorites', {imageData: image});
+}
+
 var helpers = {
   doSearch: doSearch,
-  getDashboard: getDashboard
+  getDashboard: getDashboard,
+  createFavorite: createFavorite
 };
 
 module.exports = helpers;
@@ -17759,17 +17766,6 @@ var DashboardPage = function (_React$Component) {
     }
 
     /**
-     * Handle Search Form Submit
-     */
-
-  }, {
-    key: 'searchHandler',
-    value: function searchHandler(event) {
-      event.preventDefault();
-      console.log("searchHandler");
-    }
-
-    /**
      * Render the component.
      */
 
@@ -18001,7 +17997,10 @@ var SearchPage = function (_React$Component) {
     }, {
         key: "faveHandler",
         value: function faveHandler(imageData) {
-            console.log("add to favorites ", imageData);
+            _helper2.default.createFavorite(_Auth2.default.getToken(), imageData).then(function (res) {
+                // console.log("added to favorites ", res);
+                // add a class to the selected favorites on the page
+            });
         }
     }, {
         key: "render",
@@ -44578,7 +44577,8 @@ var SearchResults = function SearchResults(_ref) {
 };
 
 SearchResults.propTypes = {
-  foundImages: _react.PropTypes.array
+  foundImages: _react.PropTypes.array,
+  addFavoriteImage: _react.PropTypes.func.isRequired
 };
 
 exports.default = SearchResults;
