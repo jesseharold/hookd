@@ -21,7 +21,7 @@ const routes = {
       }
     },
     {
-      path: '/search',
+      path: '/findstyle',
       component: SearchPage
     },
     {

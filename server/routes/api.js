@@ -20,13 +20,12 @@ router.get("/search", (req, res) => {
   // called by form that searches for styles
   //console.log("searching for ", req.query.terms);
   const client = new GoogleImages(config.googleSearchAPIKey, config.googleCSEId);
-  
+  console.log(client);
   const searchOptions = {
       page: 1, 
       size:"large"
   };
-  console.log("search client: ", client);
-  client.search(req.query.terms, searchOptions).then(images => {
+  client.search("oranges").then(images => {
       console.log(images[0].url);
       /*
       [{
