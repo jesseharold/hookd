@@ -10790,10 +10790,31 @@ function createFavorite(authToken, image){
     return authAxios.post('/api/favorites', {imageData: image});
 }
 
+function createTaxTerm(authToken, term){
+    // set header to do authorization in passport
+    var authAxios = axios.create({
+        headers: {'Authorization': 'bearer ' + authToken}
+    });
+    return authAxios.post('/api/taxonomy', {tagData: term});
+}
+
+function getAllTags(authToken){
+    // set header to do authorization in passport
+    var authAxios = axios.create({
+        headers: {'Authorization': 'bearer ' + authToken}
+    });
+    return authAxios.get('/api/taxonomy').then(function(err, res){
+        if (err) { return err; }
+        return res;
+    });
+}
+
 var helpers = {
   doSearch: doSearch,
   getDashboard: getDashboard,
-  createFavorite: createFavorite
+  createFavorite: createFavorite,
+  createTaxTerm: createTaxTerm,
+  getAllTags: getAllTags
 };
 
 module.exports = helpers;
@@ -17932,6 +17953,10 @@ var _SearchResults = __webpack_require__(497);
 
 var _SearchResults2 = _interopRequireDefault(_SearchResults);
 
+var _SearchTags = __webpack_require__(498);
+
+var _SearchTags2 = _interopRequireDefault(_SearchTags);
+
 var _Auth = __webpack_require__(56);
 
 var _Auth2 = _interopRequireDefault(_Auth);
@@ -17961,20 +17986,56 @@ var SearchPage = function (_React$Component) {
         _this.state = {
             errors: {},
             searchTerms: "",
-            searchResults: []
+            searchResults: [],
+            allTags: [],
+            newTag: {
+                name: "",
+                description: "",
+                category: ""
+            }
         };
         _this.processForm = _this.processForm.bind(_this);
         _this.changeTerms = _this.changeTerms.bind(_this);
+        _this.changeNewTag = _this.changeNewTag.bind(_this);
         return _this;
     }
 
     _createClass(SearchPage, [{
+        key: "componentWillMount",
+        value: function componentWillMount() {
+            var tags = _helper2.default.getAllTags(_Auth2.default.getToken());
+            console.log(tags);
+            if (tags && tags.length > 0) {
+                this.setState({
+                    allTags: tags
+                });
+            }
+        }
+    }, {
         key: "changeTerms",
         value: function changeTerms(event) {
             // set the state to reflect the value of the search text box
             this.setState({
                 searchTerms: event.target.value
             });
+        }
+    }, {
+        key: "changeNewTag",
+        value: function changeNewTag(event) {
+            // set the state to reflect the value of the search text box
+            if (event.target.name == "name") {
+                this.setState({
+                    newTag: { name: event.target.value }
+                });
+            } else if (event.target.name == "description") {
+                this.setState({
+                    newTag: { description: event.target.value }
+                });
+            } else if (event.target.name == "category") {
+                this.setState({
+                    newTag: { category: event.target.value }
+                });
+            }
         }
     }, {
         key: "processForm",
@@ -18003,6 +18064,21 @@ var SearchPage = function (_React$Component) {
             });
         }
     }, {
+        key: "newTagHandler",
+        value: function newTagHandler(tagData) {
+            // prevent default action. in this case, action is the form submission event
+            event.preventDefault();
+
+            _helper2.default.createTaxTerm(_Auth2.default.getToken(), tagData).then(function (res) {
+                console.log("added to tags ", res);
+            });
+        }
+    }, {
+        key: "chooseTagHandler",
+        value: function chooseTagHandler(tagData) {
+            console.log("add " + tagData.name + " to current search query");
+        }
+    }, {
         key: "render",
         value: function render() {
             return _react2.default.createElement(
@@ -18013,7 +18089,19 @@ var SearchPage = function (_React$Component) {
                     onChange: this.changeTerms,
                     searchTerms: this.state.searchTerms
                 }),
-                _react2.default.createElement(_SearchResults2.default, { addFavoriteImage: this.faveHandler, foundImages: this.state.searchResults })
+                _react2.default.createElement(_SearchResults2.default, {
+                    addFavoriteImage: this.faveHandler,
+                    foundImages: this.state.searchResults
+                }),
+                _react2.default.createElement(_SearchTags2.default, {
+                    addTag: this.newTagHandler,
+                    useTag: this.chooseTagHandler,
+                    taxonomy: this.state.allTags,
+                    newTermName: this.state.newTag.name,
+                    newTermDescription: this.state.newTag.description,
+                    newTermCategory: this.state.newTag.category,
+                    onChange: this.changeNewTag
+                })
             );
         }
     }]);
@@ -44582,6 +44670,123 @@ SearchResults.propTypes = {
 };
 
 exports.default = SearchResults;
+
+/***/ }),
+/* 498 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+var _react = __webpack_require__(1);
+
+var _react2 = _interopRequireDefault(_react);
+
+var _Card = __webpack_require__(63);
+
+var _RaisedButton = __webpack_require__(101);
+
+var _RaisedButton2 = _interopRequireDefault(_RaisedButton);
+
+var _TextField = __webpack_require__(102);
+
+var _TextField2 = _interopRequireDefault(_TextField);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+var SearchTags = function SearchTags(_ref) {
+  var taxonomy = _ref.taxonomy,
+      addTag = _ref.addTag,
+      useTag = _ref.useTag,
+      newTermName = _ref.newTermName,
+      newTermCategory = _ref.newTermCategory,
+      newTermDescription = _ref.newTermDescription,
+      onChange = _ref.onChange;
+  return _react2.default.createElement(
+    _Card.Card,
+    { className: 'container' },
+    _react2.default.createElement(
+      'h2',
+      { className: 'card-heading' },
+      'Style Options'
+    ),
+    _react2.default.createElement(
+      'ul',
+      { className: 'search-results' },
+      taxonomy ? taxonomy.map(function (tag) {
+        return _react2.default.createElement(
+          'button',
+          { key: tag.name, onClick: function onClick() {
+              useTag(tag);
+            } },
+          tag.category,
+          ': ',
+          tag.displayName
+        );
+      }) : "No Taxonomy Terms"
+    ),
+    _react2.default.createElement(
+      'form',
+      { action: '/', onSubmit: addTag },
+      _react2.default.createElement(
+        'h4',
+        { className: 'card-heading' },
+        'Add a New Tag'
+      ),
+      _react2.default.createElement(
+        'div',
+        { className: 'field-line' },
+        _react2.default.createElement(_TextField2.default, {
+          floatingLabelText: 'Terms',
+          name: 'name',
+          onChange: onChange,
+          value: newTermName
+        })
+      ),
+      _react2.default.createElement(
+        'div',
+        { className: 'field-line' },
+        _react2.default.createElement(_TextField2.default, {
+          floatingLabelText: 'Category',
+          name: 'category',
+          onChange: onChange,
+          value: newTermCategory
+        })
+      ),
+      _react2.default.createElement(
+        'div',
+        { className: 'field-line' },
+        _react2.default.createElement(_TextField2.default, {
+          floatingLabelText: 'Description',
+          name: 'description',
+          onChange: onChange,
+          value: newTermDescription
+        })
+      ),
+      _react2.default.createElement(
+        'div',
+        { className: 'button-line' },
+        _react2.default.createElement(_RaisedButton2.default, { type: 'submit', label: 'Add Tag', primary: true })
+      )
+    )
+  );
+};
+
+SearchTags.propTypes = {
+  taxonomy: _react.PropTypes.array,
+  addTag: _react.PropTypes.func.isRequired,
+  useTag: _react.PropTypes.func.isRequired,
+  onChange: _react.PropTypes.func.isRequired,
+  newTermName: _react.PropTypes.string.isRequired,
+  newTermCategory: _react.PropTypes.string.isRequired,
+  newTermDescription: _react.PropTypes.string.isRequired
+};
+
+exports.default = SearchTags;
 
 /***/ })
 /******/ ]);

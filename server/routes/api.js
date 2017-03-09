@@ -1,7 +1,9 @@
 const express = require('express');
 const GoogleImages = require('google-images');
 const config = require('../../config');
-const Style = require('mongoose').model('Style');
+const models = require('mongoose');
+const Style = models.model('Style');
+const Taxonomy = models.model('Taxonomy');
 //const fs = require('fs');
 //const request = require('request');
 
@@ -70,6 +72,39 @@ router.post("/favorites", (req, res) => {
         //   console.log('done');
         // });
         res.send("done saving");
+    });
+});
+
+router.get("/taxonomy", (req, response) => {
+    Taxonomy.find({}).then(function(err, results){
+        if (err) { 
+            response.send(err); 
+        } else {
+            let taxonomyArray = [];
+            for(var key in results) {
+                if(results.hasOwnProperty(key)) {
+                    taxonomyArray.push(results[key]);
+                }
+            }
+            console.log(taxonomyArray);
+            response.send(taxonomyArray);
+        }
+    });
+});
+
+router.post("/taxonomy", (req, response) => {
+    //console.log("creating a new tag term ", req.body);
+    // create a new Taxonomy term
+    const tagData = {
+        name: req.body.tagData.name,
+        displayName: req.body.tagData.displayName ? req.body.tagData.displayName : req.body.tagData.name,
+        description: req.body.tagData.description ? req.body.tagData.description : "",
+        category: req.body.tagData.category ? req.body.tagData.category : "uncategorized"
+    };
+    const newTag = new Taxonomy(tagData);
+    newTag.save((err) => {
+        if (err) { return done(err); }
+        response.send("done saving");
     });
 });
 
