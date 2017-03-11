@@ -1,17 +1,16 @@
-body {
-  margin: 0;
-  font-size: 16px;
-}
+
 
 a {
   color: #00bcd4;
   font-weight: bold;
   text-decoration: none;
   transition: color 0.4s;
+  font-family: "Josefin Slab";
 }
 
 a:hover {
-  color: #1976d2;
+  color: #FF8C00;
+  font-family: "Josefin Slab";
 }
 
 .text-center {
@@ -30,26 +29,34 @@ a:hover {
 
 .top-bar-left {
   float: left;
-  font-size: 1.5em;
+  font-family: "Josefin Slab";
+  color: #FF8C00;
+  font-size: 24px;
 }
 
 .top-bar-right {
   float: right;
+  font-family: "Josefin Slab";
+  color: #70abaf;
+  font-size: 18px;
 }
 
 .top-bar a,
 .nav a {
   margin: 0 8px;
+  font-family: "Josefin Slab";
 }
 
 .container {
   margin: 0 auto;
   text-align: center;
   width: 700px;
+  font-family: "Josefin Slab";
 }
 
 .card-heading {
   padding: 16px;
+  font-family: "Josefin Slab";
 }
 
 .field-line, .button-line {
@@ -59,9 +66,47 @@ a:hover {
 .error-message {
   padding: 0 16px;
   color: tomato;
+  font-family: "Josefin Slab";
 }
 
 .success-message {
   padding: 0 16px;
   color: green;
+  font-family: "Josefin Slab";
+
+}
+
+.element {
+  display: inline-block;
+  background-color: #70abaf;
+  height: 100px;
+  width: 100px;
+  transform: skew(20deg);
+  font-size: 1px;
+  padding: 1px;
+  color: white;
+  margin-right: 5px;
+  margin-left: 5px;
+  animation: shake 1s infinite;
+  animation-direction: alternate;
+}
+
+@keyframes shake {
+  0% {
+    transform: skewY(20deg);
+  }
+  100% {
+    transform: skewY(-20deg);
+  }
+}
+
+body, html {
+  height: 100%;
+}
+
+
+body {
+ 
+  align-items: center;
+  justify-content: center;
 }
