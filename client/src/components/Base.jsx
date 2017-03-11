@@ -4,9 +4,10 @@ import Auth from '../modules/Auth';
 
 const Base = ({ children }) => (
   <div>
+      
     <div className="top-bar">
       <div className="top-bar-left">
-        <IndexLink to="/">Welcome to Hook'd</IndexLink>
+        <IndexLink to="/">Hook'd</IndexLink>
       </div>
 
     {Auth.isUserAuthenticated() ? (

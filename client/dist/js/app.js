@@ -17333,7 +17333,7 @@ var Base = function Base(_ref) {
         _react2.default.createElement(
           _reactRouter.IndexLink,
           { to: '/' },
-          'Welcome to Hook\'d'
+          'Hook\'d'
         )
       ),
       _Auth2.default.isUserAuthenticated() ? _react2.default.createElement(
@@ -17424,7 +17424,7 @@ exports.default = Dashboard;
 
 
 Object.defineProperty(exports, "__esModule", {
-  value: true
+		value: true
 });
 
 var _react = __webpack_require__(1);
@@ -17436,11 +17436,14 @@ var _Card = __webpack_require__(40);
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 var HomePage = function HomePage() {
-  return _react2.default.createElement(
-    _Card.Card,
-    { className: 'container' },
-    _react2.default.createElement(_Card.CardTitle, { title: 'React Application', subtitle: 'This is the home page.' })
-  );
+		return _react2.default.createElement(
+				_Card.Card,
+				{ className: 'container' },
+				_react2.default.createElement(_Card.CardTitle, { title: '', subtitle: '' }),
+				_react2.default.createElement('div', { className: 'element' }),
+				_react2.default.createElement('div', { className: 'element' }),
+				_react2.default.createElement('div', { className: 'element' })
+		);
 };
 
 exports.default = HomePage;
