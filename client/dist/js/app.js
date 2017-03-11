@@ -18110,7 +18110,6 @@ var PayPage = function (_React$Component) {
 
       Stripe.card.createToken(this.state.client.card, function (status, res) {
         if (res.error) {
-          console.log("!!!", res);
           console.log(res.error);
         } else {
           console.log(res);
