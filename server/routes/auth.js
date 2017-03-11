@@ -76,6 +76,7 @@ function validateLoginForm(payload) {
 }
 
 router.post('/signup', (req, res) => {
+    console.log("user: ", req.user);
   const validationResult = validateSignupForm(req.body);
   if (!validationResult.success) {
     return res.status(400).json({
@@ -107,12 +108,14 @@ router.post('/signup', (req, res) => {
 
     return res.status(200).json({
       success: true,
-      message: 'You have successfully signed up! Now you should be able to log in.'
+      hooked: 'You have successfully signed up! Now you should be able to log in.'
     });
   })(req, res);//, next);
 });
 
-router.post('/login', (req, res) => {
+
+
+router.post('/login', function (req, res, next) {
   const validationResult = validateLoginForm(req.body);
   if (!validationResult.success) {
     return res.status(400).json({
@@ -121,29 +124,25 @@ router.post('/login', (req, res) => {
       errors: validationResult.errors
     });
   }
-
-  return passport.authenticate('local-login', (err, token, userData) => {
-    if (err) {
-      if (err.name === 'IncorrectCredentialsError') {
-        return res.status(400).json({
-          success: false,
-          message: err.message
-        });
+  passport.authenticate('local-login',  function (err, user, info) {
+      if (err) {
+        if (err.name === 'IncorrectCredentialsError') {
+          return res.status(400).json({
+            success: false,
+            message: err.message
+          });
+        }
+        return next(err);
       }
-
-      return res.status(400).json({
-        success: false,
-        message: 'Could not process the form.'
+      if (!user) {
+          return res.send({ success : false, message : info.message || 'Login not successful' });
+      }
+      req.logIn(user, function(err) {
+          if (err) { return next(err); }
+          console.log(user);
+          return res.send({ success : true, message : 'Login successful', user: user });
       });
-    }
-    return res.json({
-      success: true,
-      message: 'You have successfully logged in!',
-      token,
-      user: userData
-    });
-  })(req, res);//, next);
-});
-
+    })(req, res, next);
+  });
 
 module.exports = router;

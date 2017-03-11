@@ -10,7 +10,7 @@ const config = require('../../config');
 module.exports = new PassportLocalStrategy({
   usernameField: 'email',
   passwordField: 'password',
-  session: false,
+  session: true,
   passReqToCallback: true
 }, (req, email, password, done) => {
   const userData = {
@@ -39,7 +39,7 @@ module.exports = new PassportLocalStrategy({
 
         return done(error);
       }
-
+      
       const payload = {
         sub: user._id
       };
