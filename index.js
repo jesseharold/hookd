@@ -28,8 +28,12 @@ app.use('/api', authCheckMiddleware);
 // routes
 const authRoutes = require('./server/routes/auth');
 const apiRoutes = require('./server/routes/api');
+const stripeRoutes = require('./server/routes/pay');
+
+
 app.use('/auth', authRoutes);
 app.use('/api', apiRoutes);
+app.use('/stripe', stripeRoutes);
 
 
 // start the server

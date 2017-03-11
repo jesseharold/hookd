@@ -4,6 +4,7 @@ import DashboardPage from './containers/DashboardPage.jsx';
 import LoginPage from './containers/LoginPage.jsx';
 import SignUpPage from './containers/SignUpPage.jsx';
 import SearchPage from './containers/SearchPage.jsx';
+import PayPage from './containers/PayPage.jsx';
 import Auth from './modules/Auth';
 
 const routes = {
@@ -31,6 +32,10 @@ const routes = {
     {
       path: '/signup',
       component: SignUpPage
+    },
+    {
+      path: '/pay',
+      component: PayPage
     },
     {
       path: '/logout',
