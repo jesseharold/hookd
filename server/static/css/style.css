@@ -1,16 +1,16 @@
 
 
 a {
-  color: #00bcd4;
-  font-weight: bold;
-  text-decoration: none;
-  transition: color 0.4s;
+  color: #70abaf;
+  transition: color 0.2s;
   font-family: "Josefin Slab";
+  text-decoration: none;
 }
 
 a:hover {
   color: #FF8C00;
   font-family: "Josefin Slab";
+  text-decoration: none;
 }
 
 .text-center {
@@ -31,7 +31,8 @@ a:hover {
   float: left;
   font-family: "Josefin Slab";
   color: #FF8C00;
-  font-size: 24px;
+  font-size: 32px;
+  text-decoration: none;
 }
 
 .top-bar-right {
@@ -39,6 +40,7 @@ a:hover {
   font-family: "Josefin Slab";
   color: #70abaf;
   font-size: 18px;
+  text-decoration: none;
 }
 
 .top-bar a,
