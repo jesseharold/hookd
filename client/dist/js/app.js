@@ -10811,9 +10811,17 @@ function createFavorite(authToken, image){
 function createTaxTerm(authToken, term){
     // set header to do authorization in passport
     var authAxios = axios.create({
-        headers: {'Authorization': 'bearer ' + authToken}
+        headers: {'Authorization': 'bearer ' + authToken,
+            'Content-type': 'application/x-www-form-urlencoded'
+        }
     });
-    return authAxios.post('/api/taxonomy', {tagData: term});
+    console.log("encoding ",term);
+    // create a string for an HTTP body message
+    const name = encodeURIComponent(term.name);
+    const category = encodeURIComponent(term.category);
+    const description = encodeURIComponent(term.description);
+    const formData = `name=${name}&category=${category}&description=${description}`;
+    return authAxios.post('/api/taxonomy', formData);
 }
 
 function getAllTags(authToken){
@@ -17713,7 +17721,9 @@ var SearchTags = function SearchTags(_ref) {
       newTermName = _ref.newTermName,
       newTermCategory = _ref.newTermCategory,
       newTermDescription = _ref.newTermDescription,
-      onChange = _ref.onChange;
+      onChangeName = _ref.onChangeName,
+      onChangeCategory = _ref.onChangeCategory,
+      onChangeDescription = _ref.onChangeDescription;
   return _react2.default.createElement(
     _Card.Card,
     { className: 'container' },
@@ -17751,7 +17761,7 @@ var SearchTags = function SearchTags(_ref) {
         _react2.default.createElement(_TextField2.default, {
           floatingLabelText: 'Terms',
           name: 'name',
-          onChange: onChange,
+          onChange: onChangeName,
           value: newTermName
         })
       ),
@@ -17761,7 +17771,7 @@ var SearchTags = function SearchTags(_ref) {
         _react2.default.createElement(_TextField2.default, {
           floatingLabelText: 'Category',
           name: 'category',
-          onChange: onChange,
+          onChange: onChangeCategory,
           value: newTermCategory
         })
       ),
@@ -17771,7 +17781,7 @@ var SearchTags = function SearchTags(_ref) {
         _react2.default.createElement(_TextField2.default, {
           floatingLabelText: 'Description',
           name: 'description',
-          onChange: onChange,
+          onChange: onChangeDescription,
           value: newTermDescription
         })
       ),
@@ -17788,7 +17798,9 @@ SearchTags.propTypes = {
   taxonomy: _react.PropTypes.array,
   addTag: _react.PropTypes.func.isRequired,
   useTag: _react.PropTypes.func.isRequired,
-  onChange: _react.PropTypes.func.isRequired,
+  onChangeName: _react.PropTypes.func.isRequired,
+  onChangeCategory: _react.PropTypes.func.isRequired,
+  onChangeDescription: _react.PropTypes.func.isRequired,
   newTermName: _react.PropTypes.string,
   newTermCategory: _react.PropTypes.string,
   newTermDescription: _react.PropTypes.string
@@ -18182,7 +18194,10 @@ var SearchPage = function (_React$Component) {
         };
         _this.processForm = _this.processForm.bind(_this);
         _this.changeTerms = _this.changeTerms.bind(_this);
-        _this.changeNewTag = _this.changeNewTag.bind(_this);
+        _this.changeNewTagName = _this.changeNewTagName.bind(_this);
+        _this.changeNewTagDescription = _this.changeNewTagDescription.bind(_this);
+        _this.changeNewTagCategory = _this.changeNewTagCategory.bind(_this);
+        _this.newTagHandler = _this.newTagHandler.bind(_this);
         return _this;
     }
 
@@ -18191,7 +18206,7 @@ var SearchPage = function (_React$Component) {
         value: function componentWillMount() {
             var self = this;
             var tags = _helper2.default.getAllTags(_Auth2.default.getToken()).then(function (tags) {
-                console.log("got tags info");
+                // console.log("got tags info");
                 if (!tags || !tags.data || tags.status !== 200) {
                     console.log("something went wrong: ", tags);
                 } else {
@@ -18215,22 +18230,28 @@ var SearchPage = function (_React$Component) {
             });
         }
     }, {
-        key: "changeNewTag",
-        value: function changeNewTag(event) {
+        key: "changeNewTagName",
+        value: function changeNewTagName(event) {
             // set the state to reflect the value of the search text box
-            if (event.target.name == "name") {
-                this.setState({
-                    newTag: { name: event.target.value }
-                });
-            } else if (event.target.name == "description") {
-                this.setState({
-                    newTag: { description: event.target.value }
-                });
-            } else if (event.target.name == "category") {
-                this.setState({
-                    newTag: { category: event.target.value }
-                });
-            }
+            this.setState({
+                newTag: { name: event.target.value }
+            });
+        }
+    }, {
+        key: "changeNewTagCategory",
+        value: function changeNewTagCategory(event) {
+            // set the state to reflect the value of the search text box
+            this.setState({
+                newTag: { category: event.target.value }
+            });
+        }
+    }, {
+        key: "changeNewTagDescription",
+        value: function changeNewTagDescription(event) {
+            // set the state to reflect the value of the search text box
+            this.setState({
+                newTag: { description: event.target.value }
+            });
         }
     }, {
         key: "processForm",
@@ -18260,11 +18281,10 @@ var SearchPage = function (_React$Component) {
         }
     }, {
         key: "newTagHandler",
-        value: function newTagHandler(tagData) {
+        value: function newTagHandler(event) {
             // prevent default action. in this case, action is the form submission event
             event.preventDefault();
-
-            _helper2.default.createTaxTerm(_Auth2.default.getToken(), tagData).then(function (res) {
+            _helper2.default.createTaxTerm(_Auth2.default.getToken(), this.state.newTag).then(function (res) {
                 console.log("added to tags ", res);
             });
         }
@@ -18295,7 +18315,9 @@ var SearchPage = function (_React$Component) {
                     newTermName: this.state.newTag.name,
                     newTermDescription: this.state.newTag.description,
                     newTermCategory: this.state.newTag.category,
-                    onChange: this.changeNewTag
+                    onChangeName: this.changeNewTagName,
+                    onChangeCategory: this.changeNewTagCategory,
+                    onChangeDescription: this.changeNewTagDescription
                 })
             );
         }

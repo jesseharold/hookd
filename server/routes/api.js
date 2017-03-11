@@ -14,13 +14,18 @@ const router = new express.Router();
 // a successful execution of the authentication checker middleware
 
 router.get('/dashboard', (req, res) => {
-    console.log("user: ", req.user);
-  // called by the home page, should return
-  // the appropriate dashboard data, depending on the role
-  res.status(200).json({
-    message: "If you can see this message, you are logged in!",
-    role: "user"
-  });
+    if (req.user){
+        console.log("user: ", req.user);
+        // called by the home page, should return
+        // the appropriate dashboard data, depending on the role
+        res.status(200).json({
+            message: "If you can see this message, you are logged in!",
+            role: "user"
+        });
+    } else {
+        res.status(401).send("you are not logged in.");
+    }
+
 });
 
 router.get("/search", (req, res) => {
@@ -95,18 +100,19 @@ router.get("/taxonomy", (req, response) => {
 });
 
 router.post("/taxonomy", (req, response) => {
-    //console.log("creating a new tag term ", req.body);
+    console.log("creating a new tag term ", req.body);
     // create a new Taxonomy term
     const tagData = {
-        name: req.body.tagData.name,
-        displayName: req.body.tagData.displayName ? req.body.tagData.displayName : req.body.tagData.name,
-        description: req.body.tagData.description ? req.body.tagData.description : "",
-        category: req.body.tagData.category ? req.body.tagData.category : "uncategorized"
+        name: req.body.name,
+        displayName: req.body.displayName ? req.body.displayName : req.body.name,
+        description: req.body.description ? req.body.description : "",
+        category: req.body.category ? req.body.category : "uncategorized"
     };
     const newTag = new Taxonomy(tagData);
     newTag.save((err) => {
-        if (err) { return done(err); }
-        response.send("done saving");
+        console.log("done saving ", err);
+        //if (err) { return done(err); }
+        //response.send("done saving");
     });
 });
 

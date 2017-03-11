@@ -43,9 +43,17 @@ function createFavorite(authToken, image){
 function createTaxTerm(authToken, term){
     // set header to do authorization in passport
     var authAxios = axios.create({
-        headers: {'Authorization': 'bearer ' + authToken}
+        headers: {'Authorization': 'bearer ' + authToken,
+            'Content-type': 'application/x-www-form-urlencoded'
+        }
     });
-    return authAxios.post('/api/taxonomy', {tagData: term});
+    console.log("encoding ",term);
+    // create a string for an HTTP body message
+    const name = encodeURIComponent(term.name);
+    const category = encodeURIComponent(term.category);
+    const description = encodeURIComponent(term.description);
+    const formData = `name=${name}&category=${category}&description=${description}`;
+    return authAxios.post('/api/taxonomy', formData);
 }
 
 function getAllTags(authToken){

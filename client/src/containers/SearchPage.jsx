@@ -23,13 +23,16 @@ class SearchPage extends React.Component {
         };
         this.processForm = this.processForm.bind(this);
         this.changeTerms = this.changeTerms.bind(this);
-        this.changeNewTag = this.changeNewTag.bind(this);
+        this.changeNewTagName = this.changeNewTagName.bind(this);
+        this.changeNewTagDescription = this.changeNewTagDescription.bind(this);
+        this.changeNewTagCategory = this.changeNewTagCategory.bind(this);
+        this.newTagHandler = this.newTagHandler.bind(this);
     }
 
     componentWillMount(){
         var self = this;
         const tags = helpers.getAllTags(Auth.getToken()).then(function(tags){
-            console.log("got tags info");
+            // console.log("got tags info");
             if (!tags || !tags.data || tags.status !== 200){
                 console.log("something went wrong: ", tags);
             } else {
@@ -53,21 +56,23 @@ class SearchPage extends React.Component {
     }
 
 
-    changeNewTag(event) {
+    changeNewTagName(event) {
         // set the state to reflect the value of the search text box
-        if(event.target.name == "name"){
             this.setState({
                 newTag: {name: event.target.value}
             });
-        } else if(event.target.name == "description"){
-            this.setState({
-                newTag: {description: event.target.value}
-            });
-        } else if(event.target.name == "category"){
+    }
+    changeNewTagCategory(event) {
+        // set the state to reflect the value of the search text box
             this.setState({
                 newTag: {category: event.target.value}
             });
-        }
+    }
+    changeNewTagDescription(event) {
+        // set the state to reflect the value of the search text box
+            this.setState({
+                newTag: {description: event.target.value}
+            });
     }
 
     processForm(event) {
@@ -94,11 +99,10 @@ class SearchPage extends React.Component {
         });
     }
 
-    newTagHandler(tagData){
+    newTagHandler(event){
         // prevent default action. in this case, action is the form submission event
         event.preventDefault();
-
-        helpers.createTaxTerm(Auth.getToken(), tagData).then(function(res){
+        helpers.createTaxTerm(Auth.getToken(), this.state.newTag).then(function(res){
             console.log("added to tags ", res);
         });
     }
@@ -126,7 +130,9 @@ class SearchPage extends React.Component {
                     newTermName={this.state.newTag.name}  
                     newTermDescription={this.state.newTag.description}  
                     newTermCategory={this.state.newTag.category} 
-                    onChange={this.changeNewTag}
+                    onChangeName={this.changeNewTagName}
+                    onChangeCategory={this.changeNewTagCategory}
+                    onChangeDescription={this.changeNewTagDescription}
                     />
             </div>
         );

@@ -10,7 +10,9 @@ const SearchTags = ({
   newTermName,
   newTermCategory,
   newTermDescription,
-  onChange
+  onChangeName,
+  onChangeCategory,
+  onChangeDescription
 }) => (
   <Card className="container">
       <h2 className="card-heading">Style Options</h2>
@@ -25,7 +27,7 @@ const SearchTags = ({
         <TextField
           floatingLabelText="Terms"
           name="name"
-          onChange={onChange}
+          onChange={onChangeName}
           value={newTermName}
         />
       </div>
@@ -33,7 +35,7 @@ const SearchTags = ({
         <TextField
           floatingLabelText="Category"
           name="category"
-          onChange={onChange}
+          onChange={onChangeCategory}
           value={newTermCategory}
         />
       </div>
@@ -41,7 +43,7 @@ const SearchTags = ({
         <TextField
           floatingLabelText="Description"
           name="description"
-          onChange={onChange}
+          onChange={onChangeDescription}
           value={newTermDescription}
         />
       </div>
@@ -57,7 +59,9 @@ SearchTags.propTypes = {
   taxonomy: PropTypes.array,
   addTag: PropTypes.func.isRequired,
   useTag: PropTypes.func.isRequired,
-  onChange: PropTypes.func.isRequired,
+  onChangeName: PropTypes.func.isRequired,
+  onChangeCategory: PropTypes.func.isRequired,
+  onChangeDescription: PropTypes.func.isRequired,
   newTermName: PropTypes.string,
   newTermCategory: PropTypes.string,
   newTermDescription: PropTypes.string,
