@@ -32,7 +32,6 @@ class LoginPage extends React.Component {
     const password = encodeURIComponent(this.state.user.password);
     const formData = `email=${email}&password=${password}`;
     helpers.doLogin(formData).then(function(result){
-      console.log("doLogin result: ", result);
       if (result.message){
         // there was an error
         // change the component state
@@ -75,5 +74,9 @@ class LoginPage extends React.Component {
   }
 
 }
+
+LoginPage.contextTypes = {
+  router: PropTypes.object.isRequired
+};
 
 export default LoginPage;

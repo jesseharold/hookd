@@ -18063,7 +18063,6 @@ var LoginPage = function (_React$Component) {
       var password = encodeURIComponent(this.state.user.password);
       var formData = 'email=' + email + '&password=' + password;
       _helper2.default.doLogin(formData).then(function (result) {
-        console.log("doLogin result: ", result);
         if (result.message) {
           // there was an error
           // change the component state
@@ -18108,6 +18107,10 @@ var LoginPage = function (_React$Component) {
 
   return LoginPage;
 }(_react2.default.Component);
+
+LoginPage.contextTypes = {
+  router: _react.PropTypes.object.isRequired
+};
 
 exports.default = LoginPage;
 
