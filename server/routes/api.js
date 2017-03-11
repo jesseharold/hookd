@@ -14,6 +14,7 @@ const router = new express.Router();
 // a successful execution of the authentication checker middleware
 
 router.get('/dashboard', (req, res) => {
+    console.log("user: ", req.user);
   // called by the home page, should return
   // the appropriate dashboard data, depending on the role
   res.status(200).json({
@@ -23,6 +24,7 @@ router.get('/dashboard', (req, res) => {
 });
 
 router.get("/search", (req, res) => {
+    console.log("user: ", req.user);
   // called by form that searches for styles
   //console.log("searching for ", req.query.terms);
   const googleClient = new GoogleImages(config.googleCSEId, config.googleSearchAPIKey);

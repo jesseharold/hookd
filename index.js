@@ -1,4 +1,6 @@
 const express = require('express');
+var cookieParser = require('cookie-parser');
+const session = require('express-session');
 const bodyParser = require('body-parser');
 const passport = require('passport');
 const config = require('./config');
@@ -14,8 +16,25 @@ app.use(express.static('./client/dist/'));
 app.use(bodyParser.urlencoded({ extended: false }));
 // tell the app to parse JSON body messages
 app.use(bodyParser.json());
+app.use(cookieParser(config.jwtSecret));
+//set up express session
+app.use(session({
+  secret: config.jwtSecret,
+  resave: false,
+  saveUninitialized: true,
+  cookie: { secure: false }
+}));
 // pass the passport middleware
 app.use(passport.initialize());
+app.use(passport.session());
+
+passport.serializeUser(function(user, done){
+  done(null, user);
+});
+
+passport.deserializeUser(function(user, done){
+  done(null, user);
+});
 
 // load passport strategies
 const localSignupStrategy = require('./server/passport/local-signup');

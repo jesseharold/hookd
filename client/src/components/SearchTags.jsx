@@ -16,7 +16,7 @@ const SearchTags = ({
       <h2 className="card-heading">Style Options</h2>
       <ul className="search-results">
       {taxonomy ? taxonomy.map(tag => (
-        <button key={tag.name} onClick={function(){useTag(tag);}}>{tag.category}: {tag.displayName}</button>
+        <button key={tag.name} onClick={function(){useTag(tag);}}>{tag.category} : {tag.displayName}</button>
       )) : "No Taxonomy Terms"}
       </ul>
       <form action="/" onSubmit={addTag}>
@@ -58,9 +58,9 @@ SearchTags.propTypes = {
   addTag: PropTypes.func.isRequired,
   useTag: PropTypes.func.isRequired,
   onChange: PropTypes.func.isRequired,
-  newTermName: PropTypes.string.isRequired,
-  newTermCategory: PropTypes.string.isRequired,
-  newTermDescription: PropTypes.string.isRequired,
+  newTermName: PropTypes.string,
+  newTermCategory: PropTypes.string,
+  newTermDescription: PropTypes.string,
 };
 
 export default SearchTags;

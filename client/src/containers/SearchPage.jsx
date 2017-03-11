@@ -27,13 +27,22 @@ class SearchPage extends React.Component {
     }
 
     componentWillMount(){
-        const tags = helpers.getAllTags(Auth.getToken());
-        console.log(tags);
-        if (tags && tags.length > 0){
-            this.setState({
-                allTags: tags
-            });
-        }
+        var self = this;
+        const tags = helpers.getAllTags(Auth.getToken()).then(function(tags){
+            console.log("got tags info");
+            if (!tags || !tags.data || tags.status !== 200){
+                console.log("something went wrong: ", tags);
+            } else {
+                var tagArray = [];
+                for (var oneTag in tags.data){
+                    tagArray.push(oneTag);
+                }
+                console.log(tagArray[0]);
+                self.setState({
+                    allTags: tags.data
+                });
+            }
+        });
     }
 
     changeTerms(event) {
