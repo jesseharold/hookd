@@ -55,8 +55,7 @@ class SearchPage extends React.Component {
         });
     }
 
-
-    ===(event) {
+    changeNewTagName(event) {
         // set the state to reflect the value of the search text box
             this.setState({
                 newTag: {name: event.target.value}
