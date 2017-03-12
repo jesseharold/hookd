@@ -17,8 +17,8 @@ const SearchTags = ({
   <Card className="container">
       <h2 className="card-heading">Style Options</h2>
       <ul className="search-results">
-      {taxonomy ? taxonomy.map(tag => (
-        <button key={tag.name} onClick={function(){useTag(tag);}}>{tag.category} : {tag.displayName}</button>
+      {taxonomy ? taxonomy.map((tag, i) => (
+        <button key={i} onClick={function(){useTag(tag);}}>{tag.category} : {tag.displayName}</button>
       )) : "No Taxonomy Terms"}
       </ul>
       <form action="/" onSubmit={addTag}>

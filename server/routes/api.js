@@ -15,7 +15,6 @@ const router = new express.Router();
 
 router.get('/dashboard', (req, res) => {
     if (req.user){
-        console.log("user: ", req.user);
         // called by the home page, should return
         // the appropriate dashboard data, depending on the role
         res.status(200).json({
@@ -29,7 +28,6 @@ router.get('/dashboard', (req, res) => {
 });
 
 router.get("/search", (req, res) => {
-    console.log("user: ", req.user);
   // called by form that searches for styles
   //console.log("searching for ", req.query.terms);
   const googleClient = new GoogleImages(config.googleCSEId, config.googleSearchAPIKey);
@@ -39,25 +37,11 @@ router.get("/search", (req, res) => {
   };
   googleClient.search("hairstyle " + req.query.terms).then(images => {
     res.send(images);
-    /* this is what the search results data looks like coming back from the CSE
-    [{
-        "url": "http://steveangello.com/boss.jpg",
-        "type": "image/jpeg",
-        "width": 1024,
-        "height": 768,
-        "size": 102451,
-        "thumbnail": {
-            "url": "http://steveangello.com/thumbnail.jpg",
-            "width": 512,
-            "height": 512
-        }
-    }]
-    */
   }); 
 });
 
 router.post("/favorites", (req, res) => {
-    //console.log("creating a new style ", req.body);
+    //console.log("creating a new style ", req.body.imageData.url);
     // create a new style
     const styleData = {
         image: req.body.imageData.url

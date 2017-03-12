@@ -7,7 +7,7 @@ const config = require('../../config');
  */
 module.exports = (req, res, next) => {
   if (!req.headers.authorization) {
-    console.log("no auth in headers of request");
+    console.error("no auth in headers of request");
     return res.status(401).end();
   }
   // get the last part from a authorization header string like "bearer token-value"
@@ -17,7 +17,7 @@ module.exports = (req, res, next) => {
   return jwt.verify(token, config.jwtSecret, (err, decoded) => {
     // the 401 code is for unauthorized status
     if (err) { 
-      console.log("error verifying jwt: ", err);
+      console.error("error verifying jwt: ", err);
       return res.status(401).end(); 
     }
 

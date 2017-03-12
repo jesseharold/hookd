@@ -34,7 +34,7 @@ class SearchPage extends React.Component {
         const tags = helpers.getAllTags(Auth.getToken()).then(function(tags){
             // console.log("got tags info");
             if (!tags || !tags.data || tags.status !== 200){
-                console.log("something went wrong: ", tags);
+                console.error("something went wrong: ", tags);
             } else {
                 var tagArray = [];
                 for (var oneTag in tags.data){
@@ -86,7 +86,7 @@ class SearchPage extends React.Component {
                     searchResults: res.data
                 });
             } else {
-                console.log("problem with response from search: ", res);
+                console.error("problem with response from search: ", res);
             }
         });
     }

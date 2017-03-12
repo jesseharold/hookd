@@ -7,10 +7,12 @@ function doLogin(formData){
     });
     return authAxios.post('/auth/login', formData).then(function(response){
         if (response.status === 200) {
+            // put username in localstorage for use by other pages
+            localStorage.setItem('userName', response.data.userName);
             return response.data.user;
         } else {
             // failure
-            console.log("something went wrong: ", response.errors);
+            console.error("something went wrong: ", response.errors);
             return response.errors;
         }
     });
@@ -47,7 +49,7 @@ function createTaxTerm(authToken, term){
             'Content-type': 'application/x-www-form-urlencoded'
         }
     });
-    console.log("encoding ",term);
+    console.log("encoding ", term);
     // create a string for an HTTP body message
     const name = encodeURIComponent(term.name);
     const category = encodeURIComponent(term.category);
