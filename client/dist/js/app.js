@@ -6914,7 +6914,6 @@ function createTaxTerm(authToken, term){
             'Content-type': 'application/x-www-form-urlencoded'
         }
     });
-    console.log("encoding ", term);
     // create a string for an HTTP body message
     const name = encodeURIComponent(term.name);
     const category = encodeURIComponent(term.category);
@@ -17955,13 +17954,8 @@ var SearchTags = function SearchTags(_ref) {
     _Card.Card,
     { className: 'container' },
     _react2.default.createElement(
-      'h2',
-      { className: 'card-heading' },
-      'Style Options'
-    ),
-    _react2.default.createElement(
       'ul',
-      { className: 'search-results' },
+      { className: 'search-tags' },
       taxonomy ? taxonomy.map(function (tag, i) {
         return _react2.default.createElement(
           'button',
@@ -18505,6 +18499,10 @@ var _SearchTags = __webpack_require__(237);
 
 var _SearchTags2 = _interopRequireDefault(_SearchTags);
 
+var _Favorites = __webpack_require__(501);
+
+var _Favorites2 = _interopRequireDefault(_Favorites);
+
 var _Auth = __webpack_require__(57);
 
 var _Auth2 = _interopRequireDefault(_Auth);
@@ -18541,7 +18539,8 @@ var SearchPage = function (_React$Component) {
                 name: "",
                 description: "",
                 category: ""
-            }
+            },
+            favoriteStyles: []
         };
         _this.processForm = _this.processForm.bind(_this);
         _this.changeTerms = _this.changeTerms.bind(_this);
@@ -18611,7 +18610,7 @@ var SearchPage = function (_React$Component) {
         key: "faveHandler",
         value: function faveHandler(imageData) {
             _helper2.default.createFavorite(_Auth2.default.getToken(), imageData).then(function (res) {
-                // console.log("added to favorites ", res);
+                console.log("added to favorites ", res);
                 // add a class to the selected favorites on the page
             });
         }
@@ -18620,9 +18619,11 @@ var SearchPage = function (_React$Component) {
         value: function newTagHandler(event) {
             // prevent default action. in this case, action is the form submission event
             event.preventDefault();
-            console.log("adding", this.state.newTag);
+            //console.log("adding", this.state.newTag);
             _helper2.default.createTaxTerm(_Auth2.default.getToken(), this.state.newTag).then(function (res) {
-                console.log("added to tags ", res);
+                if (res.status !== 200) {
+                    console.error("problem adding a new tag: ", res);
+                }
             });
         }
     }, {
@@ -18670,6 +18671,9 @@ var SearchPage = function (_React$Component) {
                 _react2.default.createElement(_SearchResults2.default, {
                     addFavoriteImage: this.faveHandler,
                     foundImages: this.state.searchResults
+                }),
+                _react2.default.createElement(_Favorites2.default, {
+                    faveStyles: this.state.favoriteStyles
                 })
             );
         }
@@ -45186,6 +45190,51 @@ _reactDom2.default.render(_react2.default.createElement(
   { muiTheme: (0, _getMuiTheme2.default)() },
   _react2.default.createElement(_reactRouter.Router, { history: _reactRouter.browserHistory, routes: _routes2.default })
 ), document.getElementById('react-app'));
+
+/***/ }),
+/* 501 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+var _react = __webpack_require__(1);
+
+var _react2 = _interopRequireDefault(_react);
+
+var _Card = __webpack_require__(33);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+var Favorites = function Favorites(_ref) {
+  var faveStyles = _ref.faveStyles;
+  return _react2.default.createElement(
+    _Card.Card,
+    { className: 'container' },
+    _react2.default.createElement(
+      'h2',
+      { className: 'card-heading' },
+      'My Favorite Styles'
+    ),
+    _react2.default.createElement(
+      'ul',
+      { className: 'faves' },
+      faveStyles ? faveStyles.map(function (style, i) {
+        return _react2.default.createElement('img', { src: style.image, key: i });
+      }) : "No Saved Styles"
+    )
+  );
+};
+
+Favorites.propTypes = {
+  faveStyles: _react.PropTypes.array
+};
+
+exports.default = Favorites;
 
 /***/ })
 /******/ ]);

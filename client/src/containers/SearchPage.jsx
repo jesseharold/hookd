@@ -2,6 +2,7 @@ import React, { PropTypes } from "react";
 import SearchForm from "../components/SearchForm.jsx";
 import SearchResults from "../components/SearchResults.jsx";
 import SearchTags from "../components/SearchTags.jsx";
+import Favorites from "../components/Favorites.jsx";
 import Auth from '../modules/Auth';
 import helpers from "../../dist/js/helper"
 
@@ -20,7 +21,8 @@ class SearchPage extends React.Component {
                 name: "",
                 description: "",
                 category: ""
-            }
+            },
+            favoriteStyles: []
         };
         this.processForm = this.processForm.bind(this);
         this.changeTerms = this.changeTerms.bind(this);
@@ -82,7 +84,7 @@ class SearchPage extends React.Component {
 
     faveHandler(imageData){
         helpers.createFavorite(Auth.getToken(), imageData).then(function(res){
-            // console.log("added to favorites ", res);
+            console.log("added to favorites ", res);
             // add a class to the selected favorites on the page
         });
     }
@@ -90,9 +92,11 @@ class SearchPage extends React.Component {
     newTagHandler(event){
         // prevent default action. in this case, action is the form submission event
         event.preventDefault();
-        console.log("adding", this.state.newTag);
+        //console.log("adding", this.state.newTag);
         helpers.createTaxTerm(Auth.getToken(), this.state.newTag).then(function(res){
-            console.log("added to tags ", res);
+            if (res.status !== 200){
+                console.error("problem adding a new tag: ", res);
+            }
         });
     }
 
@@ -139,6 +143,9 @@ class SearchPage extends React.Component {
                 <SearchResults 
                     addFavoriteImage={this.faveHandler} 
                     foundImages={this.state.searchResults} 
+                    />
+                <Favorites 
+                    faveStyles={this.state.favoriteStyles}
                     />
             </div>
         );

@@ -13,8 +13,7 @@ const SearchTags = ({
   onChangeTag
 }) => (
   <Card className="container">
-      <h2 className="card-heading">Style Options</h2>
-      <ul className="search-results">
+      <ul className="search-tags">
       {taxonomy ? taxonomy.map((tag, i) => (
         <button className={tag.selectedClass ? "selected" : "unselected"} key={i} onClick={function(){useTag(tag.name, i);}}>{tag.displayName}</button>
       )) : "No Taxonomy Terms"}

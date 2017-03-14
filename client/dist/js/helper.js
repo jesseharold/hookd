@@ -49,7 +49,6 @@ function createTaxTerm(authToken, term){
             'Content-type': 'application/x-www-form-urlencoded'
         }
     });
-    console.log("encoding ", term);
     // create a string for an HTTP body message
     const name = encodeURIComponent(term.name);
     const category = encodeURIComponent(term.category);
