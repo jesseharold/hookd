@@ -5016,6 +5016,7 @@ var Auth = function () {
     key: 'deauthenticateUser',
     value: function deauthenticateUser() {
       localStorage.removeItem('token');
+      localStorage.removeItem('userName');
     }
 
     /**
@@ -17468,26 +17469,36 @@ exports.default = Dashboard;
 
 
 Object.defineProperty(exports, "__esModule", {
-		value: true
+  value: true
 });
 
 var _react = __webpack_require__(1);
 
 var _react2 = _interopRequireDefault(_react);
 
+var _reactRouter = __webpack_require__(56);
+
 var _Card = __webpack_require__(33);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 var HomePage = function HomePage() {
-		return _react2.default.createElement(
-				_Card.Card,
-				{ className: 'container' },
-				_react2.default.createElement(_Card.CardTitle, { title: '', subtitle: '' }),
-				_react2.default.createElement('div', { className: 'element' }),
-				_react2.default.createElement('div', { className: 'element' }),
-				_react2.default.createElement('div', { className: 'element' })
-		);
+  return _react2.default.createElement(
+    _Card.Card,
+    { className: 'container' },
+    _react2.default.createElement(_Card.CardTitle, { title: '', subtitle: '' }),
+    _react2.default.createElement(
+      'div',
+      { className: 'element' },
+      'Please ',
+      _react2.default.createElement(
+        _reactRouter.Link,
+        { to: '/login' },
+        'log in'
+      ),
+      ' to see your dashboard.'
+    )
+  );
 };
 
 exports.default = HomePage;
@@ -17810,7 +17821,8 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 var SearchForm = function SearchForm(_ref) {
   var onSubmit = _ref.onSubmit,
       onChange = _ref.onChange,
-      searchTerms = _ref.searchTerms;
+      searchTerms = _ref.searchTerms,
+      hiddenTerms = _ref.hiddenTerms;
   return _react2.default.createElement(
     _Card.Card,
     { className: 'container' },
@@ -17832,6 +17844,7 @@ var SearchForm = function SearchForm(_ref) {
           value: searchTerms
         })
       ),
+      _react2.default.createElement('input', { type: 'hidden', name: 'tags', value: hiddenTerms }),
       _react2.default.createElement(
         'div',
         { className: 'button-line' },
@@ -17844,7 +17857,8 @@ var SearchForm = function SearchForm(_ref) {
 SearchForm.propTypes = {
   onSubmit: _react.PropTypes.func.isRequired,
   onChange: _react.PropTypes.func.isRequired,
-  searchTerms: _react.PropTypes.string.isRequired
+  searchTerms: _react.PropTypes.string.isRequired,
+  hiddenTerms: _react.PropTypes.string
 };
 
 exports.default = SearchForm;
@@ -17936,9 +17950,7 @@ var SearchTags = function SearchTags(_ref) {
       newTermName = _ref.newTermName,
       newTermCategory = _ref.newTermCategory,
       newTermDescription = _ref.newTermDescription,
-      onChangeName = _ref.onChangeName,
-      onChangeCategory = _ref.onChangeCategory,
-      onChangeDescription = _ref.onChangeDescription;
+      onChangeTag = _ref.onChangeTag;
   return _react2.default.createElement(
     _Card.Card,
     { className: 'container' },
@@ -17953,11 +17965,9 @@ var SearchTags = function SearchTags(_ref) {
       taxonomy ? taxonomy.map(function (tag, i) {
         return _react2.default.createElement(
           'button',
-          { key: i, onClick: function onClick() {
-              useTag(tag);
+          { className: tag.selectedClass ? "selected" : "unselected", key: i, onClick: function onClick() {
+              useTag(tag.name, i);
             } },
-          tag.category,
-          ' : ',
           tag.displayName
         );
       }) : "No Taxonomy Terms"
@@ -17974,9 +17984,9 @@ var SearchTags = function SearchTags(_ref) {
         'div',
         { className: 'field-line' },
         _react2.default.createElement(_TextField2.default, {
-          floatingLabelText: 'Terms',
+          floatingLabelText: 'Term Name',
           name: 'name',
-          onChange: onChangeName,
+          onChange: onChangeTag,
           value: newTermName
         })
       ),
@@ -17986,7 +17996,7 @@ var SearchTags = function SearchTags(_ref) {
         _react2.default.createElement(_TextField2.default, {
           floatingLabelText: 'Category',
           name: 'category',
-          onChange: onChangeCategory,
+          onChange: onChangeTag,
           value: newTermCategory
         })
       ),
@@ -17996,7 +18006,7 @@ var SearchTags = function SearchTags(_ref) {
         _react2.default.createElement(_TextField2.default, {
           floatingLabelText: 'Description',
           name: 'description',
-          onChange: onChangeDescription,
+          onChange: onChangeTag,
           value: newTermDescription
         })
       ),
@@ -18013,9 +18023,7 @@ SearchTags.propTypes = {
   taxonomy: _react.PropTypes.array,
   addTag: _react.PropTypes.func.isRequired,
   useTag: _react.PropTypes.func.isRequired,
-  onChangeName: _react.PropTypes.func.isRequired,
-  onChangeCategory: _react.PropTypes.func.isRequired,
-  onChangeDescription: _react.PropTypes.func.isRequired,
+  onChangeTag: _react.PropTypes.func.isRequired,
   newTermName: _react.PropTypes.string,
   newTermCategory: _react.PropTypes.string,
   newTermDescription: _react.PropTypes.string
@@ -18526,6 +18534,7 @@ var SearchPage = function (_React$Component) {
         _this.state = {
             errors: {},
             searchTerms: "",
+            hiddenTerms: "",
             searchResults: [],
             allTags: [],
             newTag: {
@@ -18536,10 +18545,9 @@ var SearchPage = function (_React$Component) {
         };
         _this.processForm = _this.processForm.bind(_this);
         _this.changeTerms = _this.changeTerms.bind(_this);
-        _this.changeNewTagName = _this.changeNewTagName.bind(_this);
-        _this.changeNewTagDescription = _this.changeNewTagDescription.bind(_this);
-        _this.changeNewTagCategory = _this.changeNewTagCategory.bind(_this);
+        _this.changeNewTag = _this.changeNewTag.bind(_this);
         _this.newTagHandler = _this.newTagHandler.bind(_this);
+        _this.chooseTagHandler = _this.chooseTagHandler.bind(_this);
         return _this;
     }
 
@@ -18552,11 +18560,10 @@ var SearchPage = function (_React$Component) {
                 if (!tags || !tags.data || tags.status !== 200) {
                     console.error("something went wrong: ", tags);
                 } else {
-                    var tagArray = [];
-                    for (var oneTag in tags.data) {
-                        tagArray.push(oneTag);
+                    //console.log("got tags: ", tags.data); 
+                    for (var i = 0; i < tags.data.length; i++) {
+                        tags.data[i].selectedClass = false;
                     }
-                    console.log(tagArray[0]);
                     self.setState({
                         allTags: tags.data
                     });
@@ -18572,27 +18579,13 @@ var SearchPage = function (_React$Component) {
             });
         }
     }, {
-        key: "changeNewTagName",
-        value: function changeNewTagName(event) {
-            // set the state to reflect the value of the search text box
+        key: "changeNewTag",
+        value: function changeNewTag(event) {
+            var updatedNewTag = this.state.newTag;
+            var propToChange = event.target.name;
+            updatedNewTag[propToChange] = event.target.value;
             this.setState({
-                newTag: { name: event.target.value }
-            });
-        }
-    }, {
-        key: "changeNewTagCategory",
-        value: function changeNewTagCategory(event) {
-            // set the state to reflect the value of the search text box
-            this.setState({
-                newTag: { category: event.target.value }
-            });
-        }
-    }, {
-        key: "changeNewTagDescription",
-        value: function changeNewTagDescription(event) {
-            // set the state to reflect the value of the search text box
-            this.setState({
-                newTag: { description: event.target.value }
+                newTag: updatedNewTag
             });
         }
     }, {
@@ -18603,7 +18596,8 @@ var SearchPage = function (_React$Component) {
 
             // create an AJAX request
             var self = this;
-            _helper2.default.doSearch(_Auth2.default.getToken(), this.state.searchTerms).then(function (res) {
+            var query = this.state.searchTerms + this.state.hiddenTerms;
+            _helper2.default.doSearch(_Auth2.default.getToken(), query).then(function (res) {
                 if (res && res.status && res.status === 200) {
                     self.setState({
                         searchResults: res.data
@@ -18626,14 +18620,30 @@ var SearchPage = function (_React$Component) {
         value: function newTagHandler(event) {
             // prevent default action. in this case, action is the form submission event
             event.preventDefault();
+            console.log("adding", this.state.newTag);
             _helper2.default.createTaxTerm(_Auth2.default.getToken(), this.state.newTag).then(function (res) {
                 console.log("added to tags ", res);
             });
         }
     }, {
         key: "chooseTagHandler",
-        value: function chooseTagHandler(tagData) {
-            console.log("add " + tagData.name + " to current search query");
+        value: function chooseTagHandler(tagText, index) {
+            var tagsData = this.state.allTags;
+            var newQuery = this.state.hiddenTerms;
+            var thisTag = tagsData[index];
+            if (thisTag.selectedClass) {
+                // this tag is now DEselected, remove from query and remove selected style
+                newQuery = newQuery.substring(0, newQuery.indexOf(tagText)) + newQuery.substring(newQuery.indexOf(tagText) + tagText.length);
+                thisTag.selectedClass = false;
+            } else {
+                // this tag is now selected, add to query and add selected style
+                newQuery += " " + tagText;
+                thisTag.selectedClass = true;
+            }
+            this.setState({
+                hiddenTerms: newQuery,
+                allTags: tagsData
+            });
         }
     }, {
         key: "render",
@@ -18641,15 +18651,6 @@ var SearchPage = function (_React$Component) {
             return _react2.default.createElement(
                 "div",
                 null,
-                _react2.default.createElement(_SearchForm2.default, {
-                    onSubmit: this.processForm,
-                    onChange: this.changeTerms,
-                    searchTerms: this.state.searchTerms
-                }),
-                _react2.default.createElement(_SearchResults2.default, {
-                    addFavoriteImage: this.faveHandler,
-                    foundImages: this.state.searchResults
-                }),
                 _react2.default.createElement(_SearchTags2.default, {
                     addTag: this.newTagHandler,
                     useTag: this.chooseTagHandler,
@@ -18657,9 +18658,18 @@ var SearchPage = function (_React$Component) {
                     newTermName: this.state.newTag.name,
                     newTermDescription: this.state.newTag.description,
                     newTermCategory: this.state.newTag.category,
-                    onChangeName: this.changeNewTagName,
-                    onChangeCategory: this.changeNewTagCategory,
-                    onChangeDescription: this.changeNewTagDescription
+                    onChangeTag: this.changeNewTag
+                }),
+                _react2.default.createElement(_SearchForm2.default, {
+                    onSubmit: this.processForm,
+                    onChange: this.changeTerms,
+                    searchTerms: this.state.searchTerms,
+                    hiddenTerms: this.state.hiddenTerms,
+                    allTags: this.state.allTags
+                }),
+                _react2.default.createElement(_SearchResults2.default, {
+                    addFavoriteImage: this.faveHandler,
+                    foundImages: this.state.searchResults
                 })
             );
         }

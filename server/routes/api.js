@@ -29,7 +29,7 @@ router.get('/dashboard', (req, res) => {
 
 router.get("/search", (req, res) => {
   // called by form that searches for styles
-  //console.log("searching for ", req.query.terms);
+  console.log("searching for hairstyle ", req.query.terms);
   const googleClient = new GoogleImages(config.googleCSEId, config.googleSearchAPIKey);
   const searchOptions = {
       page: 1, 
@@ -77,7 +77,6 @@ router.get("/taxonomy", (req, response) => {
                     taxonomyArray.push(results[key]);
                 }
             }
-            console.log(taxonomyArray);
             response.send(taxonomyArray);
         }
     });
@@ -94,9 +93,8 @@ router.post("/taxonomy", (req, response) => {
     };
     const newTag = new Taxonomy(tagData);
     newTag.save((err) => {
-        console.log("done saving ", err);
-        //if (err) { return done(err); }
-        //response.send("done saving");
+        if (err) { return done(err); }
+        response.send("done saving");
     });
 });
 
