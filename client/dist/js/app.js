@@ -4991,6 +4991,7 @@ var Auth = function () {
      * @param {string} token
      */
     value: function authenticateUser(token) {
+      // console.log("setting token ", token);
       localStorage.setItem('token', token);
     }
 
@@ -6841,7 +6842,88 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 exports.default = _shallowEqual2.default;
 
 /***/ }),
-/* 82 */,
+/* 82 */
+/***/ (function(module, exports, __webpack_require__) {
+
+//import Auth from '../../src/modules/Auth';
+var axios = __webpack_require__(133);
+
+function doLogin(formData){
+    var authAxios = axios.create({
+        headers: {'Content-type': 'application/x-www-form-urlencoded'}
+    });
+    return authAxios.post('/auth/login', formData).then(function(response){
+        if (response.status === 200) {
+            return response.data.user;
+        } else {
+            // failure
+            console.log("something went wrong: ", response.errors);
+            return response.errors;
+        }
+    });
+}
+
+function doSearch(authToken, searchterms){
+    // set header to do authorization in passport
+    var authAxios = axios.create({
+        headers: {'Authorization': 'bearer ' + authToken}
+    });
+  return authAxios.get('/api/search?terms=' + searchterms);
+}
+
+function getDashboard(authToken){
+    // set header to do authorization in passport
+    var authAxios = axios.create({
+        headers: {'Authorization': 'bearer ' + authToken}
+    });
+    return authAxios.get('/api/dashboard');
+}
+
+function createFavorite(authToken, image){
+    // set header to do authorization in passport
+    var authAxios = axios.create({
+        headers: {'Authorization': 'bearer ' + authToken}
+    });
+    return authAxios.post('/api/favorites', {imageData: image});
+}
+
+function createTaxTerm(authToken, term){
+    // set header to do authorization in passport
+    var authAxios = axios.create({
+        headers: {'Authorization': 'bearer ' + authToken,
+            'Content-type': 'application/x-www-form-urlencoded'
+        }
+    });
+    console.log("encoding ",term);
+    // create a string for an HTTP body message
+    const name = encodeURIComponent(term.name);
+    const category = encodeURIComponent(term.category);
+    const description = encodeURIComponent(term.description);
+    const formData = `name=${name}&category=${category}&description=${description}`;
+    return authAxios.post('/api/taxonomy', formData);
+}
+
+function getAllTags(authToken){
+    // set header to do authorization in passport
+    var authAxios = axios.create({
+        headers: {'Authorization': 'bearer ' + authToken}
+    });
+    return authAxios.get('/api/taxonomy');
+}
+
+var helpers = {
+  doLogin: doLogin,
+  doSearch: doSearch,
+  getDashboard: getDashboard,
+  createFavorite: createFavorite,
+  createTaxTerm: createTaxTerm,
+  getAllTags: getAllTags
+};
+
+module.exports = helpers;
+
+
+/***/ }),
 /* 83 */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -16201,7 +16283,7 @@ var routes = {
       }
     }
   }, {
-    path: '/search',
+    path: '/findstyle',
     component: _SearchPage2.default
   }, {
     path: '/login',
@@ -17202,7 +17284,7 @@ var Base = function Base(_ref) {
         _react2.default.createElement(
           _reactRouter.IndexLink,
           { to: '/' },
-          'Welcome to Hook\'d'
+          'Hook\'d'
         )
       ),
       _Auth2.default.isUserAuthenticated() ? _react2.default.createElement(
@@ -17210,7 +17292,7 @@ var Base = function Base(_ref) {
         { className: 'top-bar-right' },
         _react2.default.createElement(
           _reactRouter.Link,
-          { to: '/search' },
+          { to: '/findstyle' },
           'Find a Hairstyle'
         ),
         _react2.default.createElement(
@@ -17298,7 +17380,7 @@ exports.default = Dashboard;
 
 
 Object.defineProperty(exports, "__esModule", {
-  value: true
+		value: true
 });
 
 var _react = __webpack_require__(1);
@@ -17310,11 +17392,14 @@ var _Card = __webpack_require__(33);
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 var HomePage = function HomePage() {
-  return _react2.default.createElement(
-    _Card.Card,
-    { className: 'container' },
-    _react2.default.createElement(_Card.CardTitle, { title: 'React Application', subtitle: 'This is the home page.' })
-  );
+		return _react2.default.createElement(
+				_Card.Card,
+				{ className: 'container' },
+				_react2.default.createElement(_Card.CardTitle, { title: '', subtitle: '' }),
+				_react2.default.createElement('div', { className: 'element' }),
+				_react2.default.createElement('div', { className: 'element' }),
+				_react2.default.createElement('div', { className: 'element' })
+		);
 };
 
 exports.default = HomePage;
@@ -17457,6 +17542,40 @@ var _TextField2 = _interopRequireDefault(_TextField);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
+function generateYearOptions() {
+  var today = new Date();
+  var currentYear = today.getFullYear();
+
+  var years = [];
+
+  for (var i = 0; i < 10; i++) {
+    years.push(currentYear + i);
+  }
+
+  var options = years.map(function (year) {
+    return _react2.default.createElement(
+      'option',
+      { value: year, key: year },
+      year
+    );
+  });
+
+  return options;
+}
+
+function generateMonthOptions() {
+  var months = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12];
+
+  var options = months.map(function (month) {
+    return _react2.default.createElement(
+      'option',
+      { value: month, key: month },
+      month
+    );
+  });
+  return options;
+}
+
 var PayForm = function PayForm(_ref) {
   var onSubmit = _ref.onSubmit,
       onChange = _ref.onChange,
@@ -17545,31 +17664,29 @@ var PayForm = function PayForm(_ref) {
           'label',
           null,
           'Expiration Month:',
-          _react2.default.createElement('input', {
-            name: 'exp_month',
-            'data-stripe': 'exp_month',
-            type: 'text',
-            className: 'required',
-            onChange: onChangeCard,
-            value: client.card.exp_month
-          })
-        )
-      ),
-      _react2.default.createElement(
-        'div',
-        { className: 'form-row' },
+          _react2.default.createElement(
+            'select',
+            {
+              name: 'exp_month',
+              'data-stripe': 'exp_month',
+              type: 'text',
+              className: 'required',
+              onChange: onChangeCard,
+              value: client.card.exp_month
+            },
+            generateMonthOptions()
+          )
+        ),
         _react2.default.createElement(
           'label',
           null,
           'Expiration Year:',
-          _react2.default.createElement('input', {
-            name: 'exp_year',
-            'data-stripe': 'exp_year',
-            type: 'text',
-            className: 'required',
-            onChange: onChangeCard,
-            value: client.card.exp_year
-          })
+          _react2.default.createElement(
+            'select',
+            { value: client.card.exp_year, onChange: onChangeCard,
+              name: 'exp_year', 'data-stripe': 'exp_year', className: 'required' },
+            generateYearOptions()
+          )
         )
       ),
       _react2.default.createElement(
@@ -17621,8 +17738,6 @@ Object.defineProperty(exports, "__esModule", {
 var _react = __webpack_require__(1);
 
 var _react2 = _interopRequireDefault(_react);
-
-var _reactRouter = __webpack_require__(56);
 
 var _Card = __webpack_require__(33);
 
@@ -17679,8 +17794,180 @@ SearchForm.propTypes = {
 exports.default = SearchForm;
 
 /***/ }),
-/* 233 */,
-/* 234 */,
+/* 233 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+var _react = __webpack_require__(1);
+
+var _react2 = _interopRequireDefault(_react);
+
+var _Card = __webpack_require__(33);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+var SearchResults = function SearchResults(_ref) {
+  var foundImages = _ref.foundImages,
+      addFavoriteImage = _ref.addFavoriteImage;
+  return _react2.default.createElement(
+    _Card.Card,
+    { className: 'container' },
+    _react2.default.createElement(
+      'h2',
+      { className: 'card-heading' },
+      'Search Results'
+    ),
+    _react2.default.createElement(
+      'ul',
+      { className: 'search-results' },
+      foundImages ? foundImages.map(function (result) {
+        return _react2.default.createElement(
+          'li',
+          { key: result.url, onClick: function onClick() {
+              addFavoriteImage(result);
+            } },
+          _react2.default.createElement('img', { src: result.url, height: result.height, width: result.width })
+        );
+      }) : "No Results Yet"
+    )
+  );
+};
+
+SearchResults.propTypes = {
+  foundImages: _react.PropTypes.array,
+  addFavoriteImage: _react.PropTypes.func.isRequired
+};
+
+exports.default = SearchResults;
+
+/***/ }),
+/* 234 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+var _react = __webpack_require__(1);
+
+var _react2 = _interopRequireDefault(_react);
+
+var _Card = __webpack_require__(33);
+
+var _RaisedButton = __webpack_require__(64);
+
+var _RaisedButton2 = _interopRequireDefault(_RaisedButton);
+
+var _TextField = __webpack_require__(65);
+
+var _TextField2 = _interopRequireDefault(_TextField);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+var SearchTags = function SearchTags(_ref) {
+  var taxonomy = _ref.taxonomy,
+      addTag = _ref.addTag,
+      useTag = _ref.useTag,
+      newTermName = _ref.newTermName,
+      newTermCategory = _ref.newTermCategory,
+      newTermDescription = _ref.newTermDescription,
+      onChangeName = _ref.onChangeName,
+      onChangeCategory = _ref.onChangeCategory,
+      onChangeDescription = _ref.onChangeDescription;
+  return _react2.default.createElement(
+    _Card.Card,
+    { className: 'container' },
+    _react2.default.createElement(
+      'h2',
+      { className: 'card-heading' },
+      'Style Options'
+    ),
+    _react2.default.createElement(
+      'ul',
+      { className: 'search-results' },
+      taxonomy ? taxonomy.map(function (tag) {
+        return _react2.default.createElement(
+          'button',
+          { key: tag.name, onClick: function onClick() {
+              useTag(tag);
+            } },
+          tag.category,
+          ' : ',
+          tag.displayName
+        );
+      }) : "No Taxonomy Terms"
+    ),
+    _react2.default.createElement(
+      'form',
+      { action: '/', onSubmit: addTag },
+      _react2.default.createElement(
+        'h4',
+        { className: 'card-heading' },
+        'Add a New Tag'
+      ),
+      _react2.default.createElement(
+        'div',
+        { className: 'field-line' },
+        _react2.default.createElement(_TextField2.default, {
+          floatingLabelText: 'Terms',
+          name: 'name',
+          onChange: onChangeName,
+          value: newTermName
+        })
+      ),
+      _react2.default.createElement(
+        'div',
+        { className: 'field-line' },
+        _react2.default.createElement(_TextField2.default, {
+          floatingLabelText: 'Category',
+          name: 'category',
+          onChange: onChangeCategory,
+          value: newTermCategory
+        })
+      ),
+      _react2.default.createElement(
+        'div',
+        { className: 'field-line' },
+        _react2.default.createElement(_TextField2.default, {
+          floatingLabelText: 'Description',
+          name: 'description',
+          onChange: onChangeDescription,
+          value: newTermDescription
+        })
+      ),
+      _react2.default.createElement(
+        'div',
+        { className: 'button-line' },
+        _react2.default.createElement(_RaisedButton2.default, { type: 'submit', label: 'Add Tag', primary: true })
+      )
+    )
+  );
+};
+
+SearchTags.propTypes = {
+  taxonomy: _react.PropTypes.array,
+  addTag: _react.PropTypes.func.isRequired,
+  useTag: _react.PropTypes.func.isRequired,
+  onChangeName: _react.PropTypes.func.isRequired,
+  onChangeCategory: _react.PropTypes.func.isRequired,
+  onChangeDescription: _react.PropTypes.func.isRequired,
+  newTermName: _react.PropTypes.string,
+  newTermCategory: _react.PropTypes.string,
+  newTermDescription: _react.PropTypes.string
+};
+
+exports.default = SearchTags;
+
+/***/ }),
 /* 235 */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -17817,6 +18104,10 @@ var _Dashboard = __webpack_require__(228);
 
 var _Dashboard2 = _interopRequireDefault(_Dashboard);
 
+var _helper = __webpack_require__(82);
+
+var _helper2 = _interopRequireDefault(_helper);
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
@@ -17847,33 +18138,12 @@ var DashboardPage = function (_React$Component) {
   _createClass(DashboardPage, [{
     key: 'componentDidMount',
     value: function componentDidMount() {
-      var _this2 = this;
-
-      var xhr = new XMLHttpRequest();
-      xhr.open('get', '/api/dashboard');
-      xhr.setRequestHeader('Content-type', 'application/x-www-form-urlencoded');
-      // set the authorization HTTP header
-      xhr.setRequestHeader('Authorization', 'bearer ' + _Auth2.default.getToken());
-      xhr.responseType = 'json';
-      xhr.addEventListener('load', function () {
-        if (xhr.status === 200) {
-          _this2.setState({
-            secretData: xhr.response.message
-          });
-        }
+      var self = this;
+      // create an AJAX request
+      _helper2.default.getDashboard(_Auth2.default.getToken()).then(function (response) {
+        //console.log("res ", response.data.message);
+        self.setState({ secretData: response.data.message });
       });
-      xhr.send();
-    }
-
-    /**
-     * Handle Search Form Submit
-     */
-
-  }, {
-    key: 'searchHandler',
-    value: function searchHandler(event) {
-      event.preventDefault();
-      console.log("searchHandler");
     }
 
     /**
@@ -17917,6 +18187,10 @@ var _LoginForm = __webpack_require__(230);
 
 var _LoginForm2 = _interopRequireDefault(_LoginForm);
 
+var _helper = __webpack_require__(82);
+
+var _helper2 = _interopRequireDefault(_helper);
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
@@ -17952,44 +18226,33 @@ var LoginPage = function (_React$Component) {
   _createClass(LoginPage, [{
     key: 'processForm',
     value: function processForm(event) {
-      var _this2 = this;
-
       // prevent default action. in this case, action is the form submission event
       event.preventDefault();
-
+      var self = this;
       // create a string for an HTTP body message
       var email = encodeURIComponent(this.state.user.email);
       var password = encodeURIComponent(this.state.user.password);
       var formData = 'email=' + email + '&password=' + password;
-
-      // create an AJAX request
-      var xhr = new XMLHttpRequest();
-      xhr.open('post', '/auth/login');
-      xhr.setRequestHeader('Content-type', 'application/x-www-form-urlencoded');
-      xhr.responseType = 'json';
-      xhr.addEventListener('load', function () {
-        if (xhr.status === 200) {
+      _helper2.default.doLogin(formData).then(function (result) {
+        if (result.message) {
+          // there was an error
+          // change the component state
+          var errors = result;
+          errors.summary = result.message;
+          self.setState({
+            errors: errors
+          });
+        } else {
           // success! change the component-container state
-          _this2.setState({
+          self.setState({
             errors: {}
           });
           // save the token
-          _Auth2.default.authenticateUser(xhr.response.token);
-          // change the current URL to /
-          // there is an error here
-          console.log(_this2.context);
-          _this2.context.router.replace('/');
-        } else {
-          // failure
-          // change the component state
-          var errors = xhr.response.errors ? xhr.response.errors : {};
-          errors.summary = xhr.response.message;
-          _this2.setState({
-            errors: errors
-          });
+          _Auth2.default.authenticateUser(result);
         }
+        // make a redirect
+        self.context.router.replace('/');
       });
-      xhr.send(formData);
     }
   }, {
     key: 'changeUser',
@@ -18015,6 +18278,10 @@ var LoginPage = function (_React$Component) {
 
   return LoginPage;
 }(_react2.default.Component);
+
+LoginPage.contextTypes = {
+  router: _react.PropTypes.object.isRequired
+};
 
 exports.default = LoginPage;
 
@@ -18113,7 +18380,6 @@ var PayPage = function (_React$Component) {
 
       Stripe.card.createToken(this.state.client.card, function (status, res) {
         if (res.error) {
-          console.log("!!!", res);
           console.log(res.error);
         } else {
           console.log(res);
@@ -18168,6 +18434,22 @@ var _SearchForm = __webpack_require__(232);
 
 var _SearchForm2 = _interopRequireDefault(_SearchForm);
 
+var _SearchResults = __webpack_require__(233);
+
+var _SearchResults2 = _interopRequireDefault(_SearchResults);
+
+var _SearchTags = __webpack_require__(234);
+
+var _SearchTags2 = _interopRequireDefault(_SearchTags);
+
+var _Auth = __webpack_require__(57);
+
+var _Auth2 = _interopRequireDefault(_Auth);
+
+var _helper = __webpack_require__(82);
+
+var _helper2 = _interopRequireDefault(_helper);
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
@@ -18188,14 +18470,45 @@ var SearchPage = function (_React$Component) {
 
         _this.state = {
             errors: {},
-            searchTerms: ""
+            searchTerms: "",
+            searchResults: [],
+            allTags: [],
+            newTag: {
+                name: "",
+                description: "",
+                category: ""
+            }
         };
         _this.processForm = _this.processForm.bind(_this);
         _this.changeTerms = _this.changeTerms.bind(_this);
+        _this.changeNewTagName = _this.changeNewTagName.bind(_this);
+        _this.changeNewTagDescription = _this.changeNewTagDescription.bind(_this);
+        _this.changeNewTagCategory = _this.changeNewTagCategory.bind(_this);
+        _this.newTagHandler = _this.newTagHandler.bind(_this);
         return _this;
     }
 
     _createClass(SearchPage, [{
+        key: "componentWillMount",
+        value: function componentWillMount() {
+            var self = this;
+            var tags = _helper2.default.getAllTags(_Auth2.default.getToken()).then(function (tags) {
+                // console.log("got tags info");
+                if (!tags || !tags.data || tags.status !== 200) {
+                    console.log("something went wrong: ", tags);
+                } else {
+                    var tagArray = [];
+                    for (var oneTag in tags.data) {
+                        tagArray.push(oneTag);
+                    }
+                    console.log(tagArray[0]);
+                    self.setState({
+                        allTags: tags.data
+                    });
+                }
+            });
+        }
+    }, {
         key: "changeTerms",
         value: function changeTerms(event) {
             // set the state to reflect the value of the search text box
@@ -18204,53 +18517,96 @@ var SearchPage = function (_React$Component) {
             });
         }
     }, {
+        key: "changeNewTagName",
+        value: function changeNewTagName(event) {
+            // set the state to reflect the value of the search text box
+            this.setState({
+                newTag: { name: event.target.value }
+            });
+        }
+    }, {
+        key: "changeNewTagCategory",
+        value: function changeNewTagCategory(event) {
+            // set the state to reflect the value of the search text box
+            this.setState({
+                newTag: { category: event.target.value }
+            });
+        }
+    }, {
+        key: "changeNewTagDescription",
+        value: function changeNewTagDescription(event) {
+            // set the state to reflect the value of the search text box
+            this.setState({
+                newTag: { description: event.target.value }
+            });
+        }
+    }, {
         key: "processForm",
         value: function processForm(event) {
-            var _this2 = this;
-
             // prevent default action. in this case, action is the form submission event
             event.preventDefault();
 
-            // create a string for an HTTP body message
-            var queryString = encodeURIComponent(this.state.searchTerms);
-            console.log(queryString);
-
             // create an AJAX request
-            var xhr = new XMLHttpRequest();
-            xhr.open('get', '/api/search?terms=' + queryString);
-            xhr.setRequestHeader('Content-type', 'application/x-www-form-urlencoded');
-            xhr.responseType = 'json';
-            xhr.addEventListener('load', function () {
-                if (xhr.status === 200) {
-                    // success! change the component-container state
-                    _this2.setState({
-                        errors: {}
+            var self = this;
+            _helper2.default.doSearch(_Auth2.default.getToken(), this.state.searchTerms).then(function (res) {
+                if (res && res.status && res.status === 200) {
+                    self.setState({
+                        searchResults: res.data
                     });
-                    console.log(xhr.response);
-                    // set a message
-                    //localStorage.setItem('successMessage', xhr.response.message);
-
-                    // make a redirect
-                    //this.context.router.replace('/login');
                 } else {
-                    // failure
-                    var errors = xhr.response.errors ? xhr.response.errors : {};
-                    errors.summary = xhr.response.message;
-                    _this2.setState({
-                        errors: errors
-                    });
+                    console.log("problem with response from search: ", res);
                 }
             });
-            xhr.send();
+        }
+    }, {
+        key: "faveHandler",
+        value: function faveHandler(imageData) {
+            _helper2.default.createFavorite(_Auth2.default.getToken(), imageData).then(function (res) {
+                // console.log("added to favorites ", res);
+                // add a class to the selected favorites on the page
+            });
+        }
+    }, {
+        key: "newTagHandler",
+        value: function newTagHandler(event) {
+            // prevent default action. in this case, action is the form submission event
+            event.preventDefault();
+            _helper2.default.createTaxTerm(_Auth2.default.getToken(), this.state.newTag).then(function (res) {
+                console.log("added to tags ", res);
+            });
+        }
+    }, {
+        key: "chooseTagHandler",
+        value: function chooseTagHandler(tagData) {
+            console.log("add " + tagData.name + " to current search query");
         }
     }, {
         key: "render",
         value: function render() {
-            return _react2.default.createElement(_SearchForm2.default, {
-                onSubmit: this.processForm,
-                onChange: this.changeTerms,
-                searchTerms: this.state.searchTerms
-            });
+            return _react2.default.createElement(
+                "div",
+                null,
+                _react2.default.createElement(_SearchForm2.default, {
+                    onSubmit: this.processForm,
+                    onChange: this.changeTerms,
+                    searchTerms: this.state.searchTerms
+                }),
+                _react2.default.createElement(_SearchResults2.default, {
+                    addFavoriteImage: this.faveHandler,
+                    foundImages: this.state.searchResults
+                }),
+                _react2.default.createElement(_SearchTags2.default, {
+                    addTag: this.newTagHandler,
+                    useTag: this.chooseTagHandler,
+                    taxonomy: this.state.allTags,
+                    newTermName: this.state.newTag.name,
+                    newTermDescription: this.state.newTag.description,
+                    newTermCategory: this.state.newTag.category,
+                    onChangeName: this.changeNewTagName,
+                    onChangeCategory: this.changeNewTagCategory,
+                    onChangeDescription: this.changeNewTagDescription
+                })
+            );
         }
     }]);
 

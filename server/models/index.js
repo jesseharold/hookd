@@ -11,5 +11,7 @@ module.exports.connect = (uri) => {
   });
 
   // load models
-  require('./user');
+  require('./User');
+  require('./Taxonomy');
+  require('./Style');
 };

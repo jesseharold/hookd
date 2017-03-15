@@ -26,7 +26,9 @@
     "axios": "^0.15.3",
     "bcrypt": "^1.0.2",
     "body-parser": "^1.17.0",
+    "cookie-parser": "^1.4.3",
     "express": "^4.15.0",
+    "express-session": "^1.15.1",
     "google-images": "^2.1.0",
     "jsonwebtoken": "^7.3.0",
     "material-ui": "^0.17.0",
@@ -36,8 +38,6 @@
     "react": "^15.4.2",
     "react-dom": "^15.4.2",
     "react-router": "^3.0.2",
-    "react-script-loader": "0.0.1",
-    "react-stripe-checkout": "^2.2.5",
     "react-tap-event-plugin": "^2.0.1",
     "stripe": "^4.15.1",
     "validator": "^7.0.0"

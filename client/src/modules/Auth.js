@@ -8,6 +8,7 @@ class Auth {
    * @param {string} token
    */
   static authenticateUser(token) {
+    // console.log("setting token ", token);
     localStorage.setItem('token', token);
   }
 

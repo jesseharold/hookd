@@ -1,6 +1,7 @@
 import React from 'react';
 import Auth from '../modules/Auth';
 import Dashboard from '../components/Dashboard.jsx';
+import helpers from "../../dist/js/helper"
 
 class DashboardPage extends React.Component {
   constructor(props) {
@@ -15,30 +16,13 @@ class DashboardPage extends React.Component {
    * This method will be executed after initial rendering.
    */
   componentDidMount() {
-    const xhr = new XMLHttpRequest();
-    xhr.open('get', '/api/dashboard');
-    xhr.setRequestHeader('Content-type', 'application/x-www-form-urlencoded');
-    // set the authorization HTTP header
-    xhr.setRequestHeader('Authorization', `bearer ${Auth.getToken()}`);
-    xhr.responseType = 'json';
-    xhr.addEventListener('load', () => {
-      if (xhr.status === 200) {
-        this.setState({
-          secretData: xhr.response.message
-        });
-      }
+    var self = this;
+    // create an AJAX request
+    helpers.getDashboard(Auth.getToken()).then(function(response){
+        //console.log("res ", response.data.message);
+        self.setState({secretData: response.data.message});
     });
-    xhr.send();
   }
-
-  /**
-   * Handle Search Form Submit
-   */
-  searchHandler(event) {
-    event.preventDefault();
-    console.log("searchHandler");
-  }
-
 
   /**
    * Render the component.

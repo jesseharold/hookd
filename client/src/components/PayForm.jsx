@@ -5,6 +5,43 @@ import RaisedButton from 'material-ui/RaisedButton';
 import TextField from 'material-ui/TextField';
 
 
+function generateYearOptions(){
+  var today = new Date();
+  var currentYear = today.getFullYear();
+
+  var years = [];
+
+  for(var i=0; i<10; i++){
+    years.push(currentYear+i);
+  }
+
+  var options = years.map(function(year){
+    return (
+      <option value={year} key={year}>
+        {year}
+      </option>
+    )
+  });
+
+  return options;
+}
+
+function generateMonthOptions(){
+  var months = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12]
+
+  var options = months.map(function(month){
+    return (
+      <option value={month} key={month}>
+        {month}
+      </option>
+    )
+  })
+  return options;
+}
+
+
+
+
 const PayForm = ({
   onSubmit,
   onChange,
@@ -61,29 +98,24 @@ const PayForm = ({
         </div>
         <div className="form-row">
            <label>Expiration Month:
-             <input
+             <select
                name = "exp_month"
                data-stripe = "exp_month"
                type="text"
                className="required"
                onChange={onChangeCard}
                value={client.card.exp_month}
-                />
+                >
+              {generateMonthOptions()}
+            </select>
             </label>
-        </div>
-        <div className="form-row">
            <label>Expiration Year:
-             <input
-               name = "exp_year"
-               data-stripe= "exp_year"
-               type="text"
-               className="required"
-               onChange={onChangeCard}
-               value={client.card.exp_year}
-                />
-            </label>
+             <select  value={client.card.exp_year} onChange={onChangeCard}
+               name = "exp_year" data-stripe= "exp_year" className="required">
+             {generateYearOptions()}
+             </select>
+           </label>
         </div>
-
         <div className="form-row">
            <label>CVC:
              <input
