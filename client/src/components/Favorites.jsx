@@ -7,9 +7,9 @@ const Favorites = ({
   <Card className="container">
       <h2 className="card-heading">My Favorite Styles</h2>
       <ul className="faves">
-      {faveStyles ? faveStyles.map((style, i) => (
-        <img src={style.image} key={i} />
-      )) : "No Saved Styles"}
+      {faveStyles.map((style, i) => (
+        <img alt={"favorite style " + i} src={style.image} key={i} />
+      ))}
       </ul>
   </Card>
 );

@@ -41,7 +41,7 @@ router.get("/search", (req, res) => {
 });
 
 router.post("/favorites", (req, res) => {
-    //console.log("creating a new style ", req.body.imageData.url);
+    console.log("creating a new style ", req.body.imageData.url);
     // create a new style
     const styleData = {
         image: req.body.imageData.url
@@ -50,7 +50,17 @@ router.post("/favorites", (req, res) => {
     newStyle.save((err) => {
         if (err) { return done(err); }
         // look up current user and add this style to the user's favorites
-
+        if (!req.user){
+            console.log("could not find logged in user");
+        } else {
+            console.log("user: ", req.user._id);
+            User.findAndModify({
+                {id: req.user._id},
+                new: true
+            }).then(function(err, results){
+                console.log("found user ion db");
+            });
+        }
         // for future development: actually save this image so link won't become dead
         // var download = function(uri, filename, callback){
         //   request.head(uri, function(err, res, body){
@@ -64,6 +74,10 @@ router.post("/favorites", (req, res) => {
         // });
         res.send("done saving");
     });
+});
+
+router.get("/favorites", (req, response) => {
+    //get all styles that have been saved by the current user
 });
 
 router.get("/taxonomy", (req, response) => {

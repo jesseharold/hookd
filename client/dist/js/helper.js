@@ -65,13 +65,22 @@ function getAllTags(authToken){
     return authAxios.get('/api/taxonomy');
 }
 
+function getSavedStyles(authToken){
+    // set header to do authorization in passport
+    var authAxios = axios.create({
+        headers: {'Authorization': 'bearer ' + authToken}
+    });
+    return authAxios.get('/api/favorites');
+}
+
 var helpers = {
   doLogin: doLogin,
   doSearch: doSearch,
   getDashboard: getDashboard,
   createFavorite: createFavorite,
   createTaxTerm: createTaxTerm,
-  getAllTags: getAllTags
+  getAllTags: getAllTags,
+  getSavedStyles: getSavedStyles
 };
 
 module.exports = helpers;
