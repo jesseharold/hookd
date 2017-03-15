@@ -12,17 +12,15 @@ const app = express();
 // tell the app to look for static files in these directories
 app.use(express.static('./server/static/'));
 app.use(express.static('./client/dist/'));
-// tell the app to parse HTTP body messages
-app.use(bodyParser.urlencoded({ extended: false }));
-// tell the app to parse JSON body messages
-app.use(bodyParser.json());
 app.use(cookieParser(config.jwtSecret));
+// tell the app to parse body messages
+app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({ extended: false }));
 //set up express session
 app.use(session({
   secret: config.jwtSecret,
   resave: false,
-  saveUninitialized: true,
-  cookie: { secure: false }
+  saveUninitialized: true
 }));
 // pass the passport middleware
 app.use(passport.initialize());

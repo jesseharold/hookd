@@ -1,7 +1,6 @@
 import React, { PropTypes } from "react";
 import PayForm from "../components/PayForm.jsx";
 import axios from "axios";
-var ReactScriptLoaderMixin = require("react-script-loader").ReactScriptLoaderMixin;
 
 class PayPage extends React.Component {
     //class constructor

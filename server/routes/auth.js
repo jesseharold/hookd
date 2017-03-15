@@ -139,8 +139,7 @@ router.post('/login', function (req, res, next) {
       }
       req.logIn(user, function(err) {
           if (err) { return next(err); }
-          console.log(user);
-          return res.send({ success : true, message : 'Login successful', user: user });
+          return res.send({ success : true, message : 'Login successful', user: user, userName: info.name });
       });
     })(req, res, next);
   });

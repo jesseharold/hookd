@@ -82,7 +82,22 @@ ul.search-results>li {
   cursor: pointer;
   font-family: "Josefin Slab";
 }
-
+ul.search-results>li img.result {
+    max-width: 100%;
+    height: inherit;
+}
+button.selected {
+    background-color: #333;
+    color: white;
+    border-color: #000;
+    font-weight: bold;
+}
+button.unselected {
+    background-color: #ccc;
+    color: #444;
+    border-color: #999;
+    font-weight: normal;
+}
 .element {
   display: inline-block;
   background-color: #70abaf;
