@@ -34,11 +34,12 @@ build/Release
 node_modules
 jspm_packages
 
-# Optional npm cache directory
+# Optionlial npm cache directory
 .npm
 
 # Optional REPL history
 .node_repl_history
 
+
 # don't include the bundled react app file
-client/dist/js/app.js
+/client/dist/js/app.js

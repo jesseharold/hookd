@@ -6950,6 +6950,7 @@ var helpers = {
 
 module.exports = helpers;
 
+
 /***/ }),
 /* 83 */
 /***/ (function(module, exports, __webpack_require__) {
@@ -17694,6 +17695,40 @@ var _TextField2 = _interopRequireDefault(_TextField);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
+function generateYearOptions() {
+  var today = new Date();
+  var currentYear = today.getFullYear();
+
+  var years = [];
+
+  for (var i = 0; i < 10; i++) {
+    years.push(currentYear + i);
+  }
+
+  var options = years.map(function (year) {
+    return _react2.default.createElement(
+      'option',
+      { value: year, key: year },
+      year
+    );
+  });
+
+  return options;
+}
+
+function generateMonthOptions() {
+  var months = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12];
+
+  var options = months.map(function (month) {
+    return _react2.default.createElement(
+      'option',
+      { value: month, key: month },
+      month
+    );
+  });
+  return options;
+}
+
 var PayForm = function PayForm(_ref) {
   var onSubmit = _ref.onSubmit,
       onChange = _ref.onChange,
@@ -17782,31 +17817,29 @@ var PayForm = function PayForm(_ref) {
           'label',
           null,
           'Expiration Month:',
-          _react2.default.createElement('input', {
-            name: 'exp_month',
-            'data-stripe': 'exp_month',
-            type: 'text',
-            className: 'required',
-            onChange: onChangeCard,
-            value: client.card.exp_month
-          })
-        )
-      ),
-      _react2.default.createElement(
-        'div',
-        { className: 'form-row' },
+          _react2.default.createElement(
+            'select',
+            {
+              name: 'exp_month',
+              'data-stripe': 'exp_month',
+              type: 'text',
+              className: 'required',
+              onChange: onChangeCard,
+              value: client.card.exp_month
+            },
+            generateMonthOptions()
+          )
+        ),
         _react2.default.createElement(
           'label',
           null,
           'Expiration Year:',
-          _react2.default.createElement('input', {
-            name: 'exp_year',
-            'data-stripe': 'exp_year',
-            type: 'text',
-            className: 'required',
-            onChange: onChangeCard,
-            value: client.card.exp_year
-          })
+          _react2.default.createElement(
+            'select',
+            { value: client.card.exp_year, onChange: onChangeCard,
+              name: 'exp_year', 'data-stripe': 'exp_year', className: 'required' },
+            generateYearOptions()
+          )
         )
       ),
       _react2.default.createElement(
@@ -18490,7 +18523,6 @@ var PayPage = function (_React$Component) {
 
       Stripe.card.createToken(this.state.client.card, function (status, res) {
         if (res.error) {
-          console.log("!!!", res);
           console.log(res.error);
         } else {
           console.log(res);
