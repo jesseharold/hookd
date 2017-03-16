@@ -13,8 +13,6 @@ const UserSchema = new mongoose.Schema({
   cellphone: String,
   role: { type: String, enum: ["admin", "barber", "user"] },
 // Associations
-
-//  pastStyles: [ Style ],
   likedStyles : [{
     type: mongoose.Schema.Types.ObjectId,
     ref: "Style"

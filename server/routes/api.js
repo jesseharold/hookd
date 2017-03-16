@@ -4,25 +4,24 @@ const config = require('../../config');
 const models = require('mongoose');
 const Style = models.model('Style');
 const Taxonomy = models.model('Taxonomy');
-//const fs = require('fs');
-//const request = require('request');
+const User = models.model('User');
 
- 
 const router = new express.Router();
 // since this is in the api routes
 // we should get an access to this route only after 
 // a successful execution of the authentication checker middleware
 
-router.get('/dashboard', (req, res) => {
-    if (req.user){
+router.get('/dashboard', (req, res, next) => {
+    if (req.userid){
         // called by the home page, should return
         // the appropriate dashboard data, depending on the role
         res.status(200).json({
-            message: "If you can see this message, you are logged in!",
-            role: "user"
+            message: "If you can see this message, you are logged in!"
         });
     } else {
-        res.status(401).send("you are not logged in.");
+        res.status(401).json({
+            message: "you are not logged in."
+        });
     }
 
 });
@@ -40,44 +39,46 @@ router.get("/search", (req, res) => {
   }); 
 });
 
+
+router.get("/favorites", (req, response) => {
+    // get all styles that have been saved by the current user
+    // console.log("userid: ", req.userid);
+    User.findById(req.userid).populate("likedStyles").then(function(err, results){
+        if (err) { 
+            response.send(err); 
+        } else {
+            response.send(results.likedStyles);
+        }
+    });
+});
+
 router.post("/favorites", (req, res) => {
-    console.log("creating a new style ", req.body.imageData.url);
     // create a new style
     const styleData = {
         image: req.body.imageData.url
     };
     const newStyle = new Style(styleData);
-    newStyle.save((err) => {
+    newStyle.save((err, addedStyle) => {
         if (err) { return done(err); }
-        // look up current user and add this style to the user's favorites
-        if (!req.user){
+        if (!req.userid){
             console.log("could not find logged in user");
         } else {
-            console.log("user: ", req.user._id);
-            User.findAndModify({
-                {id: req.user._id},
-                new: true
-            }).then(function(err, results){
-                console.log("found user ion db");
+            // look up current user and add this style to the user's favorites
+            User.findById(req.userid).populate("likedStyles").then(function(err, myuser){
+                if (err) { 
+                    res.send(err); 
+                } else {
+                    console.log("found user");
+                    console.log(myuser);
+                    console.log(myuser.likedStyles);
+                    myuser.likedStyles.push(addedStyle);
+                    console.log(myuser.likedStyles);
+                }
             });
         }
-        // for future development: actually save this image so link won't become dead
-        // var download = function(uri, filename, callback){
-        //   request.head(uri, function(err, res, body){
-        //     console.log('content-type:', res.headers['content-type']);
-        //     console.log('content-length:', res.headers['content-length']);
-        //     request(uri).pipe(fs.createWriteStream(filename)).on('close', callback);
-        //   });
-        // };
-        // download('https://www.google.com/images/srpr/logo3w.png', 'google.png', function(){
-        //   console.log('done');
-        // });
-        res.send("done saving");
+        // send back updated favorites
+        res.send(newStyle);
     });
-});
-
-router.get("/favorites", (req, response) => {
-    //get all styles that have been saved by the current user
 });
 
 router.get("/taxonomy", (req, response) => {

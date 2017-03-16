@@ -49,13 +49,12 @@ class SearchPage extends React.Component {
         });
 
         const savedStyles = helpers.getSavedStyles(Auth.getToken()).then(function(styles){
-             console.log("got styles info");
             if (!styles || !styles.data || styles.status !== 200){
                 console.error("something went wrong: ", styles);
             } else {
-                console.log("got styles: ", styles.data); 
+                console.log("got user's styles: ", styles.data.likedStyles); 
                 self.setState({
-                    favoriteStyles: styles.data
+                    favoriteStyles: styles.data.likedStyles
                 });
             }
         });
