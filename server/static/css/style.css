@@ -5,21 +5,13 @@ a {
   transition: color 0.2s;
   font-family: "Josefin Slab";
   text-decoration: none;
-<<<<<<< HEAD
-  transition: color 0.4s;
-  font-family: "Josefin Slab";
 
-=======
->>>>>>> cdfbdb2ee7bdcdb990eb786bac30e1adb762c367
 }
 
 a:hover {
   color: #FF8C00;
   font-family: "Josefin Slab";
-<<<<<<< HEAD
-=======
-  text-decoration: none;
->>>>>>> cdfbdb2ee7bdcdb990eb786bac30e1adb762c367
+
 }
 
 .text-center {
@@ -40,12 +32,8 @@ a:hover {
   float: left;
   font-family: "Josefin Slab";
   color: #FF8C00;
-<<<<<<< HEAD
   font-size: 24px;
-=======
-  font-size: 32px;
-  text-decoration: none;
->>>>>>> cdfbdb2ee7bdcdb990eb786bac30e1adb762c367
+
 }
 
 .top-bar-right {
@@ -53,10 +41,7 @@ a:hover {
   font-family: "Josefin Slab";
   color: #70abaf;
   font-size: 18px;
-<<<<<<< HEAD
-=======
-  text-decoration: none;
->>>>>>> cdfbdb2ee7bdcdb990eb786bac30e1adb762c367
+
 }
 
 .top-bar a,
@@ -90,7 +75,6 @@ a:hover {
 .success-message {
   padding: 0 16px;
   color: green;
-<<<<<<< HEAD
 }
 
 ul.search-results>li {
@@ -119,12 +103,7 @@ button.unselected {
     font-weight: normal;
 
 }
-=======
-  font-family: "Josefin Slab";
 
-}
-
->>>>>>> cdfbdb2ee7bdcdb990eb786bac30e1adb762c367
 .element {
   display: inline-block;
   background-color: #70abaf;
@@ -155,10 +134,6 @@ body, html {
 
 
 body {
-<<<<<<< HEAD
-=======
- 
->>>>>>> cdfbdb2ee7bdcdb990eb786bac30e1adb762c367
   align-items: center;
   justify-content: center;
 }
