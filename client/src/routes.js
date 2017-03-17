@@ -5,6 +5,7 @@ import LoginPage from './containers/LoginPage.jsx';
 import SignUpPage from './containers/SignUpPage.jsx';
 import SearchPage from './containers/SearchPage.jsx';
 import CalendarPage from './containers/CalendarPage.jsx';
+import PayPage from './containers/PayPage.jsx';
 import Auth from './modules/Auth';
 
 const routes = {
@@ -36,6 +37,9 @@ const routes = {
     {
       path: '/calendar',
       component: CalendarPage
+      path: '/pay',
+      component: PayPage
+
     },
     {
       path: '/logout',

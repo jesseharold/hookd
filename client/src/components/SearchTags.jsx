@@ -10,24 +10,21 @@ const SearchTags = ({
   newTermName,
   newTermCategory,
   newTermDescription,
-  onChangeName,
-  onChangeCategory,
-  onChangeDescription
+  onChangeTag
 }) => (
   <Card className="container">
-      <h2 className="card-heading">Style Options</h2>
-      <ul className="search-results">
-      {taxonomy ? taxonomy.map(tag => (
-        <button key={tag.name} onClick={function(){useTag(tag);}}>{tag.category} : {tag.displayName}</button>
+      <ul className="search-tags">
+      {taxonomy ? taxonomy.map((tag, i) => (
+        <button className={tag.selectedClass ? "selected" : "unselected"} key={i} onClick={function(){useTag(tag.name, i);}}>{tag.displayName}</button>
       )) : "No Taxonomy Terms"}
       </ul>
       <form action="/" onSubmit={addTag}>
       <h4 className="card-heading">Add a New Tag</h4>
       <div className="field-line">
         <TextField
-          floatingLabelText="Terms"
+          floatingLabelText="Term Name"
           name="name"
-          onChange={onChangeName}
+          onChange={onChangeTag}
           value={newTermName}
         />
       </div>
@@ -35,7 +32,7 @@ const SearchTags = ({
         <TextField
           floatingLabelText="Category"
           name="category"
-          onChange={onChangeCategory}
+          onChange={onChangeTag}
           value={newTermCategory}
         />
       </div>
@@ -43,7 +40,7 @@ const SearchTags = ({
         <TextField
           floatingLabelText="Description"
           name="description"
-          onChange={onChangeDescription}
+          onChange={onChangeTag}
           value={newTermDescription}
         />
       </div>
@@ -59,9 +56,7 @@ SearchTags.propTypes = {
   taxonomy: PropTypes.array,
   addTag: PropTypes.func.isRequired,
   useTag: PropTypes.func.isRequired,
-  onChangeName: PropTypes.func.isRequired,
-  onChangeCategory: PropTypes.func.isRequired,
-  onChangeDescription: PropTypes.func.isRequired,
+  onChangeTag: PropTypes.func.isRequired,
   newTermName: PropTypes.string,
   newTermCategory: PropTypes.string,
   newTermDescription: PropTypes.string,

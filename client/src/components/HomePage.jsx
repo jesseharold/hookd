@@ -1,4 +1,5 @@
 import React from 'react';
+import { Link } from 'react-router';
 import { Card, CardTitle } from 'material-ui/Card';
 
 
@@ -6,10 +7,7 @@ const HomePage = () => (
   <Card className="container">
     <CardTitle title="" subtitle="" />
     	<div className="element">
-		</div>
-		<div className="element">
-		</div>
-		<div className="element">
+				Please <Link to={'/login'}>log in</Link> to see your dashboard.
 		</div>
 	
   </Card>

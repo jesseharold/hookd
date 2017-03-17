@@ -6,7 +6,6 @@ const StyleSchema = new mongoose.Schema({
   image: String,
   name: String,
   description: String
-//  tags: [ Taxonomy ]
 });
 
 module.exports = mongoose.model('Style', StyleSchema);

@@ -8,6 +8,7 @@ const SearchForm = ({
   onSubmit,
   onChange,
   searchTerms,
+  hiddenTerms
 }) => (
   <Card className="container">
     <form action="/" onSubmit={onSubmit}>
@@ -20,7 +21,7 @@ const SearchForm = ({
           value={searchTerms}
         />
       </div>
-
+      <input type="hidden" name="tags" value={hiddenTerms} />
       <div className="button-line">
         <RaisedButton type="submit" label="Search" primary />
       </div>
@@ -33,7 +34,8 @@ const SearchForm = ({
 SearchForm.propTypes = {
   onSubmit: PropTypes.func.isRequired,
   onChange: PropTypes.func.isRequired,
-  searchTerms: PropTypes.string.isRequired
+  searchTerms: PropTypes.string.isRequired,
+  hiddenTerms: PropTypes.string
 };
 
 export default SearchForm;

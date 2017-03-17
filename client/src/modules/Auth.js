@@ -27,6 +27,7 @@ class Auth {
    */
   static deauthenticateUser() {
     localStorage.removeItem('token');
+    localStorage.removeItem('userName');
   }
 
   /**
@@ -38,6 +39,20 @@ class Auth {
   static getToken() {
     return localStorage.getItem('token');
   }
+  /**
+   * Get a the user's name.
+   *
+   * @returns {string}
+   */
+
+  static getUserName() {
+    return localStorage.getItem('userName');
+  }
+  /**
+   * Set a the user's name.
+   *
+   * @param {string} name
+   */
 
 }
 

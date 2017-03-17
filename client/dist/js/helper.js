@@ -7,10 +7,12 @@ function doLogin(formData){
     });
     return authAxios.post('/auth/login', formData).then(function(response){
         if (response.status === 200) {
+            // put username in localstorage for use by other pages
+            localStorage.setItem('userName', response.data.userName);
             return response.data.user;
         } else {
             // failure
-            console.log("something went wrong: ", response.errors);
+            console.error("something went wrong: ", response.errors);
             return response.errors;
         }
     });
@@ -47,7 +49,6 @@ function createTaxTerm(authToken, term){
             'Content-type': 'application/x-www-form-urlencoded'
         }
     });
-    console.log("encoding ",term);
     // create a string for an HTTP body message
     const name = encodeURIComponent(term.name);
     const category = encodeURIComponent(term.category);
@@ -64,13 +65,22 @@ function getAllTags(authToken){
     return authAxios.get('/api/taxonomy');
 }
 
+function getSavedStyles(authToken){
+    // set header to do authorization in passport
+    var authAxios = axios.create({
+        headers: {'Authorization': 'bearer ' + authToken}
+    });
+    return authAxios.get('/api/favorites');
+}
+
 var helpers = {
   doLogin: doLogin,
   doSearch: doSearch,
   getDashboard: getDashboard,
   createFavorite: createFavorite,
   createTaxTerm: createTaxTerm,
-  getAllTags: getAllTags
+  getAllTags: getAllTags,
+  getSavedStyles: getSavedStyles
 };
 
 module.exports = helpers;
