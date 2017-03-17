@@ -61,23 +61,26 @@ router.post("/favorites", (req, res) => {
     newStyle.save((err, addedStyle) => {
         if (err) { return done(err); }
         if (!req.userid){
-            console.log("could not find logged in user");
+            console.error("could not find logged in user");
         } else {
+            // console.log("user exists: ", req.userid);
             // look up current user and add this style to the user's favorites
-            User.findById(req.userid).populate("likedStyles").then(function(err, myuser){
-                if (err) { 
-                    res.send(err); 
+            User.findById(req.userid).populate("likedStyles").then(function(myuser){
+                if (!myuser) { 
+                    console.error("error finding that user in db");
                 } else {
-                    console.log("found user");
-                    console.log(myuser);
-                    console.log(myuser.likedStyles);
+                    // found user, add new style
                     myuser.likedStyles.push(addedStyle);
-                    console.log(myuser.likedStyles);
+                    myuser.save(function(err, updatedUser){
+                        if (err){
+                            return console.error(err);
+                        }
+                        // send back updated user to browser
+                        res.send(updatedUser);
+                    })
                 }
             });
         }
-        // send back updated favorites
-        res.send(newStyle);
     });
 });
 
