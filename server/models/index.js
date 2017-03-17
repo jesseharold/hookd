@@ -14,4 +14,5 @@ module.exports.connect = (uri) => {
   require('./User');
   require('./Taxonomy');
   require('./Style');
+  require('./Reservation');
 };
