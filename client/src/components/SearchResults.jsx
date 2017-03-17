@@ -7,11 +7,17 @@ const SearchResults = ({
 }) => (
   <Card className="container">
       <h2 className="card-heading">Search Results</h2>
-      <ul className="search-results">
+      
+      <div className="row">
       {foundImages ? foundImages.map(result => (
-        <li key={result.url} onClick={function(){addFavoriteImage(result);}}><img src={result.url} height={result.height} width={result.width} /></li>
+        
+          <div key={result.url} className="col-xs-8 col-md-4">
+            <a onClick={function(){addFavoriteImage(result);}} className="thumbnail">
+        <img src={result.url} height={result.height} width={result.width} />
+            </a>
+          </div>
       )) : "No Results Yet"}
-      </ul>
+      </div>
   </Card>
 );
 

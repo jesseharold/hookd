@@ -6,6 +6,7 @@ a {
   text-decoration: none;
   transition: color 0.4s;
   font-family: "Josefin Slab";
+
 }
 
 a:hover {
@@ -83,6 +84,10 @@ ul.search-results>li {
   font-family: "Josefin Slab";
 }
 
+img {
+  position: relative;
+  float: center;
+}
 .element {
   display: inline-block;
   background-color: #70abaf;
