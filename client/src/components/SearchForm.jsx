@@ -27,6 +27,8 @@ const SearchForm = ({
       </div>
     </form>
   </Card>
+
+  
 );
 
 SearchForm.propTypes = {
