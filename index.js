@@ -17,6 +17,7 @@ app.use(bodyParser.json());
 // pass the passport middleware
 app.use(passport.initialize());
 
+
 // load passport strategies
 const localSignupStrategy = require('./server/passport/local-signup');
 const localLoginStrategy = require('./server/passport/local-login');
@@ -32,6 +33,9 @@ const authRoutes = require('./server/routes/auth');
 const apiRoutes = require('./server/routes/api');
 app.use('/auth', authRoutes);
 app.use('/api', apiRoutes);
+//reservations
+const reservationRoutes = require('./server/routes/reservation');
+app.use('/reservation', reservationRoutes);
 
 
 // start the server
