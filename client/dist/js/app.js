@@ -18707,8 +18707,9 @@ var SearchPage = function (_React$Component) {
         key: "faveHandler",
         value: function faveHandler(imageData) {
             _helper2.default.createFavorite(_Auth2.default.getToken(), imageData).then(function (res) {
-                console.log("added to favorites ", res);
+                console.log("user's updated favorites: ", res.data.likedStyles);
                 // add a class to the selected favorites on the page
+                //re-render favorites component, using the results
             });
         }
     }, {
