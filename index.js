@@ -3,7 +3,7 @@ var cookieParser = require('cookie-parser');
 const session = require('express-session');
 const bodyParser = require('body-parser');
 const passport = require('passport');
-const config = require('./config');
+const config = require('./config/private.json');
 
 // connect to the database and load models
 require('./server/models').connect(config.dbUri);

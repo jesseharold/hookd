@@ -1,6 +1,6 @@
 const express = require('express');
 const GoogleImages = require('google-images');
-const config = require('../../config');
+const config = require('../../config/private.json');
 const models = require('mongoose');
 const Style = models.model('Style');
 const Taxonomy = models.model('Taxonomy');

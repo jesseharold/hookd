@@ -1,6 +1,0 @@
-{
-  "dbUri": "mongodb://localhost/react_app",
-  "jwtSecret": "hold me closer Tony Danza",
-  "googleSearchAPIKey": "AIzaSyByLnwjK24rnbxAHIL2SGu0AqWQmWjKGCQ",
-  "googleCSEId": "004795794761665707719:ov6hibu_ngi"
-}
