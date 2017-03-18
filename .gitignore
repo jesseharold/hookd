@@ -5,7 +5,8 @@ npm-debug.log*
 
 # private keys
 private.txt
-index.json
+
+private.json
 
 # Runtime data
 pids
@@ -40,8 +41,11 @@ jspm_packages
 # Optional REPL history
 .node_repl_history
 
-
 # don't include the bundled react app file
-app.js
 
+.DS_Store
+
+bundle.js
+
+# mac files
 .DS_Store

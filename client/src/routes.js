@@ -36,7 +36,7 @@ const routes = {
     },
     {
       path: '/calendar',
-      component: CalendarPage
+      component: CalendarPage,
       path: '/pay',
       component: PayPage
 

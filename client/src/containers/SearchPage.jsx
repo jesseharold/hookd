@@ -95,8 +95,9 @@ class SearchPage extends React.Component {
 
     faveHandler(imageData){
         helpers.createFavorite(Auth.getToken(), imageData).then(function(res){
-            console.log("added to favorites ", res);
+            console.log("user's updated favorites: ", res.data.likedStyles);
             // add a class to the selected favorites on the page
+            //re-render favorites component, using the results
         });
     }
 
