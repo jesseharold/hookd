@@ -37724,7 +37724,7 @@ exports.default = Favorites;
 
 
 Object.defineProperty(exports, "__esModule", {
-		value: true
+  value: true
 });
 
 var _react = __webpack_require__(2);
@@ -37738,12 +37738,22 @@ var _Card = __webpack_require__(34);
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 var HomePage = function HomePage() {
-		return _react2.default.createElement(
-				_Card.Card,
-				{ className: 'container' },
-				_react2.default.createElement('div', { className: 'element' }),
-				_react2.default.createElement('div', { className: 'element' })
-		);
+  return _react2.default.createElement(
+    _Card.Card,
+    { className: 'container' },
+    _react2.default.createElement(_Card.CardTitle, { title: '', subtitle: '' }),
+    _react2.default.createElement(
+      'div',
+      { className: 'element' },
+      'Please ',
+      _react2.default.createElement(
+        _reactRouter.Link,
+        { to: '/login' },
+        'log in'
+      ),
+      ' to see your dashboard.'
+    )
+  );
 };
 
 exports.default = HomePage;
@@ -38072,7 +38082,6 @@ exports.default = PayForm;
 /* 459 */
 /***/ (function(module, exports) {
 
-"use strict";
 throw new Error("Module build failed: SyntaxError: Unexpected token, expected { (18:50)\n\n\u001b[0m \u001b[90m 16 | \u001b[39m      \u001b[33m<\u001b[39m\u001b[33mh2\u001b[39m className\u001b[33m=\u001b[39m\u001b[32m\"card-heading\"\u001b[39m\u001b[33m>\u001b[39m\u001b[33mSearch\u001b[39m \u001b[36mfor\u001b[39m a \u001b[33mHairstyle\u001b[39m\u001b[33m<\u001b[39m\u001b[33m/\u001b[39m\u001b[33mh2\u001b[39m\u001b[33m>\u001b[39m\n \u001b[90m 17 | \u001b[39m\n\u001b[31m\u001b[1m>\u001b[22m\u001b[39m\u001b[90m 18 | \u001b[39m      \u001b[33m<\u001b[39m\u001b[33mbutton\u001b[39m className\u001b[33m=\u001b[39m\u001b[32m\"tags\"\u001b[39m onClick\u001b[33m=\u001b[39m{\u001b[36mfunction\u001b[39m()}\u001b[33m>\u001b[39mshort\u001b[33m<\u001b[39m\u001b[33m/\u001b[39m\u001b[33mbutton\u001b[39m\u001b[33m>\u001b[39m\n \u001b[90m    | \u001b[39m                                                  \u001b[31m\u001b[1m^\u001b[22m\u001b[39m\n \u001b[90m 19 | \u001b[39m      \u001b[33m<\u001b[39m\u001b[33mbutton\u001b[39m className\u001b[33m=\u001b[39m\u001b[32m\"tags\"\u001b[39m onClick\u001b[33m=\u001b[39m{\u001b[36mfunction\u001b[39m()}\u001b[33m>\u001b[39mlong\u001b[33m<\u001b[39m\u001b[33m/\u001b[39m\u001b[33mbutton\u001b[39m\u001b[33m>\u001b[39m\n \u001b[90m 20 | \u001b[39m      \u001b[33m<\u001b[39m\u001b[33mbutton\u001b[39m className\u001b[33m=\u001b[39m\u001b[32m\"tags\"\u001b[39m onClick\u001b[33m=\u001b[39m{\u001b[36mfunction\u001b[39m()}\u001b[33m>\u001b[39mcurly\u001b[33m<\u001b[39m\u001b[33m/\u001b[39m\u001b[33mbutton\u001b[39m\u001b[33m>\u001b[39m\n \u001b[90m 21 | \u001b[39m      \u001b[33m<\u001b[39m\u001b[33mbutton\u001b[39m className\u001b[33m=\u001b[39m\u001b[32m\"tags\"\u001b[39m onClick\u001b[33m=\u001b[39m{\u001b[36mfunction\u001b[39m()}\u001b[33m>\u001b[39mstraight\u001b[33m<\u001b[39m\u001b[33m/\u001b[39m\u001b[33mbutton\u001b[39m\u001b[33m>\u001b[39m\u001b[0m\n");
 
 /***/ }),
@@ -38906,8 +38915,9 @@ var SearchPage = function (_React$Component) {
         key: "faveHandler",
         value: function faveHandler(imageData) {
             _helper2.default.createFavorite(_Auth2.default.getToken(), imageData).then(function (res) {
-                console.log("added to favorites ", res);
+                console.log("user's updated favorites: ", res.data.likedStyles);
                 // add a class to the selected favorites on the page
+                //re-render favorites component, using the results
             });
         }
     }, {

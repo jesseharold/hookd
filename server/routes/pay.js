@@ -1,5 +1,5 @@
 const express = require('express');
-const config = require('../../config/index.json');
+const config = require('../../config/private.json');
 const pubKey = config.stripe_publishableKey;
 const secretKey = config.stripe_secretKey;
 

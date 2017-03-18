@@ -5,11 +5,9 @@ import { Card, CardTitle } from 'material-ui/Card';
 
 const HomePage = () => (
   <Card className="container">
-
-		
-		<div className="element"> 
-		</div>
-		<div className="element"> 
+    <CardTitle title="" subtitle="" />
+    	<div className="element">
+				Please <Link to={'/login'}>log in</Link> to see your dashboard.
 		</div>
 
 	
