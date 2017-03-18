@@ -38070,75 +38070,10 @@ exports.default = PayForm;
 
 /***/ }),
 /* 459 */
-/***/ (function(module, exports, __webpack_require__) {
+/***/ (function(module, exports) {
 
 "use strict";
-
-
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-
-var _react = __webpack_require__(2);
-
-var _react2 = _interopRequireDefault(_react);
-
-var _Card = __webpack_require__(34);
-
-var _RaisedButton = __webpack_require__(67);
-
-var _RaisedButton2 = _interopRequireDefault(_RaisedButton);
-
-var _TextField = __webpack_require__(68);
-
-var _TextField2 = _interopRequireDefault(_TextField);
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-var SearchForm = function SearchForm(_ref) {
-  var onSubmit = _ref.onSubmit,
-      onChange = _ref.onChange,
-      searchTerms = _ref.searchTerms,
-      hiddenTerms = _ref.hiddenTerms;
-  return _react2.default.createElement(
-    _Card.Card,
-    { className: 'container' },
-    _react2.default.createElement(
-      'form',
-      { action: '/', onSubmit: onSubmit },
-      _react2.default.createElement(
-        'h2',
-        { className: 'card-heading' },
-        'Search for a Hairstyle'
-      ),
-      _react2.default.createElement(
-        'div',
-        { className: 'field-line' },
-        _react2.default.createElement(_TextField2.default, {
-          floatingLabelText: 'Search Terms',
-          name: 'terms',
-          onChange: onChange,
-          value: searchTerms
-        })
-      ),
-      _react2.default.createElement('input', { type: 'hidden', name: 'tags', value: hiddenTerms }),
-      _react2.default.createElement(
-        'div',
-        { className: 'button-line' },
-        _react2.default.createElement(_RaisedButton2.default, { type: 'submit', label: 'Search', primary: true })
-      )
-    )
-  );
-};
-
-SearchForm.propTypes = {
-  onSubmit: _react.PropTypes.func.isRequired,
-  onChange: _react.PropTypes.func.isRequired,
-  searchTerms: _react.PropTypes.string.isRequired,
-  hiddenTerms: _react.PropTypes.string
-};
-
-exports.default = SearchForm;
+throw new Error("Module build failed: SyntaxError: Unexpected token, expected { (18:50)\n\n\u001b[0m \u001b[90m 16 | \u001b[39m      \u001b[33m<\u001b[39m\u001b[33mh2\u001b[39m className\u001b[33m=\u001b[39m\u001b[32m\"card-heading\"\u001b[39m\u001b[33m>\u001b[39m\u001b[33mSearch\u001b[39m \u001b[36mfor\u001b[39m a \u001b[33mHairstyle\u001b[39m\u001b[33m<\u001b[39m\u001b[33m/\u001b[39m\u001b[33mh2\u001b[39m\u001b[33m>\u001b[39m\n \u001b[90m 17 | \u001b[39m\n\u001b[31m\u001b[1m>\u001b[22m\u001b[39m\u001b[90m 18 | \u001b[39m      \u001b[33m<\u001b[39m\u001b[33mbutton\u001b[39m className\u001b[33m=\u001b[39m\u001b[32m\"tags\"\u001b[39m onClick\u001b[33m=\u001b[39m{\u001b[36mfunction\u001b[39m()}\u001b[33m>\u001b[39mshort\u001b[33m<\u001b[39m\u001b[33m/\u001b[39m\u001b[33mbutton\u001b[39m\u001b[33m>\u001b[39m\n \u001b[90m    | \u001b[39m                                                  \u001b[31m\u001b[1m^\u001b[22m\u001b[39m\n \u001b[90m 19 | \u001b[39m      \u001b[33m<\u001b[39m\u001b[33mbutton\u001b[39m className\u001b[33m=\u001b[39m\u001b[32m\"tags\"\u001b[39m onClick\u001b[33m=\u001b[39m{\u001b[36mfunction\u001b[39m()}\u001b[33m>\u001b[39mlong\u001b[33m<\u001b[39m\u001b[33m/\u001b[39m\u001b[33mbutton\u001b[39m\u001b[33m>\u001b[39m\n \u001b[90m 20 | \u001b[39m      \u001b[33m<\u001b[39m\u001b[33mbutton\u001b[39m className\u001b[33m=\u001b[39m\u001b[32m\"tags\"\u001b[39m onClick\u001b[33m=\u001b[39m{\u001b[36mfunction\u001b[39m()}\u001b[33m>\u001b[39mcurly\u001b[33m<\u001b[39m\u001b[33m/\u001b[39m\u001b[33mbutton\u001b[39m\u001b[33m>\u001b[39m\n \u001b[90m 21 | \u001b[39m      \u001b[33m<\u001b[39m\u001b[33mbutton\u001b[39m className\u001b[33m=\u001b[39m\u001b[32m\"tags\"\u001b[39m onClick\u001b[33m=\u001b[39m{\u001b[36mfunction\u001b[39m()}\u001b[33m>\u001b[39mstraight\u001b[33m<\u001b[39m\u001b[33m/\u001b[39m\u001b[33mbutton\u001b[39m\u001b[33m>\u001b[39m\u001b[0m\n");
 
 /***/ }),
 /* 460 */
@@ -38235,19 +38170,6 @@ var SearchTags = function SearchTags(_ref) {
   return _react2.default.createElement(
     _Card.Card,
     { className: 'container' },
-    _react2.default.createElement(
-      'ul',
-      { className: 'search-tags' },
-      taxonomy ? taxonomy.map(function (tag, i) {
-        return _react2.default.createElement(
-          'button',
-          { className: tag.selectedClass ? "selected" : "unselected", key: i, onClick: function onClick() {
-              useTag(tag.name, i);
-            } },
-          tag.displayName
-        );
-      }) : "No Taxonomy Terms"
-    ),
     _react2.default.createElement(
       'form',
       { action: '/', onSubmit: addTag },

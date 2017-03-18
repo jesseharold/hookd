@@ -13,11 +13,7 @@ const SearchTags = ({
   onChangeTag
 }) => (
   <Card className="container">
-      <ul className="search-tags">
-      {taxonomy ? taxonomy.map((tag, i) => (
-        <button className={tag.selectedClass ? "selected" : "unselected"} key={i} onClick={function(){useTag(tag.name, i);}}>{tag.displayName}</button>
-      )) : "No Taxonomy Terms"}
-      </ul>
+      
       <form action="/" onSubmit={addTag}>
       <h4 className="card-heading">Add a New Tag</h4>
       <div className="field-line">
