@@ -5,7 +5,7 @@ npm-debug.log*
 
 # private keys
 private.txt
-config/index.json
+index.json
 
 # Runtime data
 pids
@@ -41,7 +41,7 @@ jspm_packages
 .node_repl_history
 
 # don't include the bundled react app file
-/client/dist/js/app.js
+./client/dist/js/app.js
 
 # mac files
 .DS_Store
