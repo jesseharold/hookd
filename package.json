@@ -1,5 +1,5 @@
 {
-  "name": "login-react-app",
+  "name": "r",
   "version": "1.0.0",
   "description": "simple react app using JWT for authentication",
   "main": "index.js",
@@ -35,7 +35,9 @@
     "mongoose": "^4.8.5",
     "passport": "^0.3.2",
     "passport-local": "^1.0.0",
+    "payment": "^1.0.4",
     "react": "^15.4.2",
+    "react-big-calendar": "^0.12.3",
     "react-dom": "^15.4.2",
     "react-router": "^3.0.2",
     "react-tap-event-plugin": "^2.0.1",

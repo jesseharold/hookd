@@ -28,6 +28,8 @@ module.exports = (req, res, next) => {
       if (userErr || !user) {
         return res.status(401).end();
       }
+      // console.log("Auth check middleware found user ", userId);
+      req.userid = userId;
       return next();
     });
   });

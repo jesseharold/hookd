@@ -22,7 +22,7 @@ class SearchPage extends React.Component {
                 description: "",
                 category: ""
             },
-            favoriteStyles: []
+            favoriteStyles: ["hello", "hi", "also me", "helllloo"]
         };
         this.processForm = this.processForm.bind(this);
         this.changeTerms = this.changeTerms.bind(this);
@@ -44,6 +44,17 @@ class SearchPage extends React.Component {
                 }
                 self.setState({
                     allTags: tags.data
+                });
+            }
+        });
+
+        const savedStyles = helpers.getSavedStyles(Auth.getToken()).then(function(styles){
+            if (!styles || !styles.data || styles.status !== 200){
+                console.error("something went wrong: ", styles);
+            } else {
+                console.log("got user's styles: ", styles.data.likedStyles); 
+                self.setState({
+                    favoriteStyles: styles.data.likedStyles
                 });
             }
         });
