@@ -4,64 +4,37 @@ import { Card, CardText } from 'material-ui/Card';
 import RaisedButton from 'material-ui/RaisedButton';
 import TextField from 'material-ui/TextField';
 
+class Profile extends React.Component {
+    //class constructor
+    constructor(props) {
+        super(props);
+        // set initial component state
+        this.state = {
+            errors: {},
+            user: {
+                email: "dummyeml",
+                name: "dummyname",
+                password: "dummypass"
+            }
+        };
+    }
+    componentWillMount(){
+      console.log(this.props);
+    }
+    render() {
+        return (
+            <Card className="container">
+              <h2 className="card-heading">User Profile</h2>
+              <CardText>User Name: {this.state.user.email}</CardText>
+              <CardText>User Email: {this.state.user.name}</CardText>
+              <CardText><Link to={'/logout'}>Log Out</Link></CardText>
+            </Card>
+        );
+    }
+}
 
-const SignUpForm = ({
-  onSubmit,
-  onChange,
-  errors,
-  user,
-}) => (
-  <Card className="container">
-    <form action="/" onSubmit={onSubmit}>
-      <h2 className="card-heading">Sign Up</h2>
-
-      {errors.summary && <p className="error-message">{errors.summary}</p>}
-
-      <div className="field-line">
-        <TextField
-          floatingLabelText="Name"
-          name="name"
-          errorText={errors.name}
-          onChange={onChange}
-          value={user.name}
-        />
-      </div>
-
-      <div className="field-line">
-        <TextField
-          floatingLabelText="Email"
-          name="email"
-          errorText={errors.email}
-          onChange={onChange}
-          value={user.email}
-        />
-      </div>
-
-      <div className="field-line">
-        <TextField
-          floatingLabelText="Password"
-          type="password"
-          name="password"
-          onChange={onChange}
-          errorText={errors.password}
-          value={user.password}
-        />
-      </div>
-
-      <div className="button-line">
-        <RaisedButton type="submit" label="Create New Account" primary />
-      </div>
-
-      <CardText>Already have an account? <Link to={'/login'}>Log in</Link></CardText>
-    </form>
-  </Card>
-);
-
-SignUpForm.propTypes = {
-  onSubmit: PropTypes.func.isRequired,
-  onChange: PropTypes.func.isRequired,
-  errors: PropTypes.object.isRequired,
-  user: PropTypes.object.isRequired
+Profile.propTypes = {
+  user: PropTypes.object
 };
 
-export default SignUpForm;
+export default Profile;
