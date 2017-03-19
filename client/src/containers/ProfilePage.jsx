@@ -7,27 +7,31 @@ class ProfilePage extends React.Component {
         super(props);
         // set initial component state
         this.state = {
-            errors: {},
-            user: {
-                email: "dummyeml",
-                name: "dummyname",
-                password: "dummypass"
+          client: {
+            first_name: "",
+            last_name: "",
+            email: "",
+            card:{
+              number: "",
+              exp_month: "",
+              exp_year: "",
+              cvc: ""
             }
-        };
-        console.log(this.state.user);
+          }
+        }
     }
+    componentWillMount(){
+        //get user info
+        console.log("getting user info");
+    }
+
     render() {
         return (
-            <Profile 
-                user={this.state.user}
+            <Profile
+                client={this.state.client}
                 />
         );
     }
 }
 
-
-Profile.contextTypes = {
-//  router: PropTypes.object.isRequired
-};
-
-export default Profile;
+export default ProfilePage;
