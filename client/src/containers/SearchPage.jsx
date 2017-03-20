@@ -17,17 +17,11 @@ class SearchPage extends React.Component {
             hiddenTerms: "",
             searchResults: [],
             allTags: [],
-            newTag: {
-                name: "",
-                description: "",
-                category: ""
-            },
             favoriteStyles: []
         };
         this.processForm = this.processForm.bind(this);
         this.changeTerms = this.changeTerms.bind(this);
-        this.changeNewTag = this.changeNewTag.bind(this);
-        this.newTagHandler = this.newTagHandler.bind(this);
+        this.faveHandler = this.faveHandler.bind(this);
         this.chooseTagHandler = this.chooseTagHandler.bind(this);
     }
 
@@ -66,14 +60,6 @@ class SearchPage extends React.Component {
             searchTerms: event.target.value
         });
     }
-    changeNewTag(event) {
-        var updatedNewTag = this.state.newTag;
-        var propToChange = event.target.name;
-        updatedNewTag[propToChange] = event.target.value;
-        this.setState({
-            newTag: updatedNewTag
-        });
-    }
 
     processForm(event) {
         // prevent default action. in this case, action is the form submission event
@@ -94,21 +80,13 @@ class SearchPage extends React.Component {
     }
 
     faveHandler(imageData){
+        const self = this;
         helpers.createFavorite(Auth.getToken(), imageData).then(function(res){
             console.log("user's updated favorites: ", res.data.likedStyles);
-            // add a class to the selected favorites on the page
             //re-render favorites component, using the results
-        });
-    }
-
-    newTagHandler(event){
-        // prevent default action. in this case, action is the form submission event
-        event.preventDefault();
-        //console.log("adding", this.state.newTag);
-        helpers.createTaxTerm(Auth.getToken(), this.state.newTag).then(function(res){
-            if (res.status !== 200){
-                console.error("problem adding a new tag: ", res);
-            }
+            self.setState({
+                favoriteStyles: res.data.likedStyles
+            });
         });
     }
 
@@ -137,13 +115,8 @@ class SearchPage extends React.Component {
         return (
             <div>
                 <SearchTags 
-                    addTag={this.newTagHandler} 
                     useTag={this.chooseTagHandler} 
-                    taxonomy={this.state.allTags} 
-                    newTermName={this.state.newTag.name}  
-                    newTermDescription={this.state.newTag.description}  
-                    newTermCategory={this.state.newTag.category} 
-                    onChangeTag={this.changeNewTag}
+                    taxonomy={this.state.allTags}  
                     />
                 <SearchForm 
                     onSubmit={this.processForm}

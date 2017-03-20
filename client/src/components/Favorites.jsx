@@ -6,11 +6,11 @@ const Favorites = ({
 }) => (
   <Card className="container">
       <h2 className="card-heading">My Favorite Styles</h2>
-      <ul className="faves">
       {faveStyles.map((style, i) => (
-        <img alt={"favorite style " + i} src={style.image} key={i} />
+        <div key={i} className="col-xs-8 col-md-4">
+          <img alt={"favorite style " + i} src={style.image} style={{width: "100%"}}  />
+        </div>
       ))}
-      </ul>
   </Card>
 );
 

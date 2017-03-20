@@ -9,15 +9,15 @@ const SearchResults = ({
       <h2 className="card-heading">Search Results</h2>
       
       <div className="row">
-      {foundImages ? foundImages.map(result => (
-        
-          <div key={result.url} className="col-xs-8 col-md-4">
+      {foundImages ? foundImages.map((result, i) => (
+          <div key={i} className="col-xs-8 col-md-4">
             <a onClick={function(){addFavoriteImage(result);}} className="thumbnail">
-        <img src={result.url} height={result.height} width={result.width} />
+              <img src={result.url} />
             </a>
           </div>
       )) : "No Results Yet"}
       </div>
+      <div className="moreResultsLink">more &gt;&gt;</div>
   </Card>
 );
 

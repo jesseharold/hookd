@@ -1,5 +1,7 @@
 import React, { PropTypes } from "react";
+import { Card, CardText } from 'material-ui/Card';
 import Profile from "../components/Profile.jsx";
+import Favorites from "../components/Favorites.jsx";
 
 class ProfilePage extends React.Component {
     //class constructor
@@ -16,7 +18,8 @@ class ProfilePage extends React.Component {
               exp_month: "",
               exp_year: "",
               cvc: ""
-            }
+            },
+            favoriteStyles:[]
           }
         }
     }
@@ -27,9 +30,14 @@ class ProfilePage extends React.Component {
 
     render() {
         return (
-            <Profile
-                client={this.state.client}
-                />
+            <Card className="container">
+                <Profile
+                    client={this.state.client}
+                    />        
+                <Favorites 
+                    faveStyles={this.state.favoriteStyles}
+                    />
+            </Card>
         );
     }
 }
