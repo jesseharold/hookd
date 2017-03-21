@@ -43,27 +43,20 @@ function createFavorite(authToken, image){
     return authAxios.post('/api/favorites', {imageData: image});
 }
 
-function createTaxTerm(authToken, term){
-    // set header to do authorization in passport
-    var authAxios = axios.create({
-        headers: {'Authorization': 'bearer ' + authToken,
-            'Content-type': 'application/x-www-form-urlencoded'
-        }
-    });
-    // create a string for an HTTP body message
-    const name = encodeURIComponent(term.name);
-    const category = encodeURIComponent(term.category);
-    const description = encodeURIComponent(term.description);
-    const formData = `name=${name}&category=${category}&description=${description}`;
-    return authAxios.post('/api/taxonomy', formData);
-}
-
-function getAllTags(authToken){
-    // set header to do authorization in passport
+function destroyFavorite(authToken, styleId){
+    // make call to api
     var authAxios = axios.create({
         headers: {'Authorization': 'bearer ' + authToken}
     });
-    return authAxios.get('/api/taxonomy');
+    return authAxios.post('/api/favorites/delete', {imageData: styleId});
+}
+
+function createAppointment(authToken, styleId){
+    // make call to api
+    var authAxios = axios.create({
+        headers: {'Authorization': 'bearer ' + authToken}
+    });
+    return authAxios.post('/api/appointment', {style: styleId});
 }
 
 function getSavedStyles(authToken){
@@ -79,9 +72,9 @@ var helpers = {
   doSearch: doSearch,
   getDashboard: getDashboard,
   createFavorite: createFavorite,
-  createTaxTerm: createTaxTerm,
-  getAllTags: getAllTags,
-  getSavedStyles: getSavedStyles
+  destroyFavorite: destroyFavorite,
+  getSavedStyles: getSavedStyles,
+  createAppointment: createAppointment
 };
 
 module.exports = helpers;

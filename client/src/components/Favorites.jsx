@@ -11,8 +11,8 @@ const Favorites = ({
       {faveStyles.map((style, i) => (
         <div key={i} className="col-xs-12 col-lg-6">
           <img alt={"favorite style " + i} src={style.image} style={{width: "100%"}}  />
-          <div className="favesLinks removeFave" onClick={removeSaved}>Remove from Favorites</div>
-          <div className="favesLinks bookFave" onClick={makeAppointment}>Book this Style</div>
+          <div className="favesLinks removeFave" onClick={function(){removeSaved(i)}}>Remove from Favorites</div>
+          <div className="favesLinks bookFave" onClick={function(){makeAppointment(i)}}>Book this Style</div>
         </div>
       ))}
   </Card>

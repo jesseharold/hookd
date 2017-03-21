@@ -46,6 +46,8 @@ class SearchPage extends React.Component {
         this.faveHandler = this.faveHandler.bind(this);
         this.chooseTagHandler = this.chooseTagHandler.bind(this);
         this.getMoreResults = this.getMoreResults.bind(this);
+        this.removeFavorite = this.removeFavorite.bind(this);
+        this.createAppointment = this.createAppointment.bind(this);
     }
 
     componentWillMount(){
@@ -130,12 +132,20 @@ class SearchPage extends React.Component {
         });
     }
 
-    removeFavorite(event){
-        console.log("remove favorite", event);
+    removeFavorite(index){
+        var self = this;
+        helpers.destroyFavorite(Auth.getToken(), this.state.favoriteStyles[index]._id).then(function(res){
+            //console.log("done destroying. updated user: ", res.data);
+            self.setState({
+                favoriteStyles: res.data.likedStyles
+            });
+        });
     }
 
-    createAppointment(event){
-        console.log("make appointment", event);
+    createAppointment(index){
+        helpers.createAppointment(Auth.getToken(), this.state.favoriteStyles[index]._id).then(function(res){
+            console.log("done creating appointment. updated user: ", res.data);
+        });
     }
 
     render() {
