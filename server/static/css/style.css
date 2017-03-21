@@ -11,7 +11,6 @@ a {
 a:hover {
   color: #FF8C00;
   font-family: "Josefin Slab";
-
 }
 
 .text-center {
@@ -33,7 +32,6 @@ a:hover {
   font-family: "Josefin Slab";
   color: #FF8C00;
   font-size: 24px;
-
 }
 
 .top-bar-right {
@@ -75,6 +73,7 @@ a:hover {
 .success-message {
   padding: 0 16px;
   color: green;
+
 }
 
 ul.search-results>li {
@@ -90,6 +89,23 @@ ul.search-results>li img.result {
     max-width: 100%;
     height: inherit;
 }
+
+button.selected {
+    background-color: #333;
+    color: white;
+    border-color: #000;
+    font-weight: bold;
+}
+button.unselected {
+    background-color: #ccc;
+    color: #444;
+    border-color: #999;
+    font-weight: normal;
+    font-family: "Josefin Slab";
+
+}
+
+
 button.tags.selected {
     background-color: #49787b;
 }
