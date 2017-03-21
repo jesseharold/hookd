@@ -5,12 +5,19 @@ a {
   transition: color 0.2s;
   font-family: "Josefin Slab";
   text-decoration: none;
+<<<<<<< HEAD
+=======
+
+>>>>>>> d52b9d8ffc7a454d851e5b0b2737008a0d412ee7
 }
 
 a:hover {
   color: #FF8C00;
   font-family: "Josefin Slab";
+<<<<<<< HEAD
   text-decoration: none;
+=======
+>>>>>>> d52b9d8ffc7a454d851e5b0b2737008a0d412ee7
 }
 
 .text-center {
@@ -31,8 +38,12 @@ a:hover {
   float: left;
   font-family: "Josefin Slab";
   color: #FF8C00;
+<<<<<<< HEAD
   font-size: 32px;
   text-decoration: none;
+=======
+  font-size: 24px;
+>>>>>>> d52b9d8ffc7a454d851e5b0b2737008a0d412ee7
 }
 
 .top-bar-right {
@@ -40,8 +51,11 @@ a:hover {
   font-family: "Josefin Slab";
   color: #70abaf;
   font-size: 18px;
+<<<<<<< HEAD
   text-decoration: none;
 
+=======
+>>>>>>> d52b9d8ffc7a454d851e5b0b2737008a0d412ee7
 
 }
 
@@ -106,6 +120,11 @@ button.unselected {
     font-weight: normal;
     font-family: "Josefin Slab";
 }
+<<<<<<< HEAD
+=======
+
+
+>>>>>>> d52b9d8ffc7a454d851e5b0b2737008a0d412ee7
 button.tags.selected {
     background-color: #49787b;
 }
