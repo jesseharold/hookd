@@ -110,17 +110,19 @@ button.unselected {
 
 .element {
   display: inline-block;
+  font-family: "Josefin Slab";
+  color: white;
+  font-size: 35px;
   background-color: #70abaf;
   height: 100px;
   width: 100px;
-  transform: skew(20deg);
-  font-size: 1px;
-  padding: 1px;
-  color: white;
+  transition: width 2s;
   margin-right: 5px;
   margin-left: 5px;
-  animation: shake 1s infinite;
-  animation-direction: alternate;
+}
+.element:hover{
+  width: 500px;
+  background: #705D56;
 }
 
 @keyframes shake {
@@ -138,10 +140,6 @@ body, html {
 
 
 body {
-<<<<<<< HEAD
-=======
- 
->>>>>>> cdfbdb2ee7bdcdb990eb786bac30e1adb762c367
   align-items: center;
   justify-content: center;
 }

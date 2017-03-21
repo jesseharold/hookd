@@ -14,6 +14,7 @@ const SearchForm = ({
     <form action="/" onSubmit={onSubmit}>
       <h2 className="card-heading">Search for a Hairstyle</h2>
       <div className="field-line">
+      <span class="glyphicon glyphicon-search" aria-hidden="true"></span>
         <TextField
           floatingLabelText="Search Terms"
           name="terms"
