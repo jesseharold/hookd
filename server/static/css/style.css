@@ -94,7 +94,6 @@ button.selected {
     background-color: #333;
     color: white;
     border-color: #000;
-    font-weight: bold;
 }
 button.unselected {
     background-color: #ccc;
@@ -103,20 +102,6 @@ button.unselected {
     font-weight: normal;
     font-family: "Josefin Slab";
 
-}
-
-
-button.tags.selected {
-    background-color: #49787b;
-}
-
-button.tags {
-    background-color: #70abaf;
-    color: white;
-    font-family: "Josefin Slab";
-    margin-right: 2px;
-    border-radius: 2px;
-    height: 36px;
 }
 
 .element {
