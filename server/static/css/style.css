@@ -91,7 +91,6 @@ button.selected {
     background-color: #333;
     color: white;
     border-color: #000;
-    font-weight: bold;
 }
 button.unselected {
     background-color: #ccc;
@@ -156,8 +155,15 @@ body {
     left: 0;
     width: 250px;
     height: 80%;
+    overflow-y: scroll;
 }
 
 .moreResultsLink {
   width: 100%;
+}
+
+.favesLinks {
+    font-size: .7em;
+    text-decoration: underline;
+    cursor: pointer;
 }

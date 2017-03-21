@@ -130,6 +130,14 @@ class SearchPage extends React.Component {
         });
     }
 
+    removeFavorite(event){
+        console.log("remove favorite", event);
+    }
+
+    createAppointment(event){
+        console.log("make appointment", event);
+    }
+
     render() {
         return (
             <div className="container">
@@ -151,6 +159,8 @@ class SearchPage extends React.Component {
                     />
                 <Favorites 
                     faveStyles={this.state.favoriteStyles}
+                    removeSaved={this.removeFavorite}
+                    makeAppointment={this.createAppointment}
                     />
             </div>
         );

@@ -34,9 +34,9 @@ class ProfilePage extends React.Component {
                 <Profile
                     client={this.state.client}
                     />        
-                <Favorites 
+                {/*<Favorites 
                     faveStyles={this.state.favoriteStyles}
-                    />
+                    />*/}
             </Card>
         );
     }
