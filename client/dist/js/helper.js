@@ -18,12 +18,13 @@ function doLogin(formData){
     });
 }
 
-function doSearch(authToken, searchterms){
+function doSearch(authToken, searchterms, offset){
     // set header to do authorization in passport
     var authAxios = axios.create({
         headers: {'Authorization': 'bearer ' + authToken}
     });
-  return authAxios.get('/api/search?terms=' + searchterms);
+    // console.log("doing search for " + searchterms + " with offset " + offset);
+    return authAxios.get('/api/search?terms=' + searchterms + '&start=' + offset);
 }
 
 function getDashboard(authToken){

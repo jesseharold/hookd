@@ -1,9 +1,11 @@
 import React, { PropTypes } from 'react';
 import { Card, CardText } from 'material-ui/Card';
+import RaisedButton from 'material-ui/RaisedButton';
 
 const SearchResults = ({
   foundImages,
-  addFavoriteImage
+  addFavoriteImage,
+  getMore
 }) => (
   <Card className="container">
       <h2 className="card-heading">Search Results</h2>
@@ -15,15 +17,20 @@ const SearchResults = ({
               <img src={result.url} />
             </a>
           </div>
-      )) : "No Results Yet"}
+      )) : <span>Choose filters and/or enter your search above</span>}
       </div>
-      <div className="moreResultsLink">more &gt;&gt;</div>
+      {foundImages.length > 0 &&
+        <div className="button-line">
+          <RaisedButton type="submit" label="More >>" primary className="moreResultsLink" onClick={getMore} />
+        </div>
+      }
   </Card>
 );
 
 SearchResults.propTypes = {
   foundImages: PropTypes.array,
-  addFavoriteImage: PropTypes.func.isRequired
+  addFavoriteImage: PropTypes.func.isRequired,
+  getMore: PropTypes.func.isRequired
 };
 
 export default SearchResults;

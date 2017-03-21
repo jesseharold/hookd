@@ -4,7 +4,7 @@ import { Card, CardText } from 'material-ui/Card';
 const Favorites = ({
     faveStyles
 }) => (
-  <Card className="container">
+  <Card className="container sidebar-left">
       <h2 className="card-heading">My Favorite Styles</h2>
       {faveStyles.map((style, i) => (
         <div key={i} className="col-xs-8 col-md-4">

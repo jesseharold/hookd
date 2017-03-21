@@ -15,8 +15,13 @@ class SearchPage extends React.Component {
             errors: {},
             searchTerms: "",
             hiddenTerms: "",
+            currentOffset: 1,
             searchResults: [],
             allTags: [{
+                    term:"men", selected:false
+                },{
+                    term:"women", selected:false
+                },{
                     term:"short", selected:false
                 },{
                     term:"medium", selected:false
@@ -29,11 +34,7 @@ class SearchPage extends React.Component {
                 },{
                     term:"beard", selected:false
                 },{
-                    term:"side part", selected:false
-                },{
-                    term:"fade", selected:false
-                },{
-                    term:"slick", selected:false
+                    term:"sleek", selected:false
                 },{
                     term:"messy", selected:false
                 }
@@ -44,6 +45,7 @@ class SearchPage extends React.Component {
         this.changeTerms = this.changeTerms.bind(this);
         this.faveHandler = this.faveHandler.bind(this);
         this.chooseTagHandler = this.chooseTagHandler.bind(this);
+        this.getMoreResults = this.getMoreResults.bind(this);
     }
 
     componentWillMount(){
@@ -74,7 +76,7 @@ class SearchPage extends React.Component {
         // create an AJAX request
         const self = this;
         var query = this.state.searchTerms + this.state.hiddenTerms;
-        helpers.doSearch(Auth.getToken(), query).then(function(res){
+        helpers.doSearch(Auth.getToken(), query, this.state.currentOffset).then(function(res){
             if (res && res.status && res.status === 200){
                 self.setState({
                     searchResults: res.data
@@ -88,7 +90,7 @@ class SearchPage extends React.Component {
     faveHandler(imageData){
         const self = this;
         helpers.createFavorite(Auth.getToken(), imageData).then(function(res){
-            console.log("user's updated favorites: ", res.data.likedStyles);
+            // console.log("user's updated favorites: ", res.data.likedStyles);
             //re-render favorites component, using the results
             self.setState({
                 favoriteStyles: res.data.likedStyles
@@ -117,6 +119,17 @@ class SearchPage extends React.Component {
         });
     }
 
+    getMoreResults(event){
+        const nowAt = this.state.currentOffset + 10;
+        console.log(nowAt);
+        this.setState({
+            currentOffset: nowAt,
+            searchResults: []
+        }, function(){
+            this.processForm(event);
+        });
+    }
+
     render() {
         return (
             <div className="container">
@@ -134,6 +147,7 @@ class SearchPage extends React.Component {
                 <SearchResults 
                     addFavoriteImage={this.faveHandler} 
                     foundImages={this.state.searchResults} 
+                    getMore={this.getMoreResults}
                     />
                 <Favorites 
                     faveStyles={this.state.favoriteStyles}

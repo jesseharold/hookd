@@ -136,3 +136,15 @@ body {
   align-items: center;
   justify-content: center;
 }
+
+.sidebar-left {
+    position: absolute;
+    top: 100px;
+    left: 0;
+    width: 250px;
+    height: 80%;
+}
+
+.moreResultsLink {
+  width: 100%;
+}
