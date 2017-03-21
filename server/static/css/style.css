@@ -5,13 +5,12 @@ a {
   transition: color 0.2s;
   font-family: "Josefin Slab";
   text-decoration: none;
+
 }
 
 a:hover {
   color: #FF8C00;
   font-family: "Josefin Slab";
-  text-decoration: none;
-
 }
 
 .text-center {
@@ -33,8 +32,6 @@ a:hover {
   font-family: "Josefin Slab";
   color: #FF8C00;
   font-size: 24px;
-  font-size: 32px;
-  text-decoration: none;
 }
 
 .top-bar-right {
@@ -42,7 +39,6 @@ a:hover {
   font-family: "Josefin Slab";
   color: #70abaf;
   font-size: 18px;
-  text-decoration: none;
 
 }
 
@@ -93,6 +89,7 @@ ul.search-results>li img.result {
     max-width: 100%;
     height: inherit;
 }
+
 button.selected {
     background-color: #333;
     color: white;
@@ -106,6 +103,20 @@ button.unselected {
     font-weight: normal;
     font-family: "Josefin Slab";
 
+}
+
+
+button.tags.selected {
+    background-color: #49787b;
+}
+
+button.tags {
+    background-color: #70abaf;
+    color: white;
+    font-family: "Josefin Slab";
+    margin-right: 2px;
+    border-radius: 2px;
+    height: 36px;
 }
 
 .element {
@@ -138,10 +149,18 @@ body, html {
 
 
 body {
-<<<<<<< HEAD
-=======
- 
->>>>>>> cdfbdb2ee7bdcdb990eb786bac30e1adb762c367
   align-items: center;
   justify-content: center;
+}
+
+.sidebar-left {
+    position: absolute;
+    top: 100px;
+    left: 0;
+    width: 250px;
+    height: 80%;
+}
+
+.moreResultsLink {
+  width: 100%;
 }

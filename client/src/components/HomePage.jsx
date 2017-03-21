@@ -9,6 +9,7 @@ const HomePage = () => (
     	<div className="element">
 				Please <Link to={'/login'}>log in</Link> to see your dashboard.
 		</div>
+
 	
   </Card>
 );

@@ -7,12 +7,12 @@ import TextField from 'material-ui/TextField';
 const SearchForm = ({
   onSubmit,
   onChange,
+  useTag,
   searchTerms,
   hiddenTerms
 }) => (
   <Card className="container">
     <form action="/" onSubmit={onSubmit}>
-      <h2 className="card-heading">Search for a Hairstyle</h2>
       <div className="field-line">
         <TextField
           floatingLabelText="Search Terms"
