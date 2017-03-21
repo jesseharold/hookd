@@ -16,7 +16,28 @@ class SearchPage extends React.Component {
             searchTerms: "",
             hiddenTerms: "",
             searchResults: [],
-            allTags: [],
+            allTags: [{
+                    term:"short", selected:false
+                },{
+                    term:"medium", selected:false
+                },{
+                    term:"long", selected:false
+                },{
+                    term:"straight", selected:false
+                },{
+                    term:"curly", selected:false
+                },{
+                    term:"beard", selected:false
+                },{
+                    term:"side part", selected:false
+                },{
+                    term:"fade", selected:false
+                },{
+                    term:"slick", selected:false
+                },{
+                    term:"messy", selected:false
+                }
+            ],
             favoriteStyles: []
         };
         this.processForm = this.processForm.bind(this);
@@ -27,21 +48,6 @@ class SearchPage extends React.Component {
 
     componentWillMount(){
         var self = this;
-        const tags = helpers.getAllTags(Auth.getToken()).then(function(tags){
-            // console.log("got tags info");
-            if (!tags || !tags.data || tags.status !== 200){
-                console.error("something went wrong: ", tags);
-            } else {
-                //console.log("got tags: ", tags.data); 
-                for (var i = 0; i < tags.data.length; i++){
-                    tags.data[i].selectedClass = false;
-                }
-                self.setState({
-                    allTags: tags.data
-                });
-            }
-        });
-
         const savedStyles = helpers.getSavedStyles(Auth.getToken()).then(function(styles){
             if (!styles || !styles.data || styles.status !== 200){
                 console.error("something went wrong: ", styles);
@@ -94,16 +100,16 @@ class SearchPage extends React.Component {
         var tagsData = this.state.allTags;
         var newQuery = this.state.hiddenTerms;
         var thisTag = tagsData[index];
-        if (thisTag.selectedClass) {
+        if (thisTag.selected) {
             // this tag is now DEselected, remove from query and remove selected style
             newQuery = newQuery.substring(0, newQuery.indexOf(tagText)) + 
                 newQuery.substring(newQuery.indexOf(tagText) + tagText.length);
-            thisTag.selectedClass = false;
+            thisTag.selected = false;
         }
         else {
             // this tag is now selected, add to query and add selected style
             newQuery += " " + tagText;
-            thisTag.selectedClass = true;
+            thisTag.selected = true;
         }
         this.setState({
             hiddenTerms: newQuery,
@@ -113,17 +119,17 @@ class SearchPage extends React.Component {
 
     render() {
         return (
-            <div>
+            <div className="container">
+                <h2 className="card-heading">Search for a Hairstyle</h2>
                 <SearchTags 
                     useTag={this.chooseTagHandler} 
-                    taxonomy={this.state.allTags}  
+                    allTags={this.state.allTags}
                     />
                 <SearchForm 
                     onSubmit={this.processForm}
                     onChange={this.changeTerms}
                     searchTerms={this.state.searchTerms}
                     hiddenTerms={this.state.hiddenTerms}
-                    allTags={this.state.allTags}
                     />
                 <SearchResults 
                     addFavoriteImage={this.faveHandler} 

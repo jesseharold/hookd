@@ -13,17 +13,6 @@ const SearchForm = ({
 }) => (
   <Card className="container">
     <form action="/" onSubmit={onSubmit}>
-      <h2 className="card-heading">Search for a Hairstyle</h2>
-
-      <button className="tags" onClick={function()}>short</button>
-      <button className="tags" onClick={function()}>long</button>
-      <button className="tags" onClick={function()}>curly</button>
-      <button className="tags" onClick={function()}>straight</button>
-      <button className="tags" onClick={function()}>beard</button>
-      <button className="tags" onClick={function()}>medium</button>
-      <button className="tags" onClick={function()}>bangs</button>
-      <button className="tags" onClick={function()}>updo</button>
-
       <div className="field-line">
         <TextField
           floatingLabelText="Search Terms"

@@ -4,25 +4,18 @@ import RaisedButton from 'material-ui/RaisedButton';
 import TextField from 'material-ui/TextField';
 
 const SearchTags = ({
-  taxonomy,
-  addTag,
   useTag,
-  newTermName,
-  newTermCategory,
-  newTermDescription,
-  onChangeTag
+  allTags
 }) => (
-  <Card className="container">
-      <ul className="search-tags">
-      {taxonomy ? taxonomy.map((tag, i) => (
-        <button className={tag.selectedClass ? "selected" : "unselected"} key={i} onClick={function(){useTag(tag.name, i);}}>{tag.displayName}</button>
-      )) : "No Taxonomy Terms"}
-      </ul>
-  </Card>
+  <div className="container">
+      {allTags.map((tag, i) => (
+        <button key={i} className={tag.selected ? "selected tags" : "unselected tags"} onClick={function(){useTag(tag.term, i);}}>{tag.term}</button>
+      ))}
+  </div>
 );
 
 SearchTags.propTypes = {
-  taxonomy: PropTypes.array,
+  allTags: PropTypes.array,
   useTag: PropTypes.func.isRequired
 };
 

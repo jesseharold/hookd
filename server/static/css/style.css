@@ -90,19 +90,11 @@ ul.search-results>li img.result {
     max-width: 100%;
     height: inherit;
 }
-button.selected {
-    background-color: #333;
-    color: white;
-
-}
-button.unselected {
-    background-color: #ccc;
-    color: #444;
-
+button.tags.selected {
+    background-color: #49787b;
 }
 
-button.tags{
-
+button.tags {
     background-color: #70abaf;
     color: white;
     font-family: "Josefin Slab";
