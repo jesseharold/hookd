@@ -83,7 +83,8 @@ var helpers = {
   createFavorite: createFavorite,
   destroyFavorite: destroyFavorite,
   getSavedStyles: getSavedStyles,
-  createAppointment: createAppointment
+  createAppointment: createAppointment,
+  getUserInfo: getUserInfo
 };
 
 module.exports = helpers;

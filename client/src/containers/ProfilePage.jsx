@@ -15,6 +15,7 @@ class ProfilePage extends React.Component {
             first_name: "",
             last_name: "",
             email: "",
+            savedStyes: [],
             card:{
               number: "",
               exp_month: "",
@@ -27,9 +28,10 @@ class ProfilePage extends React.Component {
     }
     componentWillMount(){
         //get user info
-        helpers.getUserInfo(Auth.getToken()).then(function(data){
-            console.log("got user info ", data);
-            this.setState(client: data);
+        const self = this;
+        helpers.getUserInfo(Auth.getToken()).then(function(user){
+            console.log("got user info ", user.data);
+            self.setState({client: user.data});
         });
     }
 
@@ -40,7 +42,7 @@ class ProfilePage extends React.Component {
                     client={this.state.client}
                     />        
                 {/*<Favorites 
-                    faveStyles={this.state.favoriteStyles}
+                    faveStyles={this.state.client.savedStyes}
                     />*/}
             </Card>
         );
