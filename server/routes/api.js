@@ -31,8 +31,11 @@ router.get("/search", (req, res) => {
   console.log("searching for hairstyle ", req.query.terms);
   const googleClient = new GoogleImages(config.googleCSEId, config.googleSearchAPIKey);
   const searchOptions = {
-      page: 1, 
-      size:"large"
+      start: req.query.start, 
+      imgType: "face",
+      imgSize: "large",
+      safe: "high",
+      num: 10
   };
   googleClient.search("hairstyle " + req.query.terms).then(images => {
     res.send(images);

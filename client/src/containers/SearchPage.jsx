@@ -80,6 +80,7 @@ class SearchPage extends React.Component {
         var query = this.state.searchTerms + this.state.hiddenTerms;
         helpers.doSearch(Auth.getToken(), query, this.state.currentOffset).then(function(res){
             if (res && res.status && res.status === 200){
+                console.log("search returned ", res);
                 self.setState({
                     searchResults: res.data
                 });

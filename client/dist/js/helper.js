@@ -23,8 +23,9 @@ function doSearch(authToken, searchterms, offset){
     var authAxios = axios.create({
         headers: {'Authorization': 'bearer ' + authToken}
     });
-    // console.log("doing search for " + searchterms + " with offset " + offset);
-    return authAxios.get('/api/search?terms=' + searchterms + '&start=' + offset);
+    const query = '/api/search?terms=' + searchterms.trim() + '&start=' + offset;
+    console.log("doing search for " + encodeURI(query));
+    return authAxios.get(encodeURI(query));
 }
 
 function getDashboard(authToken){
