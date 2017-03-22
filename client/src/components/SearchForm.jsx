@@ -7,25 +7,27 @@ import TextField from 'material-ui/TextField';
 const SearchForm = ({
   onSubmit,
   onChange,
-  useTag,
   searchTerms,
   hiddenTerms
 }) => (
   <Card className="container">
-    <form action="/" onSubmit={onSubmit}>
-      <div className="field-line">
-        <TextField
-          floatingLabelText="Search Terms"
-          name="terms"
-          onChange={onChange}
-          value={searchTerms}
-        />
-      </div>
-      <input type="hidden" name="tags" value={hiddenTerms} />
-      <div className="button-line">
-        <RaisedButton type="submit" label="Search" primary />
-      </div>
-    </form>
+    <div className="col">  
+      <form action="/" onSubmit={onSubmit}>
+        <h2 className="card-heading">Search for a Hairstyle</h2>
+        <div className="field-line">
+          <TextField
+            floatingLabelText="Search Terms"
+            name="terms"
+            onChange={onChange}
+            value={searchTerms}
+          />
+        </div>
+        <input type="hidden" name="tags" value={hiddenTerms} />
+        <div className="button-line">
+          <RaisedButton className="button-form__submit" type="submit" label="Search" primary />
+        </div>
+      </form>
+    </div>
   </Card>
 
   

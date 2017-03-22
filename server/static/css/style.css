@@ -13,6 +13,19 @@ a:hover {
   font-family: "Josefin Slab";
 }
 
+a.thumbnail {
+  width: 150px;
+  height: 150px;
+  display: inline-block;
+}
+
+.thumbnail img {
+  max-width: 100%;
+  max-height: 100%;
+  background-size: cover;
+  background: no-repeat center;
+}
+
 .text-center {
   text-align: center;
 }
@@ -21,17 +34,14 @@ a:hover {
   padding: 10px 15px;
   margin-bottom: 50px;
 }
-.top-bar::after {
-  content: '';
-  display: block;
-  clear: both;
-}
 
 .top-bar-left {
   float: left;
   font-family: "Josefin Slab";
   color: #FF8C00;
-  font-size: 24px;
+  font-size: 35px;
+  text-decoration: none;
+
 }
 
 .top-bar-right {
@@ -39,7 +49,7 @@ a:hover {
   font-family: "Josefin Slab";
   color: #70abaf;
   font-size: 18px;
-
+  text-decoration: none;
 }
 
 .top-bar a,
@@ -49,7 +59,7 @@ a:hover {
 }
 
 .container {
-  margin: 0 auto;
+  margin: 10px auto;
   text-align: center;
   width: 700px;
   font-family: "Josefin Slab";
@@ -62,6 +72,29 @@ a:hover {
 
 .field-line, .button-line {
   padding: 16px;
+  font-family: "Josefin Slab";
+  color: white;
+
+}
+
+.field-line label {
+  width: 300px;
+  margin: 0 auto;
+}
+
+.button-line div {
+  background-color: #70abaf;
+  font-family: "Josefin Slab";
+  box-shadow: none !important;
+}
+
+.button-line div button {
+  border-radius: 2px;
+}
+
+.button-line div button span {
+  text-transform: capitalize !important;
+
 }
 
 .error-message {
@@ -101,23 +134,41 @@ button.unselected {
     border-color: #999;
     font-weight: normal;
     font-family: "Josefin Slab";
+}
 
+
+button.tags.selected {
+    background-color: #49787b;
+}
+
+button.tags {
+    background-color: #70abaf;
+    color: white;
+    font-family: "Josefin Slab";
+    margin-right: 5px;
+    border-radius: 2px;
+    height: 36px;
+    box-shadow:none;
+    border: transparent;
 }
 
 .element {
   display: inline-block;
+  font-family: "Josefin Slab";
+  color: white;
+  font-size: 35px;
   background-color: #70abaf;
   height: 100px;
   width: 100px;
-  transform: skew(20deg);
-  font-size: 1px;
-  padding: 1px;
-  color: white;
+  transition: width 2s;
   margin-right: 5px;
   margin-left: 5px;
-  animation: shake 1s infinite;
-  animation-direction: alternate;
 }
+.element:hover{
+  width: 500px;
+  background: #705D56;
+}
+
 
 @keyframes shake {
   0% {
