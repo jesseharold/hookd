@@ -4,62 +4,19 @@ import RaisedButton from 'material-ui/RaisedButton';
 import TextField from 'material-ui/TextField';
 
 const SearchTags = ({
-  taxonomy,
-  addTag,
   useTag,
-  newTermName,
-  newTermCategory,
-  newTermDescription,
-  onChangeTag
+  allTags
 }) => (
-  <Card className="container">
-      <ul className="search-tags">
-      {taxonomy ? taxonomy.map((tag, i) => (
-        <button className={tag.selectedClass ? "selected" : "unselected"} key={i} onClick={function(){useTag(tag.name, i);}}>{tag.displayName}</button>
-      )) : "No Taxonomy Terms"}
-      </ul>
-      <form action="/" onSubmit={addTag}>
-      <h4 className="card-heading">Add a New Tag</h4>
-      <div className="field-line">
-        <TextField
-          floatingLabelText="Term Name"
-          name="name"
-          onChange={onChangeTag}
-          value={newTermName}
-        />
-      </div>
-      <div className="field-line">
-        <TextField
-          floatingLabelText="Category"
-          name="category"
-          onChange={onChangeTag}
-          value={newTermCategory}
-        />
-      </div>
-      <div className="field-line">
-        <TextField
-          floatingLabelText="Description"
-          name="description"
-          onChange={onChangeTag}
-          value={newTermDescription}
-        />
-      </div>
-
-      <div className="button-line">
-        <RaisedButton type="submit" label="Add Tag" primary />
-      </div>
-    </form>
-  </Card>
+  <div className="container">
+      {allTags.map((tag, i) => (
+        <button key={i} className={tag.selected ? "selected tags" : "unselected tags"} onClick={function(){useTag(tag.term, i);}}>{tag.term}</button>
+      ))}
+  </div>
 );
 
 SearchTags.propTypes = {
-  taxonomy: PropTypes.array,
-  addTag: PropTypes.func.isRequired,
-  useTag: PropTypes.func.isRequired,
-  onChangeTag: PropTypes.func.isRequired,
-  newTermName: PropTypes.string,
-  newTermCategory: PropTypes.string,
-  newTermDescription: PropTypes.string,
+  allTags: PropTypes.array,
+  useTag: PropTypes.func.isRequired
 };
 
 export default SearchTags;

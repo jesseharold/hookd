@@ -3,8 +3,8 @@ const GoogleImages = require('google-images');
 const config = require('../../config/private.json');
 const models = require('mongoose');
 const Style = models.model('Style');
-const Taxonomy = models.model('Taxonomy');
 const User = models.model('User');
+const Appointment = models.model('Appointment');
 
 const router = new express.Router();
 // since this is in the api routes
@@ -31,8 +31,11 @@ router.get("/search", (req, res) => {
   console.log("searching for hairstyle ", req.query.terms);
   const googleClient = new GoogleImages(config.googleCSEId, config.googleSearchAPIKey);
   const searchOptions = {
-      page: 1, 
-      size:"large"
+      start: req.query.start, 
+      imgType: "face",
+      imgSize: "large",
+      safe: "high",
+      num: 10
   };
   googleClient.search("hairstyle " + req.query.terms).then(images => {
     res.send(images);
@@ -84,35 +87,66 @@ router.post("/favorites", (req, res) => {
     });
 });
 
-router.get("/taxonomy", (req, response) => {
-    Taxonomy.find({}).then(function(err, results){
-        if (err) { 
-            response.send(err); 
-        } else {
-            let taxonomyArray = [];
-            for(var key in results) {
-                if(results.hasOwnProperty(key)) {
-                    taxonomyArray.push(results[key]);
+router.post("/favorites/delete", (req, res) => {
+    // remove a style from logged in user's favorites
+    const styleId = req.body.imageData;
+    if (!req.userid){
+        console.error("could not find logged in user");
+    } else {
+        // look up current user and remove this style from the user's favorites
+        User.findById(req.userid).populate("likedStyles").then(function(myuser){
+            if (!myuser) { 
+                console.error("error finding that user in db");
+            } else {
+                // found user, remove style
+                var i;
+                for (i = 0; i < myuser.likedStyles.length; i++){
+                    if (myuser.likedStyles[i]._id == styleId){
+                        break;
+                    }
                 }
+                myuser.likedStyles.splice(i, 1);
+                myuser.save(function(err, updatedUser){
+                    if (err){
+                        return console.error(err);
+                    }
+                    // send back updated user to browser
+                    res.send(updatedUser);
+                })
             }
-            response.send(taxonomyArray);
-        }
-    });
+        });
+    }
 });
 
-router.post("/taxonomy", (req, response) => {
-    console.log("creating a new tag term ", req.body);
-    // create a new Taxonomy term
-    const tagData = {
-        name: req.body.name,
-        displayName: req.body.displayName ? req.body.displayName : req.body.name,
-        description: req.body.description ? req.body.description : "",
-        category: req.body.category ? req.body.category : "uncategorized"
+
+router.post("/appointment", (req, res) => {
+    // create a new style
+    const apptData = {
+        requestedStyle: req.body.style
     };
-    const newTag = new Taxonomy(tagData);
-    newTag.save((err) => {
+    const newAppointment = new Appointment(apptData);
+    newAppointment.save((err, addedAppt) => {
         if (err) { return done(err); }
-        response.send("done saving");
+        if (!req.userid){
+            console.error("could not find logged in user");
+        } else {
+            // look up current user and add this style to the user's appointments
+            User.findById(req.userid).populate("appointments").then(function(myuser){
+                if (!myuser) { 
+                    console.error("error finding that user in db");
+                } else {
+                    // found user, add new style
+                    myuser.appointments.push(addedAppt);
+                    myuser.save(function(err, updatedUser){
+                        if (err){
+                            return console.error(err);
+                        }
+                        // send back updated user to browser
+                        res.send(updatedUser);
+                    })
+                }
+            });
+        }
     });
 });
 

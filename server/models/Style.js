@@ -1,5 +1,4 @@
 const mongoose = require('mongoose');
-const Taxonomy = require("./Taxonomy");
 
 // define the Style model schema
 const StyleSchema = new mongoose.Schema({

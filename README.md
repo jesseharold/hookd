@@ -59,7 +59,6 @@
     * Image that represents this style
     * Name of style (optional)
     * Description (optional)
-    * taxonomy [list terms that describe the style]
 
 * Review
     * Client
@@ -67,9 +66,3 @@
     * Number of stars out of 5
     * Service received (style?)
     * text
-
-* Style taxonomy term
-    * term name
-    * display name
-    * description
-    * Category	

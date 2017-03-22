@@ -17,6 +17,10 @@ const UserSchema = new mongoose.Schema({
   likedStyles : [{
     type: mongoose.Schema.Types.ObjectId,
     ref: "Style"
+  }],
+  appointments : [{
+    type: mongoose.Schema.Types.ObjectId,
+    ref: "Appointment"
   }]
 });
 
