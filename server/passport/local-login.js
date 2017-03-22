@@ -39,7 +39,7 @@ module.exports = new PassportLocalStrategy({
 
         return done(error);
       }
-      
+
       const payload = {
         sub: user._id
       };
@@ -47,9 +47,8 @@ module.exports = new PassportLocalStrategy({
       // create a token string
       const token = jwt.sign(payload, config.jwtSecret);
       const data = {
-        name: user.name
+        name: user.first_name
       };
-
       return done(null, token, data);
     });
   });
