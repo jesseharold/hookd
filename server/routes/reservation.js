@@ -1,20 +1,25 @@
 const express = require('express');
 const config = require('../../config');
 const models = require('mongoose');
-const Reservation = models.model('Reservation');
-const Style = models.model('Style');
+const Reservation = require('../models/Reservation');
+const Style = require('../models/Style');
+const Taxonomy = require('../models/Taxonomy');
+const User = require('../models/User');
 
 
 const router = new express.Router();
 
 
 //create reservation
-router.post('/reservation', (req,res)=> {
-    const reservation = {
-        client: req.body.reservation.client,
-        likedStyles: req.body.reservation.likedStyles ? req.body.reservation.likedStyles 
-    }
-  const reservation = new Reservation (req.body);
+router.post('/', (req,res)=> {
+    const myReservation = {
+        client: req.body.client,
+        likedStyles: req.body.likedStyles,
+        barber: req.body.barber,
+        startTime: req.body.startTime,
+        price: req.body.price
+    }; 
+  const reservation = new Reservation (myReservation);
   reservation.save(function(err, createReservationObject){
       if(err){
           res.send(err);
@@ -23,7 +28,7 @@ router.post('/reservation', (req,res)=> {
   })
 });
 //update reservation
-router.put('/reservation', (req, res)=>{
+router.put('/:reservationId', (req, res)=>{
     Reservation.findById(req.params.reservationId, function(err,reservation){
         if(err){
             res.status(400).send(err);
@@ -31,7 +36,7 @@ router.put('/reservation', (req, res)=>{
             reservation.client = req.body.client || reservation.client;
             reservation.likedStyles = req.body.likedStyles || reservation.likedStyles;
             reservation.barber = req.body.barber || reservation.barber;
-            reservation.startTime = req.body.startTime || reservation.startTime;
+            // reservation.startTime = req.body.startTime || reservation.startTime;
             reservation.price = req.body.price || reservation.price;
 
             reservation.save(function(err, reservation){
@@ -45,7 +50,7 @@ router.put('/reservation', (req, res)=>{
 });
 
 //read reservation
-router.get('/reservation', (req, res)=>{
+router.get('/', (req, res)=>{
 
     Reservation.find(function(err, reservation){
         if(err){
@@ -55,3 +60,5 @@ router.get('/reservation', (req, res)=>{
         }
     })
 });
+
+module.exports = router;
