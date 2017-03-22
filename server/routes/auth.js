@@ -26,9 +26,13 @@ function validateSignupForm(payload) {
     errors.password = 'Password must have at least 8 characters.';
   }
 
-  if (!payload || typeof payload.name !== 'string' || payload.name.trim().length === 0) {
+  if (!payload || typeof payload.first_name !== 'string' || payload.first_name.trim().length === 0) {
     isFormValid = false;
-    errors.name = 'Please provide your name.';
+    errors.first_name = 'Please provide your first name.';
+  }
+  if (!payload || typeof payload.last_name !== 'string' || payload.last_name.trim().length === 0) {
+    isFormValid = false;
+    errors.last_name = 'Please provide your last name.';
   }
 
   if (!isFormValid) {
@@ -76,7 +80,6 @@ function validateLoginForm(payload) {
 }
 
 router.post('/signup', (req, res) => {
-    console.log("user: ", req.user);
   const validationResult = validateSignupForm(req.body);
   if (!validationResult.success) {
     return res.status(400).json({

@@ -9,7 +9,8 @@ const UserSchema = new mongoose.Schema({
     index: { unique: true }
   },
   password: String,
-  name: String,
+  first_name: String,
+  last_name: String,
   cellphone: String,
   role: { type: String, enum: ["admin", "barber", "user"] },
 // Associations
