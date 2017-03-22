@@ -63,8 +63,6 @@ const Profile = ({
 
       <CardText>Already have an account? <Link to={'/login'}>Log in</Link></CardText>
     </form>
-  </Card>
-
   <div>
       <h2 className="card-heading">User Profile</h2>
         First Name: {client.first_name}<br />
@@ -72,6 +70,8 @@ const Profile = ({
         Email: {client.email} {client.last_name}<br />
         <Link to="/logout">Log Out</Link><br />
   </div>
+  </Card>
+
 
 );
 
