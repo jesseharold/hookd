@@ -9,7 +9,7 @@ function getSavedStyles(){
         if (!styles || !styles.data || styles.status !== 200){
             console.error("something went wrong: ", styles);
         } else {
-             console.log("got user's styles: ", styles.data.likedStyles); 
+             console.log("got user's styles: ", styles.data.likedStyles);
             // self.setState({
             //     favoriteStyles: styles.data.likedStyles
             // });
@@ -34,3 +34,4 @@ Profile.propTypes = {
 };
 
 export default Profile;
+
