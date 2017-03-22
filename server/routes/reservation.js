@@ -36,7 +36,7 @@ router.put('/:reservationId', (req, res)=>{
             reservation.client = req.body.client || reservation.client;
             reservation.likedStyles = req.body.likedStyles || reservation.likedStyles;
             reservation.barber = req.body.barber || reservation.barber;
-            // reservation.startTime = req.body.startTime || reservation.startTime;
+            reservation.startTime = req.body.startTime || reservation.startTime;
             reservation.price = req.body.price || reservation.price;
 
             reservation.save(function(err, reservation){
