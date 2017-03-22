@@ -4,7 +4,7 @@ import SearchResults from "../components/SearchResults.jsx";
 import SearchTags from "../components/SearchTags.jsx";
 import Favorites from "../components/Favorites.jsx";
 import Auth from '../modules/Auth';
-import helpers from "../../dist/js/helper"
+import helpers from "../../dist/js/helper";
 
 class SearchPage extends React.Component {
     //class constructor

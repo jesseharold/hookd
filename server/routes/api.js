@@ -42,7 +42,6 @@ router.get("/search", (req, res) => {
       type: "face",
       size: "large",
       safe: "high",
-      num: 9,
       page: page
   };
   googleClient.search("hairstyle " + req.query.terms, searchOptions).then(images => {

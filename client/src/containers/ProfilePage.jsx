@@ -2,6 +2,8 @@ import React, { PropTypes } from "react";
 import { Card, CardText } from 'material-ui/Card';
 import Profile from "../components/Profile.jsx";
 import Favorites from "../components/Favorites.jsx";
+import Auth from '../modules/Auth';
+import helpers from "../../dist/js/helper";
 
 class ProfilePage extends React.Component {
     //class constructor
@@ -25,7 +27,10 @@ class ProfilePage extends React.Component {
     }
     componentWillMount(){
         //get user info
-        console.log("getting user info");
+        helpers.getUserInfo(Auth.getToken()).then(function(data){
+            console.log("got user info ", data);
+            this.setState(client: data);
+        });
     }
 
     render() {

@@ -12,7 +12,7 @@ const UserSchema = new mongoose.Schema({
   first_name: String,
   last_name: String,
   cellphone: String,
-  role: { type: String, enum: ["admin", "barber", "user"] },
+  role: { type: String, enum: ["admin", "barber", "user"], default: "user" },
 // Associations
   likedStyles : [{
     type: mongoose.Schema.Types.ObjectId,
