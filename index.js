@@ -35,7 +35,7 @@ app.use('/auth', authRoutes);
 app.use('/api', apiRoutes);
 //reservations
 const reservationRoutes = require('./server/routes/reservation');
-app.use('/reservation', reservationRoutes);
+app.use('/reservations', reservationRoutes);
 
 
 // start the server
