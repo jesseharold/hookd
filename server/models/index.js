@@ -12,6 +12,6 @@ module.exports.connect = (uri) => {
 
   // load models
   require('./User');
-  require('./Taxonomy');
   require('./Style');
+  require('./Appointment');
 };
