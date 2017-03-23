@@ -2,6 +2,8 @@ import React, { PropTypes } from "react";
 import { Card, CardText } from 'material-ui/Card';
 import Profile from "../components/Profile.jsx";
 import Favorites from "../components/Favorites.jsx";
+import Auth from '../modules/Auth';
+import helpers from "../../dist/js/helper";
 
 class ProfilePage extends React.Component {
     //class constructor
@@ -13,6 +15,7 @@ class ProfilePage extends React.Component {
             first_name: "",
             last_name: "",
             email: "",
+            savedStyes: [],
             card:{
               number: "",
               exp_month: "",
@@ -25,7 +28,10 @@ class ProfilePage extends React.Component {
     }
     componentWillMount(){
         //get user info
-        console.log("getting user info");
+        const self = this;
+        helpers.getUserInfo(Auth.getToken()).then(function(user){
+            self.setState({client: user.data});
+        });
     }
 
     render() {
@@ -34,9 +40,6 @@ class ProfilePage extends React.Component {
                 <Profile
                     client={this.state.client}
                     />        
-                {/*<Favorites 
-                    faveStyles={this.state.favoriteStyles}
-                    />*/}
             </Card>
         );
     }

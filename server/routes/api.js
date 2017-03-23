@@ -8,7 +8,7 @@ const Appointment = models.model('Appointment');
 
 const router = new express.Router();
 // since this is in the api routes
-// we should get an access to this route only after 
+// we should get an access to this route only after
 // a successful execution of the authentication checker middleware
 
 router.get('/dashboard', (req, res, next) => {
@@ -30,16 +30,23 @@ router.get("/search", (req, res) => {
   // called by form that searches for styles
   console.log("searching for hairstyle ", req.query.terms);
   const googleClient = new GoogleImages(config.googleCSEId, config.googleSearchAPIKey);
+  var page = req.query.start;
+  if (page > 1){
+      page -= 1;
+      page = page/10;
+      page += 1;
+  }
+  console.log("page", page);
   const searchOptions = {
-      start: req.query.start, 
-      imgType: "face",
-      imgSize: "large",
+      //start: req.query.start,
+      type: "face",
+      size: "large",
       safe: "high",
-      num: 10
+      page: page
   };
-  googleClient.search("hairstyle " + req.query.terms).then(images => {
+  googleClient.search("hairstyle " + req.query.terms, searchOptions).then(images => {
     res.send(images);
-  }); 
+  });
 });
 
 
@@ -47,14 +54,24 @@ router.get("/favorites", (req, response) => {
     // get all styles that have been saved by the current user
     // console.log("userid: ", req.userid);
     User.findById(req.userid).populate("likedStyles").then(function(err, results){
-        if (err) { 
-            response.send(err); 
+        if (err) {
+            response.send(err);
         } else {
             response.send(results.likedStyles);
         }
     });
 });
-
+router.get("/profile", (req, response) => {
+    // get all styles that have been saved by the current user
+    // console.log("userid: ", req.userid);
+    User.findById(req.userid).populate("likedStyles").then(function(err, results){
+        if (err) {
+            response.send(err);
+        } else {
+            response.send(results);
+        }
+    });
+});
 router.post("/favorites", (req, res) => {
     // create a new style
     const styleData = {
@@ -69,7 +86,7 @@ router.post("/favorites", (req, res) => {
             // console.log("user exists: ", req.userid);
             // look up current user and add this style to the user's favorites
             User.findById(req.userid).populate("likedStyles").then(function(myuser){
-                if (!myuser) { 
+                if (!myuser) {
                     console.error("error finding that user in db");
                 } else {
                     // found user, add new style
@@ -95,7 +112,7 @@ router.post("/favorites/delete", (req, res) => {
     } else {
         // look up current user and remove this style from the user's favorites
         User.findById(req.userid).populate("likedStyles").then(function(myuser){
-            if (!myuser) { 
+            if (!myuser) {
                 console.error("error finding that user in db");
             } else {
                 // found user, remove style
@@ -132,7 +149,7 @@ router.post("/appointment", (req, res) => {
         } else {
             // look up current user and add this style to the user's appointments
             User.findById(req.userid).populate("appointments").then(function(myuser){
-                if (!myuser) { 
+                if (!myuser) {
                     console.error("error finding that user in db");
                 } else {
                     // found user, add new style

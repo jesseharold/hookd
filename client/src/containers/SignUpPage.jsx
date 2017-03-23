@@ -32,6 +32,7 @@ class SignUpPage extends React.Component {
     }
 
     processForm(event) {
+        const self = this;
 
         // prevent default action. in this case, action is the form submission event
         event.preventDefault();
@@ -52,7 +53,7 @@ class SignUpPage extends React.Component {
           "password": password
         })
           .then(function (response){
-            console.log("success!");
+            self.context.router.replace("/login");
           })
           .catch(function(error){
             console.log(error);
@@ -74,5 +75,7 @@ class SignUpPage extends React.Component {
 SignUpPage.contextTypes = {
   router: PropTypes.object.isRequired
 };
+
+
 
 export default SignUpPage;

@@ -68,6 +68,14 @@ function getSavedStyles(authToken){
     return authAxios.get('/api/favorites');
 }
 
+function getUserInfo(authToken){
+    // set header to do authorization in passport
+    var authAxios = axios.create({
+        headers: {'Authorization': 'bearer ' + authToken}
+    });
+    return authAxios.get('/api/profile');
+}
+
 var helpers = {
   doLogin: doLogin,
   doSearch: doSearch,
@@ -75,7 +83,8 @@ var helpers = {
   createFavorite: createFavorite,
   destroyFavorite: destroyFavorite,
   getSavedStyles: getSavedStyles,
-  createAppointment: createAppointment
+  createAppointment: createAppointment,
+  getUserInfo: getUserInfo
 };
 
 module.exports = helpers;
