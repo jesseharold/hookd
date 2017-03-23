@@ -53,11 +53,11 @@ function destroyFavorite(authToken, styleId){
 }
 
 function createAppointment(authToken, styleId){
-    // make call to api
+    make call to api
     var authAxios = axios.create({
         headers: {'Authorization': 'bearer ' + authToken}
     });
-    return authAxios.post('/api/appointment', {style: styleId});
+    return authAxios.post('/reservation/', {style: styleId});
 }
 
 function getSavedStyles(authToken){

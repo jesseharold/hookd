@@ -13,6 +13,5 @@ module.exports.connect = (uri) => {
   // load models
   require('./User');
   require('./Style');
-  require('./Appointment');
   require('./Reservation');
 };
