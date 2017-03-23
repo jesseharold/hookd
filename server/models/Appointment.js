@@ -12,7 +12,9 @@ const AppointmentSchema = new mongoose.Schema({
     type: mongoose.Schema.Types.ObjectId,
     ref: "User"
   },
-  paid: { type: Boolean, default: false }
+  paid: { type: Boolean, default: false },
+  reviewStars: Number,
+  reviewText: String
 });
 
 module.exports = mongoose.model('Appointment', AppointmentSchema);

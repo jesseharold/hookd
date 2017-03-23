@@ -5,14 +5,14 @@ const bodyParser = require('body-parser');
 const passport = require('passport');
 const config = require('./config/private.json');
 
-const PORT = env.PORT || 8000;
+const PORT = process.env.PORT || 8000;
+// choose whether to use local db path or live, based on presence of environment variables
+const dbPath = process.env.PORT ? config.dbUri_heroku : config.dbUri;
 
 // load models
 var db = require('./server/models');
 // connect to the database
-// change this to config.dbUri_heroku before deploying
-// change this to config.dbUri to use local db
-db.connect(config.dbUri_heroku, function(err) {
+db.connect(dbPath, function(err) {
     if (err) {
       return console.log("couldn't connect to db uri: ", err);
     }

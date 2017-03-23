@@ -4,7 +4,7 @@ const mongoose = require('mongoose');
 const StyleSchema = new mongoose.Schema({
   image: String,
   name: String,
-  description: String
+  note: String
 });
 
 module.exports = mongoose.model('Style', StyleSchema);

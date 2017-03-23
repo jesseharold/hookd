@@ -5,7 +5,6 @@ npm-debug.log*
 
 # private keys
 private.txt
-
 private.json
 
 # Runtime data
@@ -42,8 +41,6 @@ jspm_packages
 .node_repl_history
 
 # don't include the bundled react app file
-
-
 bundle.js
 
 # mac files
