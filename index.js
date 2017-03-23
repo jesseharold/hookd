@@ -12,7 +12,7 @@ var db = require('./server/models');
 // connect to the database
 // change this to config.dbUri_heroku before deploying
 // change this to config.dbUri to use local db
-db.connect(config.dbUri_heroku, function(err) {
+db.connect(config.dbUri, function(err) {
     if (err) {
       return console.log("couldn't connect to db uri: ", err);
     }

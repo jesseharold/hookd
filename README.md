@@ -1,5 +1,7 @@
 # Hookd
 
+https://hookd-barbershop.herokuapp.com/
+
 ## User Stories
 ### Customers can…
 	… perform an image search using a taxonomy of styles and hair types to filter images
@@ -42,27 +44,22 @@
     * Role: [user, barber, admin]
     * Name
     * Email address
-    * Cellphone (optional, for text reminders)
     * Password
-    * Profile pic - a picture that identifies them
     * pastStyles [a list of styles that are uploaded selfies of the user's past haircuts]
     * likedStyles [a list of images that user saved as favorites]
     * Appointments [list of appointments that are this client]
+    * Cellphone (future, for text reminders)
+    * Profile pic (future)
 
 * Appointment
     * Time and date
     * Client
     * Barber
     * Desired style [style chosen by client]
+    * review left - # of stars
+    * review left - text of review
 
 * Style
     * Image that represents this style
-    * Name of style (optional)
-    * Description (optional)
-
-* Review
-    * Client
-    * Barber
-    * Number of stars out of 5
-    * Service received (style?)
-    * text
+    * Name of style
+    * Note
