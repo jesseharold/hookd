@@ -30,7 +30,6 @@ class ProfilePage extends React.Component {
         //get user info
         const self = this;
         helpers.getUserInfo(Auth.getToken()).then(function(user){
-            console.log("got user info ", user.data);
             self.setState({client: user.data});
         });
     }
@@ -41,9 +40,6 @@ class ProfilePage extends React.Component {
                 <Profile
                     client={this.state.client}
                     />        
-                {/*<Favorites 
-                    faveStyles={this.state.client.savedStyes}
-                    />*/}
             </Card>
         );
     }

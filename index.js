@@ -5,8 +5,16 @@ const bodyParser = require('body-parser');
 const passport = require('passport');
 const config = require('./config/private.json');
 
-// connect to the database and load models
-require('./server/models').connect(config.dbUri);
+// load models
+var db = require('./server/models');
+// connect to the database
+// change this to config.dbUri_heroku before deploying
+// change this to config.dbUri to use local db
+db.connect(config.dbUri, function(err) {
+    if (err) {
+      return console.log("couldn't connect to db uri: ", err);
+    }
+});
 
 const app = express();
 // tell the app to look for static files in these directories
