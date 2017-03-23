@@ -207,3 +207,12 @@ body {
     text-decoration: underline;
     cursor: pointer;
 }
+
+.styleThumbs {
+  width: 25%; 
+  float: left;
+  margin: 10px;
+}
+.styleThumbs img {
+  width: 100%;
+}

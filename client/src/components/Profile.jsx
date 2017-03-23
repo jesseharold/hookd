@@ -9,37 +9,38 @@ const Profile = ({
 }) => (
   <div>
       <h2 className="card-heading">User Profile</h2>
-        First Name: {client.first_name}<br />
-        Last Name: {client.last_name}<br />
-        Email: {client.email}<br />
-        User Type: {client.role}<br />
-        <br />
-        <Link to="/logout"><button>Log Out</button></Link><br />
-        <h3>Appointments</h3>
-        <div className="appointments">
-          {client.appointments > 0 ? client.appointments.map((appointment, i) => (
-              <div key={i} className="col-xs-8 col-md-4">
-                  Date: {appointment.startTime}<br />
-                  Style requested: {appointment.requestedStyle}<br />
-                  Barber: {appointment.barber}<br />
-                  Paid for: {appointment.paid}<br />
+        <section>
+            First Name: {client.first_name}<br />
+            Last Name: {client.last_name}<br />
+            Email: {client.email}<br />
+            User Type: {client.role}<br />
+            <br />
+            <Link to="/logout"><button>Log Out</button></Link><br />
+        </section>
+        <h3 className="card-heading">Appointments</h3>
+        <section>
+          {client.appointments ? client.appointments.map((appointment, i) => (
+              <div key={i}>
+                  Date: {appointment.startTime ? appointment.startTime : "Unknown"}<br />
+                  Style requested: {appointment.requestedStyle ? appointment.requestedStyle : "No style set."}<br />
+                  Barber: {appointment.barber ? appointment.barber : "No barber selected yet."}<br />
+                  Paid for: {appointment.paid ? appointment.paid : "Not paid."}<br />
               </div>
           )) : <span>You have no appointments scheduled</span>}
           <br />
-          <br />
           <Link to="/appointments"><button>Book a new appointment</button></Link>
-      </div>
-      <h3>Saved Styles</h3>
-      <div className="appointments">
-        {client.likedStyles > 0 ? client.likedStyles.map((style, i) => (
-            <div key={i} className="col-xs8 col-md-3">
-                <img src="{style.image}" />
+      </section>
+      <h3 className="card-heading">Saved Styles</h3>
+      <section>
+        {client.likedStyles ? client.likedStyles.map((style, i) => (
+            <div key={i} className="styleThumbs">
+                <img src={style.image} />
             </div>
         )) : <span>You have no Saved Styles.</span>}
         <br />
         <br />
         <Link to="/findstyle"><button>Find a new style.</button></Link>
-    </div>
+    </section>
   </div>
 );
 
