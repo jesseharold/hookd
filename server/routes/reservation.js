@@ -1,9 +1,7 @@
 const express = require('express');
-const config = require('../../config');
 const models = require('mongoose');
 const Reservation = require('../models/Reservation');
 const Style = require('../models/Style');
-const Taxonomy = require('../models/Taxonomy');
 const User = require('../models/User');
 
 
