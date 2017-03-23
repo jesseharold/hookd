@@ -14,4 +14,5 @@ module.exports.connect = (uri) => {
   require('./User');
   require('./Style');
   require('./Appointment');
+  require('./Reservation');
 };
