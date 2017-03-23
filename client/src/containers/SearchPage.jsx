@@ -145,7 +145,7 @@ class SearchPage extends React.Component {
 
     createAppointment(index){
         helpers.createAppointment(Auth.getToken(), this.state.favoriteStyles[index]._id).then(function(res){
-            console.log("done creating appointment. updated user: ", res.data);
+            //console.log("done creating appointment. updated user: ", res.data);
         });
     }
 
