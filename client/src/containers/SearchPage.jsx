@@ -15,7 +15,7 @@ class SearchPage extends React.Component {
             errors: {},
             searchTerms: "",
             hiddenTerms: "",
-            currentOffset: 1,
+            pageOfResults: 1,
             searchResults: [],
             allTags: [{
                     term:"men", selected:false
@@ -67,7 +67,8 @@ class SearchPage extends React.Component {
     changeTerms(event) {
         // set the state to reflect the value of the search text box
         this.setState({
-            searchTerms: event.target.value
+            searchTerms: event.target.value,
+            pageOfResults: 1
         });
     }
 
@@ -78,9 +79,8 @@ class SearchPage extends React.Component {
         // create an AJAX request
         const self = this;
         var query = this.state.searchTerms + this.state.hiddenTerms;
-        helpers.doSearch(Auth.getToken(), query, this.state.currentOffset).then(function(res){
+        helpers.doSearch(Auth.getToken(), query, this.state.pageOfResults).then(function(res){
             if (res && res.status && res.status === 200){
-                console.log("search returned ", res);
                 self.setState({
                     searchResults: res.data
                 });
@@ -118,15 +118,15 @@ class SearchPage extends React.Component {
         }
         this.setState({
             hiddenTerms: newQuery,
-            allTags: tagsData
+            allTags: tagsData,
+            pageOfResults: 1
         });
     }
 
     getMoreResults(event){
-        const nowAt = this.state.currentOffset + 10;
-        console.log(nowAt);
+        const nowAt = this.state.pageOfResults + 1;
         this.setState({
-            currentOffset: nowAt,
+            pageOfResults: nowAt,
             searchResults: []
         }, function(){
             this.processForm(event);

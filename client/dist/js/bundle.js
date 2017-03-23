@@ -8860,8 +8860,8 @@ function doSearch(authToken, searchterms, offset){
     var authAxios = axios.create({
         headers: {'Authorization': 'bearer ' + authToken}
     });
-    const query = '/api/search?terms=' + searchterms.trim() + '&start=' + offset;
-    console.log("doing search for " + encodeURI(query));
+    const query = '/api/search?terms=' + searchterms.trim() + '&page=' + offset;
+    //console.log("doing search for " + encodeURI(query));
     return authAxios.get(encodeURI(query));
 }
 
@@ -39275,7 +39275,7 @@ var SearchPage = function (_React$Component) {
             errors: {},
             searchTerms: "",
             hiddenTerms: "",
-            currentOffset: 1,
+            pageOfResults: 1,
             searchResults: [],
             allTags: [{
                 term: "men", selected: false
@@ -39330,7 +39330,8 @@ var SearchPage = function (_React$Component) {
         value: function changeTerms(event) {
             // set the state to reflect the value of the search text box
             this.setState({
-                searchTerms: event.target.value
+                searchTerms: event.target.value,
+                pageOfResults: 1
             });
         }
     }, {
@@ -39342,9 +39343,8 @@ var SearchPage = function (_React$Component) {
             // create an AJAX request
             var self = this;
             var query = this.state.searchTerms + this.state.hiddenTerms;
-            _helper2.default.doSearch(_Auth2.default.getToken(), query, this.state.currentOffset).then(function (res) {
+            _helper2.default.doSearch(_Auth2.default.getToken(), query, this.state.pageOfResults).then(function (res) {
                 if (res && res.status && res.status === 200) {
-                    console.log("search returned ", res);
                     self.setState({
                         searchResults: res.data
                     });
@@ -39382,16 +39382,16 @@ var SearchPage = function (_React$Component) {
             }
             this.setState({
                 hiddenTerms: newQuery,
-                allTags: tagsData
+                allTags: tagsData,
+                pageOfResults: 1
             });
         }
     }, {
         key: "getMoreResults",
         value: function getMoreResults(event) {
-            var nowAt = this.state.currentOffset + 10;
-            console.log(nowAt);
+            var nowAt = this.state.pageOfResults + 1;
             this.setState({
-                currentOffset: nowAt,
+                pageOfResults: nowAt,
                 searchResults: []
             }, function () {
                 this.processForm(event);

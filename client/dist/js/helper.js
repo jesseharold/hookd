@@ -23,8 +23,8 @@ function doSearch(authToken, searchterms, offset){
     var authAxios = axios.create({
         headers: {'Authorization': 'bearer ' + authToken}
     });
-    const query = '/api/search?terms=' + searchterms.trim() + '&start=' + offset;
-    console.log("doing search for " + encodeURI(query));
+    const query = '/api/search?terms=' + searchterms.trim() + '&page=' + offset;
+    //console.log("doing search for " + encodeURI(query));
     return authAxios.get(encodeURI(query));
 }
 
