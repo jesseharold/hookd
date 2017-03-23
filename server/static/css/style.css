@@ -44,6 +44,10 @@ a.thumbnail {
 
 }
 
+.topleft {
+  color: #FF8C00 !important67;
+}
+
 .top-bar-right {
   float: right;
   font-family: "Josefin Slab";
@@ -150,6 +154,10 @@ button.tags {
     height: 36px;
     box-shadow:none;
     border: transparent;
+}
+
+.search_box {
+  float: center;
 }
 
 .element {

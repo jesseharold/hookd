@@ -7,6 +7,7 @@ const Favorites = ({
     makeAppointment
 }) => (
   <Card className="container sidebar-left">
+    <div className="favorites_col">
       <h2 className="card-heading">My Favorite Styles</h2>
       {faveStyles.map((style, i) => (
         <div key={i} className="col-xs-12 col-lg-6">
@@ -15,6 +16,7 @@ const Favorites = ({
           <div className="favesLinks bookFave" onClick={function(){makeAppointment(i)}}>Book this Style</div>
         </div>
       ))}
+    </div>
   </Card>
 );
 
