@@ -41,7 +41,7 @@ jspm_packages
 .node_repl_history
 
 # don't include the bundled react app file
-bundle.js
+#bundle.js
 
 # mac files
 .DS_Store
