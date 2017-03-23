@@ -5,7 +5,7 @@ const bodyParser = require('body-parser');
 const passport = require('passport');
 const config = require('./config/private.json');
 
-const PORT = env.PORT || 8000;
+const PORT = process.env.PORT || 8000;
 
 // load models
 var db = require('./server/models');
