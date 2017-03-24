@@ -8,7 +8,8 @@ function doLogin(formData){
     return authAxios.post('/auth/login', formData).then(function(response){
         if (response.status === 200) {
             // put username in localstorage for use by other pages
-            localStorage.setItem('userName', response.data.userName);
+            localStorage.setItem('first_name', response.data.firstName);
+            localStorage.setItem('last_name', response.data.lastName);
             return response.data.user;
         } else {
             // failure

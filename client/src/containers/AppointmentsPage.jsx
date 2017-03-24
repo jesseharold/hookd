@@ -2,6 +2,7 @@ import React, { PropTypes } from "react";
 import { Card, CardText } from 'material-ui/Card';
 import { Link } from 'react-router';
 import BookingForm from '../components/BookingForm.jsx';
+import Auth from '../modules/Auth';
 
 class AppointmentsPage extends React.Component {
     //class constructor
@@ -11,26 +12,34 @@ class AppointmentsPage extends React.Component {
         this.state = {
             errors: {},
             user: {
-                email: "",
-                name: "",
-                password: ""
+                first_name: Auth.getFirstName(),
+                last_name: Auth.getLastName()
             },
             appointment: {
-                
+                barber: "1",
+                month: "1",
+                day: "1",
+                year: "2017",
+                hour: "1",
+                ampm: "PM"
             }
         };
+        this.doBooking = this.doBooking.bind(this);
+        this.updateBookingForm = this.updateBookingForm.bind(this);
     }
     
     doBooking(event){
         event.preventDefault();
-        console.log("do booking ", event.target);
+        // send the appointment object to the server
+        console.log("do booking ", this.state.appointment);
     }
 
     updateBookingForm(event){
         //console.log("update form ", event.target.value);
-        var newUser = this.state.user;
-        newUser[event.target.name] = event.target.value;
-        this.setState({user: newUser});
+        var newAppt = this.state.appointment;
+        newAppt[event.target.name] = event.target.value;
+        this.setState({user: newAppt});
+        console.log(newAppt);
     }
 
     render() {

@@ -3,18 +3,6 @@ import { Card, CardText } from 'material-ui/Card';
 import RaisedButton from 'material-ui/RaisedButton';
 import TextField from 'material-ui/TextField';
 
-function generateBarberOptions(){
-  var barbers = ["Noah", "Arus", "Harold", "Mo", "Bryant"];
-  return barbers.map(function(barber, i) {
-    return `<option value=${i}>${barber}</option>`;
-  });
-}
-
-function generateApptHourOptions(){
-  var hourOptions = [11,12,1,2,3,4,5,6];
-  return hourOptions;
-}
-
 const BookingForm = ({
   client,
   onSubmit,
@@ -24,40 +12,31 @@ const BookingForm = ({
       <h2 className="card-heading">Book an Appointment</h2>
         <div className="form-row">
            <div>First Name:</div>
-             <input
-               name = "first_name"
-               type="text"
-               className="required"
-               onChange={onChange}
-               value={client.first_name}
-                />
+            {client.first_name}
         </div>
         <div className="form-row">
            <div>Last Name:</div>
-             <input
-               name = "last_name"
-               type = "text"
-               className="required"
-               onChange={onChange}
-               value={client.last_name}
-                />
+            {client.last_name}
         </div>
         <div className="form-row">
            <div>Select Barber:</div>
              <select
-               name = "barber_list"
+               name = "barber"
                type="text"
                className="required"
                onChange={onChange}
-               value="----select----"
                 >
-              {generateBarberOptions()}
+                <option value="1">Noah</option>
+                <option value="2">Bryant</option>
+                <option value="3">Arus</option>
+                <option value="4">Harold</option>
+                <option value="5">Mo</option>
             </select>
         </div>
         <div className="form-row">
            <div>Appointment Date:</div>
              <select
-               name = "appt_month"
+               name = "month"
                className="required"
                onChange={onChange}
                 >
@@ -75,7 +54,7 @@ const BookingForm = ({
               <option value="12">Dec</option>
             </select>
             <select
-               name = "appt_day"
+               name = "day"
                className="required"
                onChange={onChange}
                 >
@@ -112,7 +91,7 @@ const BookingForm = ({
               <option value="31">31</option>
             </select>
              <select
-               name = "appt_year"
+               name = "year"
                className="required"
                onChange={onChange}
                 >
@@ -123,7 +102,7 @@ const BookingForm = ({
         <div className="form-row">
            <div>Appointment Time:</div>
              <select
-               name = "appt_hour"
+               name = "hour"
                className="required"
                onChange={onChange}
                 >
@@ -141,7 +120,7 @@ const BookingForm = ({
               <option value="1">12</option>
             </select>
             <select
-               name = "appt_ampm"
+               name = "ampm"
                className="required"
                onChange={onChange}
                 >

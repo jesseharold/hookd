@@ -27,7 +27,8 @@ class Auth {
    */
   static deauthenticateUser() {
     localStorage.removeItem('token');
-    localStorage.removeItem('userName');
+    localStorage.removeItem('first_name');
+    localStorage.removeItem('last_name');
   }
 
   /**
@@ -45,8 +46,11 @@ class Auth {
    * @returns {string}
    */
 
-  static getUserName() {
-    return localStorage.getItem('userName');
+  static getFirstName() {
+    return localStorage.getItem('first_name');
+  }
+  static getLastName() {
+    return localStorage.getItem('last_name');
   }
   /**
    * Set a the user's name.
