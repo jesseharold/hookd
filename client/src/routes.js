@@ -4,7 +4,6 @@ import DashboardPage from './containers/DashboardPage.jsx';
 import LoginPage from './containers/LoginPage.jsx';
 import SignUpPage from './containers/SignUpPage.jsx';
 import SearchPage from './containers/SearchPage.jsx';
-import CalendarPage from './containers/CalendarPage.jsx';
 import PayPage from './containers/PayPage.jsx';
 import ProfilePage from './containers/ProfilePage.jsx';
 import AppointmentsPage from './containers/AppointmentsPage.jsx';
@@ -35,10 +34,6 @@ const routes = {
     {
       path: '/signup',
       component: SignUpPage
-    },
-    {
-      path: '/calendar',
-      component: CalendarPage
     },
     {
       path: '/pay',
