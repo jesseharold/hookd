@@ -28,13 +28,13 @@ router.get('/dashboard', (req, res, next) => {
 
 router.get("/search", (req, res) => {
   // called by form that searches for styles
-  console.log("searching for hairstyle ", req.query.terms);
   const googleClient = new GoogleImages(config.googleCSEId, config.googleSearchAPIKey);
   const searchOptions = {
       type: "face",
       size: "large",
       safe: "high",
-      page: req.query.page
+      num: 9,
+      page: req.query.offset
   };
   googleClient.search("hairstyle " + req.query.terms, searchOptions).then(images => {
     res.send(images);

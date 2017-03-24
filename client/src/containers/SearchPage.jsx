@@ -124,7 +124,7 @@ class SearchPage extends React.Component {
     }
 
     getMoreResults(event){
-        const nowAt = this.state.pageOfResults + 1;
+        const nowAt = this.state.pageOfResults + 9;
         this.setState({
             pageOfResults: nowAt,
             searchResults: []
