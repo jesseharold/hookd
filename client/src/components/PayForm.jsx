@@ -52,7 +52,7 @@ const PayForm = ({
     <form action="/" onSubmit={onSubmit} id="payment-form">
       <h2 className="card-heading">Pay the Barber</h2>
         <div className="form-row">
-           <label>First Name:
+           <label>First Name :
              <input
                name = "first_name"
                type="text"
@@ -63,7 +63,7 @@ const PayForm = ({
             </label>
         </div>
         <div className="form-row">
-           <label>Last Name:
+           <label>Last Name :
              <input
                name = "last_name"
                type = "text"
@@ -74,7 +74,7 @@ const PayForm = ({
             </label>
         </div>
         <div className="form-row">
-           <label>Email:
+           <label>Email :
              <input
                name = "email"
                type ="text"
@@ -85,7 +85,7 @@ const PayForm = ({
             </label>
         </div>
         <div className="form-row">
-           <label>Card Number:
+           <label>Card Number :
              <input
                name = "number"
                data-stripe ='number'
@@ -97,7 +97,7 @@ const PayForm = ({
             </label>
         </div>
         <div className="form-row">
-           <label>Expiration Month:
+           <label>Expiration Month :
              <select
                name = "exp_month"
                data-stripe = "exp_month"
@@ -109,7 +109,8 @@ const PayForm = ({
               {generateMonthOptions()}
             </select>
             </label>
-           <label>Expiration Year:
+      
+           <label>Expiration Year :
              <select  value={client.card.exp_year} onChange={onChangeCard}
                name = "exp_year" data-stripe= "exp_year" className="required">
              {generateYearOptions()}
@@ -117,7 +118,7 @@ const PayForm = ({
            </label>
         </div>
         <div className="form-row">
-           <label>CVC:
+           <label>CVC :
              <input
                name = "cvc"
                data-stripe = "cvc"

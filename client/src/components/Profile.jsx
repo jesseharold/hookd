@@ -32,14 +32,22 @@ const Profile = ({
       </section>
       <h3 className="card-heading">Saved Styles</h3>
       <section>
+      <div className="col-xs-12 col-lg-6">
+      <div className="savedfindstyle">
         {client.likedStyles ? client.likedStyles.map((style, i) => (
             <div key={i} className="styleThumbs">
                 <img src={style.image} />
             </div>
         )) : <span>You have no Saved Styles.</span>}
+        </div>
+        </div>
         <br />
         <br />
-        <Link to="/findstyle"><button>Find a new style.</button></Link>
+        
+        <Link className="findstyle" to="/findstyle">
+        <button className="findnewstyle">Find a new style.</button>
+        </Link>
+
     </section>
   </div>
 );

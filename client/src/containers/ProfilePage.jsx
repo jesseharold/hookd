@@ -43,6 +43,6 @@ class ProfilePage extends React.Component {
             </Card>
         );
     }
-}
+};
 
 export default ProfilePage;
