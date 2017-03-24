@@ -11,7 +11,7 @@ const SearchForm = ({
   hiddenTerms
 }) => (
   <Card className="container">
-    <div className="col">  
+    <div className="search_box">  
       <form action="/" onSubmit={onSubmit}>
         <h2 className="card-heading">Search for a Hairstyle</h2>
         <div className="field-line">
