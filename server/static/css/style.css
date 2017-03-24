@@ -19,7 +19,14 @@ a.thumbnail {
   display: inline-block;
 }
 
-a.favimg {
+img.fav {
+  max-width: 100%;
+  max-height: 100%;
+  background-size: cover;
+  background: no-repeat center;
+}
+
+.favimg {
   width: 150px;
   height: 150px;
   display: inline-block;
@@ -28,13 +35,6 @@ a.favimg {
 .card-heading{
   color: #FF8C00;
   font-family: "Josefin Slab";
-}
-
-.favimg img {
-  max-width: 100%;
-  max-height: 100%;
-  background-size: cover;
-  background: no-repeat center; 
 }
 
 .thumbnail img {
@@ -63,7 +63,7 @@ a.favimg {
 }
 
 .topleft {
-  color: #FF8C00 !important67;
+  color: #FF8C00 !important;
 }
 
 .top-bar-right {
