@@ -1,0 +1,7 @@
+{
+   "dbUri_heroku": "mongodb://heroku_vkbxk5bz:2sjasmroa2h7d7sogbg2uq28b0@ds137340.mlab.com:37340/heroku_vkbxk5bz",
+   "dbUri": "mongodb://localhost/hookd",
+   "jwtSecret": "hold me closer Tony Danza",
+   "googleSearchAPIKey": "AIzaSyByLnwjK24rnbxAHIL2SGu0AqWQmWjKGCQ",
+   "googleCSEId": "004795794761665707719:ov6hibu_ngi"
+ }

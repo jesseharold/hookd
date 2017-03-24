@@ -5,7 +5,7 @@ npm-debug.log*
 
 # private keys
 private.txt
-private.json
+#private.json
 
 # Runtime data
 pids
