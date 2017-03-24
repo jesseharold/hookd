@@ -4,7 +4,7 @@ const config = require('../../config/private.json');
 const models = require('mongoose');
 const Style = models.model('Style');
 const User = models.model('User');
-const Appointment = models.model('Appointment');
+//const Appointment = models.model('Appointment');
 
 const router = new express.Router();
 // since this is in the api routes
@@ -128,35 +128,35 @@ router.post("/favorites/delete", (req, res) => {
 });
 
 
-router.post("/appointment", (req, res) => {
-    // create a new style
-    const apptData = {
-        requestedStyle: req.body.style
-    };
-    const newAppointment = new Appointment(apptData);
-    newAppointment.save((err, addedAppt) => {
-        if (err) { return done(err); }
-        if (!req.userid){
-            console.error("could not find logged in user");
-        } else {
-            // look up current user and add this style to the user's appointments
-            User.findById(req.userid).populate("appointments").then(function(myuser){
-                if (!myuser) {
-                    console.error("error finding that user in db");
-                } else {
-                    // found user, add new style
-                    myuser.appointments.push(addedAppt);
-                    myuser.save(function(err, updatedUser){
-                        if (err){
-                            return console.error(err);
-                        }
-                        // send back updated user to browser
-                        res.send(updatedUser);
-                    })
-                }
-            });
-        }
-    });
-});
+// router.post("/appointment", (req, res) => {
+//     // create a new style
+//     const apptData = {
+//         requestedStyle: req.body.style
+//     };
+//     const newAppointment = new Appointment(apptData);
+//     newAppointment.save((err, addedAppt) => {
+//         if (err) { return done(err); }
+//         if (!req.userid){
+//             console.error("could not find logged in user");
+//         } else {
+//             // look up current user and add this style to the user's appointments
+//             User.findById(req.userid).populate("appointments").then(function(myuser){
+//                 if (!myuser) {
+//                     console.error("error finding that user in db");
+//                 } else {
+//                     // found user, add new style
+//                     myuser.appointments.push(addedAppt);
+//                     myuser.save(function(err, updatedUser){
+//                         if (err){
+//                             return console.error(err);
+//                         }
+//                         // send back updated user to browser
+//                         res.send(updatedUser);
+//                     })
+//                 }
+//             });
+//         }
+//     });
+// });
 
 module.exports = router;

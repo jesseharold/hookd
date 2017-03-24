@@ -57,7 +57,7 @@ function createAppointment(authToken, styleId){
     var authAxios = axios.create({
         headers: {'Authorization': 'bearer ' + authToken}
     });
-    return authAxios.post('/api/appointment', {style: styleId});
+    return authAxios.post('/reservations/', {style: styleId});
 }
 
 function getSavedStyles(authToken){

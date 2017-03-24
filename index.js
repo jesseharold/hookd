@@ -44,6 +44,7 @@ passport.deserializeUser(function(user, done){
   done(null, user);
 });
 
+
 // load passport strategies
 const localSignupStrategy = require('./server/passport/local-signup');
 const localLoginStrategy = require('./server/passport/local-login');
@@ -63,6 +64,9 @@ const stripeRoutes = require('./server/routes/pay');
 app.use('/auth', authRoutes);
 app.use('/api', apiRoutes);
 app.use('/stripe', stripeRoutes);
+//reservations
+const reservationRoutes = require('./server/routes/reservation');
+app.use('/reservations', reservationRoutes);
 
 
 // start the server
