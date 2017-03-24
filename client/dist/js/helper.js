@@ -53,12 +53,13 @@ function destroyFavorite(authToken, styleId){
     return authAxios.post('/api/favorites/delete', {imageData: styleId});
 }
 
-function createAppointment(authToken, styleId){
+function createAppointment(authToken, appointmentData){
     // make call to api
     var authAxios = axios.create({
         headers: {'Authorization': 'bearer ' + authToken}
     });
-    return authAxios.post('/reservations/', {style: styleId});
+    console.log("do booking ", appointmentData);
+    return authAxios.post('/reservations/', appointmentData);
 }
 
 function getSavedStyles(authToken){

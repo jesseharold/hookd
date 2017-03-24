@@ -11,12 +11,8 @@ const BookingForm = ({
     <form action="/" onSubmit={onSubmit} id="appointment-form">
       <h2 className="card-heading">Book an Appointment</h2>
         <div className="form-row">
-           <div>First Name:</div>
-            {client.first_name}
-        </div>
-        <div className="form-row">
-           <div>Last Name:</div>
-            {client.last_name}
+           <div>Appointment For:</div>
+            {client.first_name} {client.last_name}
         </div>
         <div className="form-row">
            <div>Select Barber:</div>

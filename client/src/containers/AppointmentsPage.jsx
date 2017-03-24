@@ -3,6 +3,7 @@ import { Card, CardText } from 'material-ui/Card';
 import { Link } from 'react-router';
 import BookingForm from '../components/BookingForm.jsx';
 import Auth from '../modules/Auth';
+import helpers from "../../dist/js/helper"
 
 class AppointmentsPage extends React.Component {
     //class constructor
@@ -31,15 +32,15 @@ class AppointmentsPage extends React.Component {
     doBooking(event){
         event.preventDefault();
         // send the appointment object to the server
-        console.log("do booking ", this.state.appointment);
+        helpers.createAppointment(Auth.getToken(), this.state.appointment).then(function(appt){
+            console.log("appointment created");
+        });
     }
 
     updateBookingForm(event){
-        //console.log("update form ", event.target.value);
         var newAppt = this.state.appointment;
         newAppt[event.target.name] = event.target.value;
-        this.setState({user: newAppt});
-        console.log(newAppt);
+        this.setState({appointment: newAppt});
     }
 
     render() {
