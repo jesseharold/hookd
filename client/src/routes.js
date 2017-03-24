@@ -19,7 +19,7 @@ const routes = {
         if (Auth.isUserAuthenticated()) {
           callback(null, SearchPage);
         } else {
-          callback(null, HomePage);
+          callback(null, LoginPage);
         }
       }
     },

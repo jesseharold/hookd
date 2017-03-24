@@ -1,7 +1,7 @@
 
 
 a {
-  color: #70abaf;
+  color: #70abaf !important;
   transition: color 0.2s;
   font-family: "Josefin Slab";
   text-decoration: none;
@@ -22,6 +22,7 @@ a.thumbnail {
 img.fav {
   max-width: 100%;
   max-height: 100%;
+  padding-top: 20px;
   background-size: cover;
   background: no-repeat center;
 }
@@ -30,6 +31,20 @@ img.fav {
   width: 150px;
   height: 150px;
   display: inline-block;
+}
+
+.findstyle {
+  width: 150px;
+  height: 150px;
+  display: inline-block;
+}
+
+img.findstyle{
+  max-width: 100%;
+  max-height: 100%;
+  padding-top: 20px;
+  background-size: cover;
+  background: no-repeat center;
 }
 
 .card-heading{
@@ -117,6 +132,34 @@ img.fav {
 .button-line div button span {
   text-transform: capitalize !important;
 
+}
+
+.Center{
+    display: table;
+}
+button.findnewstyle{
+    background: #70abaf;
+    color: white;
+    padding: 2%;
+    display: table-cell;
+    text-align: center;
+    vertical-align: bottom;
+    font-family: "Josefin Slab";
+    box-shadow: none !important;
+    border-radius: 2px;
+
+}
+
+div.form-row{
+  font-family: "Josefin Slab";
+  font-size: 18px;
+  padding-bottom: 20px;
+}
+div.savedfindstyle{
+  display: inline-block;
+  padding-top: 20px;
+  background-size: cover;
+  background: no-repeat center;
 }
 
 .error-message {
@@ -207,12 +250,12 @@ button.tags {
 
 body, html {
   height: 100%;
-  background: #705D56;
 }
 
 body {
   align-items: center;
   justify-content: center;
+  background: #705d56;
 }
 
 .favesLinks{
@@ -263,3 +306,4 @@ div.favesLinks {
 .styleThumbs img {
   width: 100%;
 }
+
