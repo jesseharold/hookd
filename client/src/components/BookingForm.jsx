@@ -4,8 +4,10 @@ import RaisedButton from 'material-ui/RaisedButton';
 import TextField from 'material-ui/TextField';
 
 function generateBarberOptions(){
-  var barbers = [1, 2, 3, 4, 5]
-  return barbers;
+  var barbers = ["Noah", "Arus", "Harold", "Mo", "Bryant"];
+  return barbers.map(function(barber, i) {
+    return `<option value=${i}>${barber}</option>`;
+  });
 }
 
 function generateApptHourOptions(){
@@ -38,15 +40,6 @@ const BookingForm = ({
                className="required"
                onChange={onChange}
                value={client.last_name}
-                />
-        </div>
-        <div className="form-row">
-           <div>Email:</div>
-             <input
-               name = "email"
-               type ="text"
-               className = "required"
-               onChange={onChange}
                 />
         </div>
         <div className="form-row">

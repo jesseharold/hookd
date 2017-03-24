@@ -14,6 +14,9 @@ class AppointmentsPage extends React.Component {
                 email: "",
                 name: "",
                 password: ""
+            },
+            appointment: {
+                
             }
         };
     }
@@ -24,7 +27,10 @@ class AppointmentsPage extends React.Component {
     }
 
     updateBookingForm(event){
-        console.log("update form ", event.target.value);
+        //console.log("update form ", event.target.value);
+        var newUser = this.state.user;
+        newUser[event.target.name] = event.target.value;
+        this.setState({user: newUser});
     }
 
     render() {
