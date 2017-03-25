@@ -18,14 +18,6 @@ function doSearch(authToken, searchterms, offset){
     return authAxios.get(encodeURI(query));
 }
 
-function getDashboard(authToken){
-    // set header to do authorization in passport
-    var authAxios = axios.create({
-        headers: {'Authorization': 'bearer ' + authToken}
-    });
-    return authAxios.get('/api/dashboard');
-}
-
 function createFavorite(authToken, image){
     // set header to do authorization in passport
     var authAxios = axios.create({
@@ -70,7 +62,6 @@ function getUserInfo(authToken){
 var helpers = {
   doLogin: doLogin,
   doSearch: doSearch,
-  getDashboard: getDashboard,
   createFavorite: createFavorite,
   destroyFavorite: destroyFavorite,
   getSavedStyles: getSavedStyles,
