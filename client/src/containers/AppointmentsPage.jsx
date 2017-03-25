@@ -12,6 +12,7 @@ class AppointmentsPage extends React.Component {
         // set initial component state
         this.state = {
             errors: "",
+            messageSuccess: false,
             user: {
                 first_name: Auth.getFirstName(),
                 last_name: Auth.getLastName(),
@@ -70,6 +71,7 @@ class AppointmentsPage extends React.Component {
             }
         }
         if (valid){
+            this.setState({messageSuccess: true});
             // send the appointment object to the server
             helpers.createAppointment(Auth.getToken(), this.state.appointment).then(function(appt){
                 if(appt.data){
@@ -101,6 +103,7 @@ class AppointmentsPage extends React.Component {
             <Card className="container">
                 <BookingForm 
                     message={this.state.errors}
+                    messageSuccess={this.state.messageSuccess}
                     onSubmit={this.doBooking} 
                     onChange={this.updateBookingForm} 
                     client={this.state.user} 

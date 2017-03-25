@@ -17595,6 +17595,7 @@ function getThisMonth() {
 
 var BookingForm = function BookingForm(_ref) {
   var message = _ref.message,
+      messageSuccess = _ref.messageSuccess,
       client = _ref.client,
       onSubmit = _ref.onSubmit,
       onChange = _ref.onChange,
@@ -17611,8 +17612,11 @@ var BookingForm = function BookingForm(_ref) {
     message && _react2.default.createElement(
       'p',
       { className: 'success-message' },
-      message,
-      _react2.default.createElement('br', null),
+      message
+    ),
+    messageSuccess && _react2.default.createElement(
+      'p',
+      null,
       _react2.default.createElement(
         _reactRouter.Link,
         { style: { fontSize: "20px", fontWeight: "bold" }, to: '/pay' },
@@ -17835,7 +17839,8 @@ BookingForm.propTypes = {
   client: _react.PropTypes.object.isRequired,
   chooseStyle: _react.PropTypes.func.isRequired,
   selectedStyle: _react.PropTypes.number.isRequired,
-  message: _react.PropTypes.string
+  message: _react.PropTypes.string,
+  messageSuccess: _react.PropTypes.bool
 };
 
 exports.default = BookingForm;
@@ -18696,6 +18701,7 @@ var AppointmentsPage = function (_React$Component) {
 
         _this.state = {
             errors: "",
+            messageSuccess: false,
             user: {
                 first_name: _Auth2.default.getFirstName(),
                 last_name: _Auth2.default.getLastName(),
@@ -18759,6 +18765,7 @@ var AppointmentsPage = function (_React$Component) {
                 }
             }
             if (valid) {
+                this.setState({ messageSuccess: true });
                 // send the appointment object to the server
                 _helper2.default.createAppointment(_Auth2.default.getToken(), this.state.appointment).then(function (appt) {
                     if (appt.data) {
@@ -18794,6 +18801,7 @@ var AppointmentsPage = function (_React$Component) {
                 { className: 'container' },
                 _react2.default.createElement(_BookingForm2.default, {
                     message: this.state.errors,
+                    messageSuccess: this.state.messageSuccess,
                     onSubmit: this.doBooking,
                     onChange: this.updateBookingForm,
                     client: this.state.user,
