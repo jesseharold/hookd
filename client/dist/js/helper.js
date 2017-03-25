@@ -5,18 +5,7 @@ function doLogin(formData){
     var authAxios = axios.create({
         headers: {'Content-type': 'application/x-www-form-urlencoded'}
     });
-    return authAxios.post('/auth/login', formData).then(function(response){
-        if (response.status === 200) {
-            // put username in localstorage for use by other pages
-            localStorage.setItem('first_name', response.data.firstName);
-            localStorage.setItem('last_name', response.data.lastName);
-            return response.data.user;
-        } else {
-            // failure
-            console.error("something went wrong: ", response.errors);
-            return response.errors;
-        }
-    });
+    return authAxios.post('/auth/login', formData);
 }
 
 function doSearch(authToken, searchterms, offset){

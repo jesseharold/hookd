@@ -17,13 +17,12 @@ const LoginForm = ({
       <h2 className="card-heading">Login</h2>
 
       {successMessage && <p className="success-message">{successMessage}</p>}
-      {errors.summary && <p className="error-message">{errors.summary}</p>}
+      {errors && <p className="error-message">{errors}</p>}
 
       <div className="field-line">
         <TextField
           floatingLabelText="Email"
           name="email"
-          errorText={errors.email}
           onChange={onChange}
           value={user.email}
         />
@@ -35,7 +34,6 @@ const LoginForm = ({
           type="password"
           name="password"
           onChange={onChange}
-          errorText={errors.password}
           value={user.password}
         />
       </div>
@@ -52,7 +50,7 @@ const LoginForm = ({
 LoginForm.propTypes = {
   onSubmit: PropTypes.func.isRequired,
   onChange: PropTypes.func.isRequired,
-  errors: PropTypes.object.isRequired,
+  errors: PropTypes.string.isRequired,
   successMessage: PropTypes.string.isRequired,
   user: PropTypes.object.isRequired
 };

@@ -11,7 +11,7 @@ class LoginPage extends React.Component {
 
     // set the initial component state
     this.state = {
-      errors: {},
+      errors: "",
       successMessage: "",
       user: {
         email: "",
@@ -32,24 +32,24 @@ class LoginPage extends React.Component {
     const password = encodeURIComponent(this.state.user.password);
     const formData = `email=${email}&password=${password}`;
     helpers.doLogin(formData).then(function(result){
-      if (result.message){
-        // there was an error
-        // change the component state
-        const errors = result;
-        errors.summary = result.message;
+      if (result.data.success){
+        // success! change the state to error free
         self.setState({
-          errors
-        });  
-      } else {
-        // success! change the component-container state
-        self.setState({
-          errors: {}
+          errors: ""
         });
+        // put username in localstorage for use by other pages
+        localStorage.setItem('first_name', result.data.firstName);
+        localStorage.setItem('last_name', result.data.lastName);
         // save the token
-        Auth.authenticateUser(result);
-      }      
-      // make a redirect
-      self.context.router.replace('/');
+        Auth.authenticateUser(result.data.user);
+        // make a redirect
+        self.context.router.replace('/');
+      } else {
+        // there was an error, show it to the user
+        self.setState({
+          errors:  result.data.message
+        });  
+      }    
     });
   }
 

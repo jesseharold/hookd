@@ -94,7 +94,7 @@ router.post('/signup', (req, res) => {
       if (err.name === 'MongoError' && err.code === 11000) {
         // the 11000 Mongo code is for a duplication email error
         // the 409 HTTP status code is for conflict error
-        return res.status(409).json({
+        return res.send({
           success: false,
           message: 'Check the form for errors.',
           errors: {
@@ -121,7 +121,7 @@ router.post('/signup', (req, res) => {
 router.post('/login', function (req, res, next) {
   const validationResult = validateLoginForm(req.body);
   if (!validationResult.success) {
-    return res.status(400).json({
+    return res.send({
       success: false,
       message: validationResult.message,
       errors: validationResult.errors
@@ -130,7 +130,7 @@ router.post('/login', function (req, res, next) {
   passport.authenticate('local-login',  function (err, user, info) {
       if (err) {
         if (err.name === 'IncorrectCredentialsError') {
-          return res.status(400).json({
+          return res.send({
             success: false,
             message: err.message
           });
@@ -138,7 +138,10 @@ router.post('/login', function (req, res, next) {
         return next(err);
       }
       if (!user) {
-          return res.send({ success : false, message : info.message || 'Login not successful' });
+          return res.send({ 
+            success : false, 
+            message : info.message || 'Login not successful' 
+          });
       }
       req.logIn(user, function(err) {
           if (err) { return next(err); }
