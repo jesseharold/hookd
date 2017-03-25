@@ -91,7 +91,7 @@ const BookingForm = ({
              <select
                name = "month"
                className="required"
-               value={getThisMonth()}
+               defaultValue={getThisMonth()}
                onChange={onChange}
                 >
             {generateMonthOptions()}
@@ -99,7 +99,7 @@ const BookingForm = ({
             <select
                name = "day"
                className="required"
-               value={getThisDay()}
+               defaultValue={getThisDay()}
                onChange={onChange}
                 >
               {generateDayOptions()}
@@ -145,7 +145,7 @@ const BookingForm = ({
       <Favorites 
         faveStyles={client.likedStyles} 
         thumbSize="smallThumb"
-        titleText="Choose a Style (optional)"
+        titleText="Choose a Style"
         clickHandler={chooseStyle}
         selected={selectedStyle}
          />

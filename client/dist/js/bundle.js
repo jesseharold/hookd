@@ -17687,7 +17687,7 @@ var BookingForm = function BookingForm(_ref) {
         {
           name: 'month',
           className: 'required',
-          value: getThisMonth(),
+          defaultValue: getThisMonth(),
           onChange: onChange
         },
         generateMonthOptions()
@@ -17697,7 +17697,7 @@ var BookingForm = function BookingForm(_ref) {
         {
           name: 'day',
           className: 'required',
-          value: getThisDay(),
+          defaultValue: getThisDay(),
           onChange: onChange
         },
         generateDayOptions()
@@ -17810,7 +17810,7 @@ var BookingForm = function BookingForm(_ref) {
     _react2.default.createElement(_Favorites2.default, {
       faveStyles: client.likedStyles,
       thumbSize: 'smallThumb',
-      titleText: 'Choose a Style (optional)',
+      titleText: 'Choose a Style',
       clickHandler: chooseStyle,
       selected: selectedStyle
     }),
@@ -18734,14 +18734,37 @@ var AppointmentsPage = function (_React$Component) {
         value: function doBooking(event) {
             var self = this;
             event.preventDefault();
-            // send the appointment object to the server
-            _helper2.default.createAppointment(_Auth2.default.getToken(), this.state.appointment).then(function (appt) {
-                if (appt.data) {
-                    self.setState({
-                        errors: "Appointment created successfully!"
-                    });
+            // verify that appointment isn't in the past     
+            var today = new Date();
+            var valid = true;
+            this.setState({ errors: "" });
+            if (parseInt(this.state.appointment.year) === today.getFullYear()) {
+                if (parseInt(this.state.appointment.month) < today.getMonth()) {
+                    valid = false;
+                    this.setState({ errors: "Please choose a future date." });
+                } else if (parseInt(this.state.appointment.month) === today.getMonth()) {
+                    if (parseInt(this.state.appointment.day) < today.getDay()) {
+                        valid = false;
+                        console.log("Please choose a future date (day)");
+                        this.setState({ errors: "Please choose a future date." });
+                    } else if (parseInt(this.state.appointment.day) < today.getDay()) {
+                        console.log("You are booking for today, please call the salon to make sure your appointment is available.");
+                        this.setState({ errors: "You are booking for today, please call the salon to make sure your appointment is available." });
+                        valid = true;
+                    }
                 }
-            });
+            }
+            console.log(valid);
+            if (valid) {
+                // send the appointment object to the server
+                _helper2.default.createAppointment(_Auth2.default.getToken(), this.state.appointment).then(function (appt) {
+                    if (appt.data) {
+                        self.setState({
+                            errors: "Appointment created successfully!"
+                        });
+                    }
+                });
+            }
         }
     }, {
         key: 'updateBookingForm',
