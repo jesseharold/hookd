@@ -12,9 +12,10 @@ const Profile = ({
   <div>
       <h2 className="card-heading">User Profile</h2>
         <section>
-            First Name: {client.first_name}<br />
-            Last Name: {client.last_name}<br />
-            Email: {client.email}<br />
+            First Name: {client.first_name}&nbsp;&nbsp;&nbsp;&nbsp;<span className="favesLinks">edit</span><br />
+            Last Name: {client.last_name}&nbsp;&nbsp;&nbsp;&nbsp;<span className="favesLinks">edit</span><br />
+            Email: {client.email}&nbsp;&nbsp;&nbsp;&nbsp;<span className="favesLinks">edit</span><br />
+            Password: <span className="favesLinks">Reset</span><br />
             User Type: {client.role}<br />
             <br />
             <Link to="/logout" className="findstyle">
