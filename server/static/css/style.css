@@ -238,6 +238,10 @@ button.tags {
   background: #705D56;
 }
 
+.defaultMessage{
+  margin-bottom: 20px;
+  font-weight: bold;
+  }
 
 @keyframes shake {
   0% {

@@ -11,13 +11,13 @@ const SearchResults = ({
       <h2 className="card-heading">Search Results</h2>
       
       <div className="row">
-      {foundImages ? foundImages.map((result, i) => (
+      {foundImages.length ? foundImages.map((result, i) => (
           <div key={i} className="col-xs-8 col-md-4">
             <a onClick={function(){addFavoriteImage(result);}} className="thumbnail">
               <img src={result.url} />
             </a>
           </div>
-      )) : <span>Choose filters and/or enter your search above</span>}
+      )) : <div className="defaultMessage">Choose filters and/or enter your search above</div>}
       </div>
       {foundImages.length > 0 &&
         <div className="button-line">
