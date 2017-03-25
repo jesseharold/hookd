@@ -3,24 +3,21 @@ const Schema = mongoose.Schema;
 // define the Style model schema
 const ReservationSchema = new Schema({
     
-   client : [{
+  client : {
     type: Schema.Types.ObjectId,
     ref: "User"
-  }],
-   likedStyles : [{
+  },
+   chosenStyle : {
     type: Schema.Types.ObjectId,
     ref: "Style"
-  }],
-  barber : [{
-    type: Schema.Types.ObjectId,
-    ref: "User"
-  }],
-  startTime: {
-    type: Date
-},
-  price : {
-    type: Number
-  }
+  },
+  // save this for when there are barber users in place
+  // barber : {
+  //   type: Schema.Types.ObjectId,
+  //   ref: "User"
+  // },  
+  barber : String,
+  startTime: Date
 
 });
 

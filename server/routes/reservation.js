@@ -10,21 +10,37 @@ const router = new express.Router();
 
 //create reservation
 router.post('/', (req,res)=> {
+    // get logged in user's ID and save this appointment
+    // create a date object out of data
+    var militaryHour = parseInt(req.body.hour);
+    if (req.body.ampm === "PM"){
+        if (militaryHour !== 12){
+            militaryHour += 12;
+        }
+    } else {
+        if (militaryHour === 12){
+            militaryHour = 0;
+        }
+    }
+    const startTime = new Date(parseInt(req.body.year), parseInt(req.body.month), parseInt(req.body.day), militaryHour);
+
+    console.log(startTime);
+
     const myReservation = {
-        client: req.body.client,
-        likedStyles: req.body.likedStyles,
+        client: req.userid,
+        chosenStyle: req.body.chosenStyle,
         barber: req.body.barber,
-        startTime: req.body.startTime,
-        price: req.body.price
+        startTime: startTime
     }; 
-  const reservation = new Reservation (myReservation);
-  reservation.save(function(err, createReservationObject){
-      if(err){
-          res.send(err);
-      }
-      res.send(createReservationObject);
-  })
+    const reservation = new Reservation (myReservation);
+    reservation.save(function(err, createReservationObject){
+        if(err){
+            res.send(err);
+        }
+        res.send(createReservationObject);
+    });
 });
+
 //update reservation
 router.put('/:reservationId', (req, res)=>{
     Reservation.findById(req.params.reservationId, function(err,reservation){
@@ -49,14 +65,13 @@ router.put('/:reservationId', (req, res)=>{
 
 //read reservation
 router.get('/', (req, res)=>{
-
     Reservation.find(function(err, reservation){
         if(err){
             res.status(404).send(err)
         }else{
             res.send(reservation);
         }
-    })
+    });
 });
 
 module.exports = router;

@@ -18,13 +18,13 @@ class AppointmentsPage extends React.Component {
                 likedStyles: []
             },
             appointment: {
-                barber: "1",
+                barber: "none chosen",
                 month: "1",
                 day: "1",
                 year: "2017",
                 hour: "1",
                 ampm: "PM",
-                chosenStyle: "none"
+                chosenStyle: "none chosen"
             },
             showSelected: 1000000
         };
@@ -52,7 +52,7 @@ class AppointmentsPage extends React.Component {
         event.preventDefault();
         // send the appointment object to the server
         helpers.createAppointment(Auth.getToken(), this.state.appointment).then(function(appt){
-            console.log("appointment created");
+            console.log("appointment created", appt);
         });
     }
 
