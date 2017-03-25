@@ -23,11 +23,14 @@ class AppointmentsPage extends React.Component {
                 day: "1",
                 year: "2017",
                 hour: "1",
-                ampm: "PM"
-            }
+                ampm: "PM",
+                chosenStyle: "none"
+            },
+            showSelected: 1000000
         };
         this.doBooking = this.doBooking.bind(this);
         this.updateBookingForm = this.updateBookingForm.bind(this);
+        this.updateChosenStyle = this.updateChosenStyle.bind(this);
     }
     componentWillMount(){
         // get user styles from db 
@@ -59,10 +62,25 @@ class AppointmentsPage extends React.Component {
         this.setState({appointment: newAppt});
     }
 
+    updateChosenStyle(i){
+        // put the id of the chosen style into the appointment data
+        var newAppt = this.state.appointment;
+        newAppt.chosenStyle = this.state.user.likedStyles[i]._id;
+        this.setState({appointment: newAppt});
+        // set the item that show show a selected class
+        this.setState({showSelected: i});
+    }
+
     render() {
         return (
             <Card className="container">
-                <BookingForm onSubmit={this.doBooking} onChange={this.updateBookingForm} client={this.state.user} />
+                <BookingForm 
+                    onSubmit={this.doBooking} 
+                    onChange={this.updateBookingForm} 
+                    client={this.state.user} 
+                    chooseStyle={this.updateChosenStyle}
+                    selectedStyle={this.state.showSelected}
+                    />
             </Card>
         );
     }

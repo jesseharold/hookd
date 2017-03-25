@@ -8,6 +8,8 @@ const BookingForm = ({
   client,
   onSubmit,
   onChange,
+  chooseStyle,
+  selectedStyle
 }) => (
     <form action="/" onSubmit={onSubmit} id="appointment-form">
       <h2 className="card-heading">Book an Appointment</h2>
@@ -129,7 +131,10 @@ const BookingForm = ({
       <Favorites 
         faveStyles={client.likedStyles} 
         thumbSize="smallThumb"
-        titleText="Choose a Style (optional)" />
+        titleText="Choose a Style (optional)"
+        clickHandler={chooseStyle}
+        selected={selectedStyle}
+         />
 
       <br style={{clear: "both"}} />
       <div className="button-line">
@@ -141,7 +146,9 @@ const BookingForm = ({
 BookingForm.propTypes = {
   onSubmit: PropTypes.func.isRequired,
   onChange: PropTypes.func.isRequired,
-  client: PropTypes.object.isRequired
+  client: PropTypes.object.isRequired,
+  chooseStyle: PropTypes.func.isRequired,
+  selectedStyle: PropTypes.number.isRequired
 };
 
 export default BookingForm;
