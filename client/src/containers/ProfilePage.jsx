@@ -15,16 +15,16 @@ class ProfilePage extends React.Component {
             first_name: "",
             last_name: "",
             email: "",
-            savedStyes: [],
+            likedStyles: [],
             card:{
               number: "",
               exp_month: "",
               exp_year: "",
               cvc: ""
-            },
-            favoriteStyles:[]
+            }
           }
         }
+    this.removeSaved = this.removeSaved.bind(this);
     }
     componentWillMount(){
         //get user info
@@ -34,11 +34,25 @@ class ProfilePage extends React.Component {
         });
     }
 
+    removeSaved(index){
+        var self = this;
+        const idToDestroy = self.state.client.likedStyles[index]._id;
+        helpers.destroyFavorite(Auth.getToken(), idToDestroy).then(function(res){
+            //console.log("done destroying. updated user: ", res.data);
+            const updatedClient = self.state.client;
+            updatedClient.likedStyles = res.data.likedStyles;
+            self.setState({
+                client: updatedClient
+            });
+        });
+    }
+
     render() {
         return (
             <Card className="container">
                 <Profile
                     client={this.state.client}
+                    removeSaved={this.removeSaved}
                     />        
             </Card>
         );

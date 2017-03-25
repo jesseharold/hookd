@@ -33,10 +33,10 @@ img.fav {
   display: inline-block;
 }
 
-.findstyle {
-  width: 150px;
-  height: 150px;
-  display: inline-block;
+div.smallThumb {
+    width: 150px;
+    height: inherit;
+    float: left;
 }
 
 img.findstyle{

@@ -1,4 +1,5 @@
 import React, { PropTypes } from "react";
+import { Card, CardText } from 'material-ui/Card';
 import SearchForm from "../components/SearchForm.jsx";
 import SearchResults from "../components/SearchResults.jsx";
 import SearchTags from "../components/SearchTags.jsx";
@@ -144,9 +145,9 @@ class SearchPage extends React.Component {
     }
 
     createAppointment(index){
-        helpers.createAppointment(Auth.getToken(), this.state.favoriteStyles[index]._id).then(function(res){
-            //console.log("done creating appointment. updated user: ", res.data);
-        });
+        // helpers.createAppointment(Auth.getToken(), this.state.favoriteStyles[index]._id).then(function(res){
+        //     //console.log("done creating appointment. updated user: ", res.data);
+        // });
     }
 
     render() {
@@ -168,11 +169,12 @@ class SearchPage extends React.Component {
                     foundImages={this.state.searchResults} 
                     getMore={this.getMoreResults}
                     />
-                <Favorites 
-                    faveStyles={this.state.favoriteStyles}
-                    removeSaved={this.removeFavorite}
-                    makeAppointment={this.createAppointment}
-                    />
+                <Card className="container">
+                    <Favorites 
+                        faveStyles={this.state.favoriteStyles}
+                        removeSaved={this.removeFavorite}
+                        />
+                </Card>
             </div>
         );
     }

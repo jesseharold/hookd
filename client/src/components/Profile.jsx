@@ -2,10 +2,12 @@ import React, { PropTypes } from 'react';
 import { Link } from 'react-router';
 import { Card, CardText } from 'material-ui/Card';
 import Auth from '../modules/Auth';
-import helpers from "../../dist/js/helper"
+import helpers from "../../dist/js/helper";
+import Favorites from "../components/Favorites.jsx";
 
 const Profile = ({
-  client
+  client,
+  removeSaved
 }) => (
   <div>
       <h2 className="card-heading">User Profile</h2>
@@ -34,30 +36,21 @@ const Profile = ({
           <button className="findnewstyle">Book a new appointment</button>
           </Link>
       </section>
-      <h3 className="card-heading">Saved Styles</h3>
-      <section>
-      <div className="col-xs-12 col-lg-6">
-      <div className="savedfindstyle">
-        {client.likedStyles ? client.likedStyles.map((style, i) => (
-            <div key={i} className="styleThumbs">
-                <img src={style.image} />
-            </div>
-        )) : <span>You have no Saved Styles.</span>}
-        </div>
-        </div>
-        <br />
-        <br />
-        
-        <Link className="findstyle" to="/findstyle">
-        <button className="findnewstyle">Find a new style.</button>
-        </Link>
-
-    </section>
+      <Favorites 
+        faveStyles={client.likedStyles} 
+        removeSaved={removeSaved}
+        thumbSize="smallThumb" />
+    <Link className="findstyle" to="/findstyle">
+    <button className="findnewstyle">Find a new style.</button>
+    </Link>
+    <br />
+    <br />
   </div>
 );
 
 Profile.propTypes = {
-  client: PropTypes.object.isRequired
+  client: PropTypes.object.isRequired,
+  removeSaved: PropTypes.func.isRequired
 };
 
 export default Profile;
