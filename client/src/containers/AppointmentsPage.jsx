@@ -14,7 +14,8 @@ class AppointmentsPage extends React.Component {
             errors: {},
             user: {
                 first_name: Auth.getFirstName(),
-                last_name: Auth.getLastName()
+                last_name: Auth.getLastName(),
+                likedStyles: []
             },
             appointment: {
                 barber: "1",
@@ -28,7 +29,22 @@ class AppointmentsPage extends React.Component {
         this.doBooking = this.doBooking.bind(this);
         this.updateBookingForm = this.updateBookingForm.bind(this);
     }
-    
+    componentWillMount(){
+        // get user styles from db 
+        var self = this;
+        const savedStyles = helpers.getSavedStyles(Auth.getToken()).then(function(styles){
+            if (!styles || !styles.data || styles.status !== 200){
+                console.error("something went wrong: ", styles);
+            } else {
+                const updatedUser = self.state.user;
+                updatedUser.likedStyles = styles.data.likedStyles;
+                self.setState({
+                    user: updatedUser
+                });
+            }
+        });
+    }
+
     doBooking(event){
         event.preventDefault();
         // send the appointment object to the server
@@ -47,12 +63,6 @@ class AppointmentsPage extends React.Component {
         return (
             <Card className="container">
                 <BookingForm onSubmit={this.doBooking} onChange={this.updateBookingForm} client={this.state.user} />
-                <h2 className="card-heading">Upcoming Appointments</h2>
-                <CardText>Appointments stuff goes here</CardText>
-                  <Link to="/pay">Pay for this appointment</Link>
-                <h2 className="card-heading">Past Appointments</h2>
-                <CardText>Appointments stuff goes here</CardText>
-                  <Link to="/pay">Pay for this appointment</Link>
             </Card>
         );
     }

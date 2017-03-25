@@ -311,3 +311,7 @@ div.favesLinks {
   width: 100%;
 }
 
+.inlineButton {
+  float: left;
+   margin-top: 70px;
+}

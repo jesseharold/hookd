@@ -10,7 +10,7 @@ const Profile = ({
   removeSaved
 }) => (
   <div>
-      <h2 className="card-heading">User Profile</h2>
+      <h2 className="card-heading">My Info</h2>
         <section>
             First Name: {client.first_name}&nbsp;&nbsp;&nbsp;&nbsp;<span className="favesLinks">edit</span><br />
             Last Name: {client.last_name}&nbsp;&nbsp;&nbsp;&nbsp;<span className="favesLinks">edit</span><br />
@@ -22,7 +22,7 @@ const Profile = ({
             <button className="findnewstyle">Log Out</button>
             </Link><br />
         </section>
-        <h3 className="card-heading">Appointments</h3>
+        <h3 className="card-heading">My Appointments</h3>
         <section>
           {client.appointments ? client.appointments.map((appointment, i) => (
               <div key={i}>
@@ -30,6 +30,7 @@ const Profile = ({
                   Style requested: {appointment.requestedStyle ? appointment.requestedStyle : "No style set."}<br />
                   Barber: {appointment.barber ? appointment.barber : "No barber selected yet."}<br />
                   Paid for: {appointment.paid ? appointment.paid : "Not paid."}<br />
+                  <Link to="/pay">Pay for this appointment</Link>
               </div>
           )) : <span>You have no appointments scheduled</span>}
           <br />
@@ -37,10 +38,13 @@ const Profile = ({
           <button className="findnewstyle">Book a new appointment</button>
           </Link>
       </section>
+
       <Favorites 
         faveStyles={client.likedStyles} 
         removeSaved={removeSaved}
         thumbSize="smallThumb" />
+        
+      <br style={{clear: "both"}} />
     <Link className="findstyle" to="/findstyle">
     <button className="findnewstyle">Find a new style.</button>
     </Link>

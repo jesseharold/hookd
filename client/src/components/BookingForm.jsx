@@ -2,6 +2,7 @@ import React, { PropTypes } from 'react';
 import { Card, CardText } from 'material-ui/Card';
 import RaisedButton from 'material-ui/RaisedButton';
 import TextField from 'material-ui/TextField';
+import Favorites from "../components/Favorites.jsx";
 
 const BookingForm = ({
   client,
@@ -103,17 +104,17 @@ const BookingForm = ({
                onChange={onChange}
                 >
               <option value="1">1</option>
-              <option value="1">2</option>
-              <option value="1">3</option>
-              <option value="1">4</option>
-              <option value="1">5</option>
-              <option value="1">6</option>
-              <option value="1">7</option>
-              <option value="1">8</option>
-              <option value="1">9</option>
-              <option value="1">10</option>
-              <option value="1">11</option>
-              <option value="1">12</option>
+              <option value="2">2</option>
+              <option value="3">3</option>
+              <option value="4">4</option>
+              <option value="5">5</option>
+              <option value="6">6</option>
+              <option value="7">7</option>
+              <option value="8">8</option>
+              <option value="9">9</option>
+              <option value="10">10</option>
+              <option value="11">11</option>
+              <option value="12">12</option>
             </select>
             <select
                name = "ampm"
@@ -123,8 +124,14 @@ const BookingForm = ({
               <option value="PM">PM</option>
               <option value="AM">AM</option>
             </select>
-        </div>
-        
+        </div>      
+
+      <Favorites 
+        faveStyles={client.likedStyles} 
+        thumbSize="smallThumb"
+        titleText="Choose a Style (optional)" />
+
+      <br style={{clear: "both"}} />
       <div className="button-line">
         <RaisedButton type="submit" label="Book Your Appointment" primary />
       </div>
