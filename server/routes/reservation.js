@@ -22,12 +22,13 @@ router.post('/', (req,res)=> {
             militaryHour = 0;
         }
     }
+    console.log("hour from form: " + req.body.hour + req.body.ampm);
+    console.log("military hour: " + militaryHour);
     const startTime = new Date(parseInt(req.body.year), parseInt(req.body.month), parseInt(req.body.day), militaryHour);
 
     console.log(startTime);
 
     const myReservation = {
-        client: req.userid,
         chosenStyle: req.body.chosenStyle,
         barber: req.body.barber,
         startTime: startTime
@@ -37,7 +38,22 @@ router.post('/', (req,res)=> {
         if(err){
             res.send(err);
         }
-        res.send(createReservationObject);
+        // associate new reservation to logged in user
+        User.findById(req.userid).populate("appointments").then(function(myuser){
+            if (!myuser) {
+                console.error("error finding that user in db");
+            } else {
+                // found user, add new style
+                myuser.appointments.push(createReservationObject);
+                myuser.save(function(err, updatedUser){
+                    if (err){
+                        return console.error(err);
+                    }
+                    // send back updated user to browser
+                    res.send(updatedUser);
+                })
+            }
+        });
     });
 });
 
@@ -47,11 +63,10 @@ router.put('/:reservationId', (req, res)=>{
         if(err){
             res.status(400).send(err);
         }else{
-            reservation.client = req.body.client || reservation.client;
-            reservation.likedStyles = req.body.likedStyles || reservation.likedStyles;
+            reservation.chosenStyle = req.body.chosenStyle || reservation.chosenStyle;
             reservation.barber = req.body.barber || reservation.barber;
             reservation.startTime = req.body.startTime || reservation.startTime;
-            reservation.price = req.body.price || reservation.price;
+            reservation.paid = req.body.paid || reservation.paid;
 
             reservation.save(function(err, reservation){
                 if(err){
@@ -65,7 +80,7 @@ router.put('/:reservationId', (req, res)=>{
 
 //read reservation
 router.get('/', (req, res)=>{
-    Reservation.find(function(err, reservation){
+    Reservation.find({}, function(err, reservation){
         if(err){
             res.status(404).send(err)
         }else{

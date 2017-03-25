@@ -27,7 +27,7 @@ const Profile = ({
           {client.appointments ? client.appointments.map((appointment, i) => (
               <div key={i}>
                   Date: {appointment.startTime ? appointment.startTime : "Unknown"}<br />
-                  Style requested: {appointment.requestedStyle ? appointment.requestedStyle : "No style set."}<br />
+                  Style requested: {appointment.chosenStyle ? appointment.chosenStyle : "No style set."}<br />
                   Barber: {appointment.barber ? appointment.barber : "No barber selected yet."}<br />
                   Paid for: {appointment.paid ? appointment.paid : "Not paid."}<br />
                   <Link to="/pay">Pay for this appointment</Link>

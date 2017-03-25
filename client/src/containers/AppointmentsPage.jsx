@@ -52,7 +52,7 @@ class AppointmentsPage extends React.Component {
         event.preventDefault();
         // send the appointment object to the server
         helpers.createAppointment(Auth.getToken(), this.state.appointment).then(function(appt){
-            console.log("appointment created", appt);
+            console.log("appointment created", appt.data);
         });
     }
 

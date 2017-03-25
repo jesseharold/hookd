@@ -3,10 +3,6 @@ const Schema = mongoose.Schema;
 // define the Style model schema
 const ReservationSchema = new Schema({
     
-  client : {
-    type: Schema.Types.ObjectId,
-    ref: "User"
-  },
    chosenStyle : {
     type: Schema.Types.ObjectId,
     ref: "Style"
@@ -17,7 +13,11 @@ const ReservationSchema = new Schema({
   //   ref: "User"
   // },  
   barber : String,
-  startTime: Date
+  startTime: Date,
+  paid: {
+    type: Boolean,
+    default: false
+  }
 
 });
 

@@ -1,6 +1,5 @@
 import Base from './components/Base.jsx';
 import HomePage from './components/HomePage.jsx';
-import DashboardPage from './containers/DashboardPage.jsx';
 import LoginPage from './containers/LoginPage.jsx';
 import SignUpPage from './containers/SignUpPage.jsx';
 import SearchPage from './containers/SearchPage.jsx';

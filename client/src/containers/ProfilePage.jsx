@@ -16,6 +16,7 @@ class ProfilePage extends React.Component {
             last_name: "",
             email: "",
             likedStyles: [],
+            appointments: [],
             card:{
               number: "",
               exp_month: "",
@@ -31,6 +32,7 @@ class ProfilePage extends React.Component {
         const self = this;
         helpers.getUserInfo(Auth.getToken()).then(function(user){
             self.setState({client: user.data});
+            console.log("Client: ", self.state.client);
         });
     }
 
