@@ -17617,6 +17617,12 @@ var BookingForm = function BookingForm(_ref) {
         _reactRouter.Link,
         { style: { fontSize: "20px", fontWeight: "bold" }, to: '/pay' },
         'Pay for your appointment now.'
+      ),
+      _react2.default.createElement('br', null),
+      _react2.default.createElement(
+        _reactRouter.Link,
+        { style: { fontSize: "20px", fontWeight: "bold" }, to: '/profile' },
+        'View your appointments in your Profile.'
       )
     ),
     _react2.default.createElement(
@@ -18745,16 +18751,13 @@ var AppointmentsPage = function (_React$Component) {
                 } else if (parseInt(this.state.appointment.month) === today.getMonth()) {
                     if (parseInt(this.state.appointment.day) < today.getDay()) {
                         valid = false;
-                        console.log("Please choose a future date (day)");
                         this.setState({ errors: "Please choose a future date." });
                     } else if (parseInt(this.state.appointment.day) < today.getDay()) {
-                        console.log("You are booking for today, please call the salon to make sure your appointment is available.");
                         this.setState({ errors: "You are booking for today, please call the salon to make sure your appointment is available." });
                         valid = true;
                     }
                 }
             }
-            console.log(valid);
             if (valid) {
                 // send the appointment object to the server
                 _helper2.default.createAppointment(_Auth2.default.getToken(), this.state.appointment).then(function (appt) {

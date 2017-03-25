@@ -65,7 +65,7 @@ const BookingForm = ({
     <form action="/" onSubmit={onSubmit} id="appointment-form">
       <h2 className="card-heading">Book an Appointment</h2>
 
-        {message && <p className="success-message">{message}<br /><Link style={{fontSize:"20px",fontWeight:"bold"}} to="/pay">Pay for your appointment now.</Link></p>}
+        {message && <p className="success-message">{message}<br /><Link style={{fontSize:"20px",fontWeight:"bold"}} to="/pay">Pay for your appointment now.</Link><br /><Link style={{fontSize:"20px",fontWeight:"bold"}} to="/profile">View your appointments in your Profile.</Link></p>}
       
         <div className="form-row">
            <div>Appointment For:</div>
