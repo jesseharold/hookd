@@ -82,7 +82,7 @@ function validateLoginForm(payload) {
 router.post('/signup', (req, res) => {
   const validationResult = validateSignupForm(req.body);
   if (!validationResult.success) {
-    return res.status(400).json({
+    return res.send({
       success: false,
       message: validationResult.message,
       errors: validationResult.errors
@@ -142,7 +142,13 @@ router.post('/login', function (req, res, next) {
       }
       req.logIn(user, function(err) {
           if (err) { return next(err); }
-          return res.send({ success : true, message : 'Login successful', user: user, firstName: info.firstName, lastName: info.lastName });
+          return res.send({ 
+            success : true, 
+            message : 'Login successful', 
+            user: user, 
+            firstName: info.firstName, 
+            lastName: info.lastName 
+          });
       });
     })(req, res, next);
   });

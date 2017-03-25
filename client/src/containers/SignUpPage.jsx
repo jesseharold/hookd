@@ -44,7 +44,6 @@ class SignUpPage extends React.Component {
         const password = this.state.user.password;
 
         // create an AJAX request
-
         axios.post("/auth/signup",
         {
           "first_name": first_name,
@@ -52,12 +51,17 @@ class SignUpPage extends React.Component {
           "email": email,
           "password": password
         })
-          .then(function (response){
-            self.context.router.replace("/login");
-          })
-          .catch(function(error){
-            console.log(error);
-          })
+        .then(function(response){
+            if (response.data.success){
+                self.context.router.replace("/login");
+            } else {
+                // form validation failed on the back end, show error message to user
+                self.setState({errors: response.data.errors});
+            }
+        })
+        .catch(function(response){
+            console.log("error from signup route: ", response);
+        });
     }
     render() {
         return (

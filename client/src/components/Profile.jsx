@@ -15,7 +15,9 @@ const Profile = ({
             Email: {client.email}<br />
             User Type: {client.role}<br />
             <br />
-            <Link to="/logout"><button>Log Out</button></Link><br />
+            <Link to="/logout" className="findstyle">
+            <button className="findnewstyle">Log Out</button>
+            </Link><br />
         </section>
         <h3 className="card-heading">Appointments</h3>
         <section>
@@ -28,7 +30,9 @@ const Profile = ({
               </div>
           )) : <span>You have no appointments scheduled</span>}
           <br />
-          <Link to="/appointments"><button>Book a new appointment</button></Link>
+          <Link to="/appointments" className="findstyle">
+          <button className="findnewstyle">Book a new appointment</button>
+          </Link>
       </section>
       <h3 className="card-heading">Saved Styles</h3>
       <section>
