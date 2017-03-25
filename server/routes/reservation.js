@@ -14,7 +14,7 @@ router.post('/', (req,res)=> {
     // create a date object out of data
     var militaryHour = parseInt(req.body.hour);
     if (req.body.ampm === "PM"){
-        if (militaryHour !== 12){
+        if (militaryHour < 12){
             militaryHour += 12;
         }
     } else {
@@ -22,21 +22,19 @@ router.post('/', (req,res)=> {
             militaryHour = 0;
         }
     }
-    console.log("hour from form: " + req.body.hour + req.body.ampm);
-    console.log("military hour: " + militaryHour);
-    const startTime = new Date(parseInt(req.body.year), parseInt(req.body.month), parseInt(req.body.day), militaryHour);
 
-    console.log(startTime);
-
+    const startTime = req.body.month + "/" + req.body.day + "/" + req.body.year + ", " + militaryHour + ":00";
     const myReservation = {
-        chosenStyle: req.body.chosenStyle,
         barber: req.body.barber,
         startTime: startTime
     }; 
+    if (req.body.chosenStyle !== "none chosen") {
+        myReservation.chosenStyle = req.body.chosenStyle;
+    }
     const reservation = new Reservation (myReservation);
     reservation.save(function(err, createReservationObject){
         if(err){
-            res.send(err);
+            return console.error(err);
         }
         // associate new reservation to logged in user
         User.findById(req.userid).populate("appointments").then(function(myuser){
@@ -51,7 +49,7 @@ router.post('/', (req,res)=> {
                     }
                     // send back updated user to browser
                     res.send(updatedUser);
-                })
+                });
             }
         });
     });

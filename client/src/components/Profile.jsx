@@ -25,14 +25,14 @@ const Profile = ({
         <h3 className="card-heading">My Appointments</h3>
         <section>
           {client.appointments ? client.appointments.map((appointment, i) => (
-              <div key={i}>
+              <div key={i} style={{marginBottom:"20px"}}>
                   Date: {appointment.startTime ? appointment.startTime : "Unknown"}<br />
                   Style requested: {appointment.chosenStyle ? appointment.chosenStyle : "No style set."}<br />
                   Barber: {appointment.barber ? appointment.barber : "No barber selected yet."}<br />
                   Paid for: {appointment.paid ? appointment.paid : "Not paid."}<br />
                   <Link to="/pay">Pay for this appointment</Link>
               </div>
-          )) : <span>You have no appointments scheduled</span>}
+          )) : "<span>You have no appointments scheduled</span>"}
           <br />
           <Link to="/appointments" className="findstyle">
           <button className="findnewstyle">Book a new appointment</button>

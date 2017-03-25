@@ -13,7 +13,7 @@ const ReservationSchema = new Schema({
   //   ref: "User"
   // },  
   barber : String,
-  startTime: Date,
+  startTime: String,
   paid: {
     type: Boolean,
     default: false

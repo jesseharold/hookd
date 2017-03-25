@@ -11,14 +11,14 @@ class AppointmentsPage extends React.Component {
         super(props);
         // set initial component state
         this.state = {
-            errors: {},
+            errors: "",
             user: {
                 first_name: Auth.getFirstName(),
                 last_name: Auth.getLastName(),
                 likedStyles: []
             },
             appointment: {
-                barber: "none chosen",
+                barber: "Noah",
                 month: "1",
                 day: "1",
                 year: "2017",
@@ -49,10 +49,15 @@ class AppointmentsPage extends React.Component {
     }
 
     doBooking(event){
+        const self = this;
         event.preventDefault();
         // send the appointment object to the server
         helpers.createAppointment(Auth.getToken(), this.state.appointment).then(function(appt){
-            console.log("appointment created", appt.data);
+            if(appt.data){
+                self.setState({
+                    errors: "Appointment created successfully!"
+                });
+            }
         });
     }
 
@@ -75,6 +80,7 @@ class AppointmentsPage extends React.Component {
         return (
             <Card className="container">
                 <BookingForm 
+                    message={this.state.errors}
                     onSubmit={this.doBooking} 
                     onChange={this.updateBookingForm} 
                     client={this.state.user} 

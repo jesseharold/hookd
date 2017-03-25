@@ -42,11 +42,11 @@ router.get("/favorites", (req, response) => {
 router.get("/profile", (req, response) => {
     // get all styles that have been saved by the current user
     // console.log("userid: ", req.userid);
-    User.findById(req.userid).populate("likedStyles").populate("appointments").then(function(err, results){
+    User.findById(req.userid).populate("likedStyles appointments").exec(function(err, updatedUser){
         if (err) {
             response.send(err);
         } else {
-            response.send(results);
+            response.send(updatedUser);
         }
     });
 });

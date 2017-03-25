@@ -3,8 +3,10 @@ import { Card, CardText } from 'material-ui/Card';
 import RaisedButton from 'material-ui/RaisedButton';
 import TextField from 'material-ui/TextField';
 import Favorites from "../components/Favorites.jsx";
+import { Link } from 'react-router';
 
 const BookingForm = ({
+  message,
   client,
   onSubmit,
   onChange,
@@ -13,6 +15,9 @@ const BookingForm = ({
 }) => (
     <form action="/" onSubmit={onSubmit} id="appointment-form">
       <h2 className="card-heading">Book an Appointment</h2>
+
+        {message && <p className="success-message">{message}<br /><Link style={{fontSize:"20px",fontWeight:"bold"}} to="/pay">Pay for your appointment now.</Link></p>}
+      
         <div className="form-row">
            <div>Appointment For:</div>
             {client.first_name} {client.last_name}
@@ -148,7 +153,8 @@ BookingForm.propTypes = {
   onChange: PropTypes.func.isRequired,
   client: PropTypes.object.isRequired,
   chooseStyle: PropTypes.func.isRequired,
-  selectedStyle: PropTypes.number.isRequired
+  selectedStyle: PropTypes.number.isRequired,
+  message: PropTypes.string
 };
 
 export default BookingForm;

@@ -32,7 +32,6 @@ class ProfilePage extends React.Component {
         const self = this;
         helpers.getUserInfo(Auth.getToken()).then(function(user){
             self.setState({client: user.data});
-            console.log("Client: ", self.state.client);
         });
     }
 

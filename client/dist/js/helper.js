@@ -39,7 +39,6 @@ function createAppointment(authToken, appointmentData){
     var authAxios = axios.create({
         headers: {'Authorization': 'bearer ' + authToken}
     });
-    console.log("do booking ", appointmentData);
     return authAxios.post('/reservations/', appointmentData);
 }
 
