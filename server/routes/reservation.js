@@ -4,53 +4,45 @@ const Reservation = require('../models/Reservation');
 const Style = require('../models/Style');
 const User = require('../models/User');
 
-
 const router = new express.Router();
-
 
 //create reservation
 router.post('/', (req,res)=> {
     // get logged in user's ID and save this appointment
     // create a date object out of data
-    var militaryHour = parseInt(req.body.hour);
-    if (req.body.ampm === "PM"){
-        if (militaryHour < 12){
-            militaryHour += 12;
-        }
-    } else {
-        if (militaryHour === 12){
-            militaryHour = 0;
-        }
-    }
 
-    const startTime = req.body.month + "/" + req.body.day + "/" + req.body.year + ", " + militaryHour + ":00";
+    const startTime = req.body.month + "/" + req.body.day + "/" + req.body.year + ", " + req.body.hour + req.body.ampm;
     const myReservation = {
         barber: req.body.barber,
         startTime: startTime
     }; 
+    var styleId = "";
     if (req.body.chosenStyle !== "none chosen") {
-        myReservation.chosenStyle = req.body.chosenStyle;
+        styleId = req.body.chosenStyle;
     }
-    const reservation = new Reservation (myReservation);
-    reservation.save(function(err, createReservationObject){
-        if(err){
-            return console.error(err);
-        }
-        // associate new reservation to logged in user
-        User.findById(req.userid).populate("appointments").then(function(myuser){
-            if (!myuser) {
-                console.error("error finding that user in db");
-            } else {
-                // found user, add new style
-                myuser.appointments.push(createReservationObject);
-                myuser.save(function(err, updatedUser){
-                    if (err){
-                        return console.error(err);
-                    }
-                    // send back updated user to browser
-                    res.send(updatedUser);
-                });
+    Style.findById(styleId).then(function(thisStyle){
+        myReservation.chosenStyle = thisStyle.image;
+        const reservation = new Reservation (myReservation);
+        reservation.save(function(err, createReservationObject){
+            if(err){
+                return console.error(err);
             }
+            // associate new reservation to logged in user
+            User.findById(req.userid).then(function(myuser){
+                if (!myuser) {
+                    console.error("error finding that user in db");
+                } else {
+                    // found user, add new style
+                    myuser.appointments.push(createReservationObject);
+                    myuser.save(function(err, updatedUser){
+                        if (err){
+                            return console.error(err);
+                        }
+                        // send back updated user to browser
+                        res.send(updatedUser);
+                    });
+                }
+            });
         });
     });
 });
@@ -72,17 +64,6 @@ router.put('/:reservationId', (req, res)=>{
                 }
                 res.send(reservation);
             });
-        }
-    });
-});
-
-//read reservation
-router.get('/', (req, res)=>{
-    Reservation.find({}, function(err, reservation){
-        if(err){
-            res.status(404).send(err)
-        }else{
-            res.send(reservation);
         }
     });
 });

@@ -26,14 +26,14 @@ const Profile = ({
         <section>
           {client.appointments ? client.appointments.map((appointment, i) => (
               <div key={i} style={{marginBottom:"20px"}}>
+                  {appointment.chosenStyle && <img style={{float:"left", width:"150px", height:"inherit"}} src={appointment.chosenStyle}/>}
                   Date: {appointment.startTime ? appointment.startTime : "Unknown"}<br />
-                  Style requested: {appointment.chosenStyle ? appointment.chosenStyle : "No style set."}<br />
                   Barber: {appointment.barber ? appointment.barber : "No barber selected yet."}<br />
                   Paid for: {appointment.paid ? appointment.paid : "Not paid."}<br />
                   <Link to="/pay">Pay for this appointment</Link>
+                  <br style={{clear:"both"}}/>
               </div>
           )) : "<span>You have no appointments scheduled</span>"}
-          <br />
           <Link to="/appointments" className="findstyle">
           <button className="findnewstyle">Book a new appointment</button>
           </Link>
