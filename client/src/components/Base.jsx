@@ -26,8 +26,9 @@ const Base = ({ children }) => (
     </div>
 
     { /* child component will be rendered here */ }
-    {children}
-
+    <div className className="container wrapAll">
+      {children}
+    </div>
   </div>
 );
 

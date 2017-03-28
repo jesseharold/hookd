@@ -65,7 +65,7 @@ class SignUpPage extends React.Component {
     }
     render() {
         return (
-            <SignUpForm className="container wrapAll"
+            <SignUpForm 
                 onSubmit={this.processForm}
                 onChange={this.changeUser}
                 errors={this.state.errors}

@@ -50,7 +50,7 @@ class ProfilePage extends React.Component {
 
     render() {
         return (
-            <Card className="container wrapAll">
+            <Card>
                 <Profile
                     client={this.state.client}
                     removeSaved={this.removeSaved}

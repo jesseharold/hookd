@@ -75,7 +75,7 @@ class PayPage extends React.Component {
 
     render() {
         return (
-            <PayForm className="container wrapAll"
+            <PayForm
                 onChange = {this.changeForm}
                 onChangeCard = {this.updateCard}
                 onSubmit={this.handleFormSubmit}
