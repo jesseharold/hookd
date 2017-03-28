@@ -18,6 +18,31 @@ a.thumbnail {
   height: 150px;
   display: inline-block;
 }
+.wrapAll {
+  min-width: 460px;
+}
+div.favesSideBar{
+  float: right;
+  width: 30%;
+}
+
+div.mainBar{
+  float: left;
+  width: 66%;
+  min-width: 300px;
+}
+
+div.mainBar .leftMain{
+  width:100%;
+}
+
+.navItem {
+  display: block;
+  float: left;
+  border-left: 1px solid #70abaf;
+  margin: 0;
+  padding: 0 8px;
+}
 
 img.fav {
   max-width: 100%;
@@ -93,18 +118,17 @@ img.findstyle{
   color: #70abaf;
   font-size: 18px;
   text-decoration: none;
+  margin-bottom: 15px;
 }
 
 .top-bar a,
 .nav a {
-  margin: 0 8px;
   font-family: "Josefin Slab";
 }
 
 .container {
   margin: 10px auto;
   text-align: center;
-  width: 700px;
   font-family: "Josefin Slab";
 }
 
@@ -216,7 +240,8 @@ button.tags {
     background-color: #70abaf;
     color: white;
     font-family: "Josefin Slab";
-    margin-right: 5px;
+    font-weight: bold;
+    margin: 4px;
     border-radius: 2px;
     height: 36px;
     box-shadow:none;

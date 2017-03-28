@@ -63,7 +63,7 @@ class LoginPage extends React.Component {
 
   render() {
     return (
-      <LoginForm
+      <LoginForm className="container wrapAll"
         onSubmit={this.processForm}
         onChange={this.changeUser}
         errors={this.state.errors}

@@ -100,7 +100,7 @@ class AppointmentsPage extends React.Component {
 
     render() {
         return (
-            <Card className="container">
+            <Card className="container wrapAll">
                 <BookingForm 
                     message={this.state.errors}
                     messageSuccess={this.state.messageSuccess}

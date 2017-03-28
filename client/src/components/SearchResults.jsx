@@ -7,7 +7,7 @@ const SearchResults = ({
   addFavoriteImage,
   getMore
 }) => (
-  <Card className="container">
+  <Card className="container leftMain">
       <h2 className="card-heading">Search Results</h2>
       
       <div className="row">

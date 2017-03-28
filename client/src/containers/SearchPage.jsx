@@ -2,7 +2,6 @@ import React, { PropTypes } from "react";
 import { Card, CardText } from 'material-ui/Card';
 import SearchForm from "../components/SearchForm.jsx";
 import SearchResults from "../components/SearchResults.jsx";
-import SearchTags from "../components/SearchTags.jsx";
 import Favorites from "../components/Favorites.jsx";
 import Auth from '../modules/Auth';
 import helpers from "../../dist/js/helper";
@@ -48,16 +47,16 @@ class SearchPage extends React.Component {
         this.chooseTagHandler = this.chooseTagHandler.bind(this);
         this.getMoreResults = this.getMoreResults.bind(this);
         this.removeFavorite = this.removeFavorite.bind(this);
-        this.createAppointment = this.createAppointment.bind(this);
     }
 
     componentWillMount(){
         var self = this;
+        // get user's saved styles from the db
         const savedStyles = helpers.getSavedStyles(Auth.getToken()).then(function(styles){
             if (!styles || !styles.data || styles.status !== 200){
                 console.error("something went wrong: ", styles);
             } else {
-                // console.log("got user's styles: ", styles.data.likedStyles); 
+                //on success, update state
                 self.setState({
                     favoriteStyles: styles.data.likedStyles
                 });
@@ -77,11 +76,12 @@ class SearchPage extends React.Component {
         // prevent default action. in this case, action is the form submission event
         event.preventDefault();
 
-        // create an AJAX request
+        // create an AJAX request to perform search
         const self = this;
-        var query = this.state.searchTerms + this.state.hiddenTerms;
+        var query =  this.state.hiddenTerms + this.state.searchTerms;
         helpers.doSearch(Auth.getToken(), query, this.state.pageOfResults).then(function(res){
             if (res && res.status && res.status === 200){
+                // on success, update state
                 self.setState({
                     searchResults: res.data
                 });
@@ -93,9 +93,9 @@ class SearchPage extends React.Component {
 
     faveHandler(imageData){
         const self = this;
+        // post new saved style to the db
         helpers.createFavorite(Auth.getToken(), imageData).then(function(res){
-            // console.log("user's updated favorites: ", res.data.likedStyles);
-            //re-render favorites component, using the results
+            // on success, re-render favorites component, using the results
             self.setState({
                 favoriteStyles: res.data.likedStyles
             });
@@ -103,6 +103,7 @@ class SearchPage extends React.Component {
     }
 
     chooseTagHandler(tagText, index){
+        // when someone clicks on a search terms tag
         var tagsData = this.state.allTags;
         var newQuery = this.state.hiddenTerms;
         var thisTag = tagsData[index];
@@ -125,6 +126,7 @@ class SearchPage extends React.Component {
     }
 
     getMoreResults(event){
+        // when someone clicks on the "more" button after a page of search results
         const nowAt = this.state.pageOfResults + 9;
         this.setState({
             pageOfResults: nowAt,
@@ -136,45 +138,39 @@ class SearchPage extends React.Component {
 
     removeFavorite(index){
         var self = this;
+        // remove saved style from db
         helpers.destroyFavorite(Auth.getToken(), this.state.favoriteStyles[index]._id).then(function(res){
-            //console.log("done destroying. updated user: ", res.data);
+            // on success, update state
             self.setState({
                 favoriteStyles: res.data.likedStyles
             });
         });
     }
 
-    createAppointment(index){
-        // helpers.createAppointment(Auth.getToken(), this.state.favoriteStyles[index]._id).then(function(res){
-        //     //console.log("done creating appointment. updated user: ", res.data);
-        // });
-    }
-
     render() {
         return (
-            <div className="container">
-                <h2 className="card-heading">Search for a Hairstyle</h2>
-                <SearchTags 
-                    useTag={this.chooseTagHandler} 
-                    allTags={this.state.allTags}
-                    />
-                <SearchForm 
-                    onSubmit={this.processForm}
-                    onChange={this.changeTerms}
-                    searchTerms={this.state.searchTerms}
-                    hiddenTerms={this.state.hiddenTerms}
-                    />
-                <SearchResults 
-                    addFavoriteImage={this.faveHandler} 
-                    foundImages={this.state.searchResults} 
-                    getMore={this.getMoreResults}
-                    />
-                <Card className="container">
+            <div className="container wrapAll">
+                <Card className="container favesSideBar">
                     <Favorites 
                         faveStyles={this.state.favoriteStyles}
                         removeSaved={this.removeFavorite}
                         />
                 </Card>
+                <div className="mainBar">
+                    <SearchForm
+                        onSubmit={this.processForm}
+                        onChange={this.changeTerms}
+                        searchTerms={this.state.searchTerms}
+                        hiddenTerms={this.state.hiddenTerms}
+                        chooseTagHandler={this.chooseTagHandler} 
+                        allTags={this.state.allTags}
+                        />
+                    <SearchResults
+                        addFavoriteImage={this.faveHandler} 
+                        foundImages={this.state.searchResults} 
+                        getMore={this.getMoreResults}
+                        />
+                </div>
             </div>
         );
     }

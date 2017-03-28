@@ -7,7 +7,7 @@ const SearchTags = ({
   useTag,
   allTags
 }) => (
-  <div className="container">
+  <div className="container leftMain">
       {allTags.map((tag, i) => (
         <button key={i} className={tag.selected ? "selected tags" : "unselected tags"} onClick={function(){useTag(tag.term, i);}}>{tag.term}</button>
       ))}
