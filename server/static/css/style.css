@@ -20,6 +20,7 @@ a.thumbnail {
 }
 .wrapAll {
   min-width: 460px;
+  position: relative;
 }
 div.favesSideBar{
   float: right;

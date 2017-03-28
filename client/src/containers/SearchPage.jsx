@@ -149,7 +149,7 @@ class SearchPage extends React.Component {
 
     render() {
         return (
-            <div>
+            <div style={{position:"absolute"}}>
                 <Card className="container favesSideBar">
                     <Favorites 
                         faveStyles={this.state.favoriteStyles}
